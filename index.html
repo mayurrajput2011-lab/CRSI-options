@@ -64,6 +64,7 @@ input[type=date]{color-scheme:dark;}
 /* AUTO GRADE DISPLAY */
 .grade-auto-box{grid-column:1/-1;border-radius:10px;padding:14px 16px;display:flex;align-items:center;gap:14px;border:1px solid var(--border2);background:var(--surface2);}
 .grade-auto-badge{width:52px;height:52px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:18px;font-weight:700;flex-shrink:0;}
+.g-Sniper{background:linear-gradient(135deg,rgba(245,158,11,0.22),rgba(16,185,129,0.18));color:#f5c542;border:1px solid rgba(245,197,66,0.55);box-shadow:0 0 14px rgba(245,197,66,0.25);font-size:15px;}
 .g-Aplus{background:rgba(16,185,129,0.15);color:var(--green);border:1px solid rgba(16,185,129,0.35);}
 .g-A    {background:rgba(59,130,246,0.15);color:var(--blue); border:1px solid rgba(59,130,246,0.35);}
 .g-B    {background:rgba(245,158,11,0.15);color:var(--accent);border:1px solid rgba(245,158,11,0.35);}
@@ -72,9 +73,13 @@ input[type=date]{color-scheme:dark;}
 .grade-auto-info strong{display:block;font-size:13px;color:var(--text);margin-bottom:3px;}
 .grade-auto-info p{font-size:11px;color:var(--muted);line-height:1.5;}
 .grade-score-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.grade-support-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border);}
+.grade-support-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-right:2px;}
 .pill{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;}
 .pill.hit{background:rgba(16,185,129,0.15);color:var(--green);}
 .pill.miss{background:rgba(239,68,68,0.1);color:var(--red);}
+.pill.bonus.hit{background:rgba(59,130,246,0.12);color:var(--blue);}
+.pill.bonus.miss{background:var(--surface);color:var(--muted);}
 
 /* SCREENSHOT PANEL */
 .screenshot-drop{border:2px dashed var(--border2);border-radius:10px;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:border-color 0.2s;position:relative;overflow:hidden;}
@@ -135,6 +140,8 @@ tr:hover td.col-actions{background:var(--surface2);}
 .badge-A{background:rgba(59,130,246,0.1);color:var(--blue);}
 .badge-B{background:rgba(245,158,11,0.1);color:var(--accent);}
 .badge-C{background:rgba(239,68,68,0.1);color:var(--red);}
+.badge-Sniper{background:rgba(245,197,66,0.15);color:#f5c542;}
+.badge-GradeNoTrade{background:rgba(239,68,68,0.1);color:var(--red);}
 
 /* DETAIL ROW */
 .detail-row td{padding:0!important;background:var(--surface2);}
@@ -361,7 +368,7 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
             <div class="form-group">
               <label>Decision</label>
-              <select id="trade_decision">
+              <select id="trade_decision" onchange="recalcGrade()">
                 <option value="">— Select —</option>
                 <option value="Buy CE">Buy CE (Bullish)</option>
                 <option value="Buy PE">Buy PE (Bearish)</option>
@@ -578,13 +585,14 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
 
             <!-- AUTO GRADE -->
-            <div class="section-divider"><span>Auto Grade</span></div>
+            <div class="section-divider"><span>Auto Grade — Ultimate Setup Match</span></div>
             <div class="grade-auto-box" id="grade_auto_box">
               <div class="grade-auto-badge g-none" id="grade_badge_el">—</div>
               <div class="grade-auto-info">
                 <strong id="grade_title_el">Fill in the checklist above</strong>
                 <p id="grade_text_el">Grade will be calculated automatically</p>
                 <div class="grade-score-pills" id="grade_pills"></div>
+                <div class="grade-support-row" id="grade_support_row"></div>
               </div>
             </div>
             <input type="hidden" id="grade_computed">
@@ -668,10 +676,11 @@ tr:hover td.col-actions{background:var(--surface2);}
         </select>
         <select id="filter_grade" onchange="renderJournal()">
           <option value="">All Grades</option>
-          <option value="A+">A+</option>
+          <option value="🎯">🎯 Ultimate</option>
           <option value="A">A</option>
           <option value="B">B</option>
           <option value="C">C</option>
+          <option value="NO TRADE">NO TRADE</option>
         </select>
         <select id="filter_decision" onchange="renderJournal()">
           <option value="">All Decisions</option>
@@ -1252,7 +1261,7 @@ tr:hover td.col-actions{background:var(--surface2);}
           </div>
           <div class="form-group">
             <label>RSI Zone</label>
-            <select id="edit_crsi_level">
+            <select id="edit_crsi_level" onchange="editRecalcGrade()">
               <option value="">— Select —</option>
               <option value="<30">&lt;30 — Oversold</option>
               <option value="30–40">30–40 — Weak oversold</option>
@@ -2049,29 +2058,68 @@ function showPage(name) {
 document.getElementById('trade_date').value = new Date().toISOString().slice(0, 10);
 document.title = 'NIFTY Trade Journal · New Entry';
 
-// ── AUTO GRADE ENGINE ──
+// Maps a computed/stored grade value to a CSS-safe class suffix (used for both
+// the '.g-*' auto-grade badge and the '.badge-*' journal-table badge).
+function gradeClassSuffix(grade) {
+  switch (grade) {
+    case '🎯': return 'Sniper';
+    case 'NO TRADE': return 'GradeNoTrade';
+    case 'A+': return 'Aplus';
+    case 'A': return 'A';
+    case 'B': return 'B';
+    case 'C': return 'C';
+    default: return 'none';
+  }
+}
+
+// ── AUTO GRADE ENGINE — tuned to the "Ultimate Setup" strategy ──
+// Core, non-negotiable factors (from the strategy doc):
+//   Buy CE (Ultimate Bullish): ATR Strong Expansion + RSI <30 + CRSI Rising + Candle in {Thrusting Pattern, Morning Star, Piercing Line}
+//   Buy PE (Ultimate Bearish): ATR Strong Expansion + RSI >70 (or 30–40 on a sharp breakdown) + CRSI Falling + Candle in {Shooting Star, Bearish Engulfing}
+const ULTIMATE_CANDLES = {
+  'Buy CE': ['Thrusting Pattern', 'Morning Star', 'Piercing Line'],
+  'Buy PE': ['Shooting Star', 'Bearish Engulfing'],
+};
+// Logged historical performance per candle confluence (from the strategy doc)
+const ULTIMATE_STATS = {
+  'Buy CE': {
+    'Piercing Line':      { winRate: 66.6, trades: 6, points: 1931 },
+    'Thrusting Pattern':  { winRate: 100,  trades: 1, points: 6074 },
+    'Morning Star':       { winRate: 100,  trades: 1, points: 240 },
+  },
+  'Buy PE': {
+    'Shooting Star':      null,
+    'Bearish Engulfing':  null,
+  },
+};
+
 const GRADE_CRITERIA = {
-  strongCandle: v => ['Strong Bullish (4/4)','Strong Bearish (0/4)','Strong Bearish (3/4)','Medium Bullish (3/4)'].includes(v),
-  goodClose: v => ['Close near high','Close near low','Wick rejection high','Wick rejection low'].includes(v),
-  freeSpace: v => ['50% inside gap','At Support','Breakout','Pullback','New High','New Low'].includes(v),
-  atrRising: v => ['Strong Expansion','Early Expansion'].includes(v),
-  atrNotFalling: v => !['Contracting','Already Expanded'].includes(v),
-  crsiAligned: (dir, dec) => {
+  // core
+  atrStrongExpansion: v => v === 'Strong Expansion',
+  rsiZoneAligned: (lvl, dec) => {
+    if (dec === 'Buy CE') return lvl === '<30';
+    if (dec === 'Buy PE') return lvl === '>70' || lvl === '30–40';
+    return false;
+  },
+  crsiDirectionAligned: (dir, dec) => {
     if (dec === 'Buy CE') return dir === 'Rising';
     if (dec === 'Buy PE') return dir === 'Falling';
-    return dir !== '';
+    return false;
   },
-  crsiNotExtreme: lvl => lvl !== 'High' && lvl !== 'Low',
+  candleTrigger: (ct, dec) => (ULTIMATE_CANDLES[dec] || []).includes(ct),
+  // supporting / bonus (not required for the Ultimate tag, but add conviction)
+  goodClose: v => ['Close near high','Close near low','Wick rejection high','Wick rejection low'].includes(v),
+  freeSpace: v => ['50% inside gap','At Support','Breakout','Pullback','New High','New Low'].includes(v),
   vixAligned: (vix, dec) => {
     if (dec === 'Buy CE') return vix === 'Falling';
     if (dec === 'Buy PE') return vix === 'Rising';
-    return vix !== '';
+    return false;
   },
   trendingRegime: v => v === 'Trending',
   structureAligned: (str, dec) => {
     if (dec === 'Buy CE') return ['HH/HL','BOS Bullish'].includes(str);
     if (dec === 'Buy PE') return ['LH/LL','BOS Bearish'].includes(str);
-    return str !== '';
+    return false;
   },
   validOB: v => ['At bullish OB','At bearish OB','No OB nearby'].includes(v),
 };
@@ -2089,41 +2137,86 @@ function recalcGrade() {
   const ob = document.getElementById('order_block').value;
   const dec = document.getElementById('trade_decision').value;
 
-  const checks = {
-    'Strong candle': GRADE_CRITERIA.strongCandle(ct),
+  const result = computeUltimateGrade({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec});
+
+  const badge = document.getElementById('grade_badge_el');
+  badge.textContent = result.grade;
+  badge.className = 'grade-auto-badge ' + result.cls;
+  document.getElementById('grade_title_el').textContent = result.title;
+  document.getElementById('grade_text_el').textContent = result.desc;
+  document.getElementById('grade_computed').value = result.grade === '—' ? '' : result.grade;
+
+  const pills = document.getElementById('grade_pills');
+  pills.innerHTML = Object.entries(result.core).map(([k,v]) =>
+    `<span class="pill core ${v?'hit':'miss'}">${v?'✓':'✗'} ${k}</span>`
+  ).join('');
+
+  const support = document.getElementById('grade_support_row');
+  if (dec === 'Buy CE' || dec === 'Buy PE') {
+    support.innerHTML = `<span class="grade-support-label">Supporting confluence (${result.bonusHits}/${result.bonusTotal}):</span>` +
+      Object.entries(result.bonus).map(([k,v]) =>
+        `<span class="pill bonus ${v?'hit':'miss'}">${v?'✓':'✗'} ${k}</span>`
+      ).join('');
+  } else {
+    support.innerHTML = '';
+  }
+
+  updateSummary({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec, grade: result.grade});
+}
+
+// Shared grading logic for both the main entry form and the edit modal.
+function computeUltimateGrade({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec}) {
+  const core = {
+    'ATR Strong Expansion': GRADE_CRITERIA.atrStrongExpansion(atr),
+    'RSI Zone Aligned': GRADE_CRITERIA.rsiZoneAligned(crsiL, dec),
+    'CRSI Direction Aligned': GRADE_CRITERIA.crsiDirectionAligned(crsiD, dec),
+    'Candle Trigger': GRADE_CRITERIA.candleTrigger(ct, dec),
+  };
+  const bonus = {
     'Clean close': GRADE_CRITERIA.goodClose(cs),
     'Free space': GRADE_CRITERIA.freeSpace(pm),
-    'ATR expanding': GRADE_CRITERIA.atrRising(atr),
-    'CRSI aligned': GRADE_CRITERIA.crsiAligned(crsiD, dec),
     'VIX aligned': GRADE_CRITERIA.vixAligned(vix, dec),
     'Trending market': GRADE_CRITERIA.trendingRegime(mr),
     'Structure aligned': GRADE_CRITERIA.structureAligned(ms, dec),
     'Valid OB': GRADE_CRITERIA.validOB(ob),
   };
+  const coreHits = Object.values(core).filter(Boolean).length;
+  const bonusHits = Object.values(bonus).filter(Boolean).length;
 
-  const hits = Object.values(checks).filter(Boolean).length;
-  const total = Object.keys(checks).length;
+  let grade = '—', cls = 'g-none';
+  let title = 'Select Buy CE / Buy PE above';
+  let desc = 'Set a Decision (Buy CE or Buy PE) to grade this setup against your Ultimate Bullish/Bearish criteria.';
 
-  let grade = 'C', cls = 'g-C', title = 'C Setup — Low Conviction', desc = 'Weak alignment. Most likely NO TRADE.';
-  if (hits >= 8) { grade = 'A+'; cls = 'g-Aplus'; title = 'A+ Setup — Maximum Conviction'; desc = 'All factors aligned. Strongest edge.'; }
-  else if (hits >= 6) { grade = 'A'; cls = 'g-A'; title = 'A Setup — High Conviction'; desc = 'Most factors aligned. Good trade opportunity.'; }
-  else if (hits >= 4) { grade = 'B'; cls = 'g-B'; title = 'B Setup — Medium Conviction'; desc = 'Partial alignment. Consider reducing size.'; }
+  if (dec === 'Buy CE' || dec === 'Buy PE') {
+    const label = dec === 'Buy CE' ? 'Bullish' : 'Bearish';
 
-  if (hits === 0 && !ct) { grade = '—'; cls = 'g-none'; title = 'Fill in the checklist above'; desc = 'Grade will be calculated automatically'; }
+    if (!core['ATR Strong Expansion']) {
+      grade = 'NO TRADE'; cls = 'g-C';
+      title = '🚫 ATR Flat — No Trade';
+      desc = 'ATR must show Strong Expansion for either Ultimate Setup — this is non-negotiable. Do not touch this setup while ATR is flat.';
+    } else if (coreHits === 4) {
+      const stats = (ULTIMATE_STATS[dec] || {})[ct];
+      grade = '🎯'; cls = 'g-Sniper';
+      title = `Ultimate ${label} Setup — ${ct} Confluence`;
+      desc = stats
+        ? `All 4 core factors aligned. Logged track record: ${stats.winRate}% win rate over ${stats.trades} trade${stats.trades===1?'':'s'}, +${stats.points.toLocaleString()} points.`
+        : `All 4 core factors aligned for the Ultimate ${label} Setup. No logged trades yet for this candle confluence — log the outcome to start tracking it.`;
+    } else if (coreHits === 3) {
+      grade = 'A'; cls = 'g-A';
+      title = `A Setup — Near-Perfect ${label} Alignment`;
+      desc = '3 of 4 core factors aligned. One piece of the Ultimate Setup is missing — still a strong, tradeable setup.';
+    } else if (coreHits === 2) {
+      grade = 'B'; cls = 'g-B';
+      title = `B Setup — Partial ${label} Alignment`;
+      desc = '2 of 4 core factors aligned. Consider reducing size or waiting for more confluence.';
+    } else {
+      grade = 'C'; cls = 'g-C';
+      title = `C Setup — Weak ${label} Alignment`;
+      desc = `Only ${coreHits} of 4 core factors aligned. This does not match your Ultimate ${label} Setup — most likely NO TRADE.`;
+    }
+  }
 
-  const badge = document.getElementById('grade_badge_el');
-  badge.textContent = grade;
-  badge.className = 'grade-auto-badge ' + cls;
-  document.getElementById('grade_title_el').textContent = title;
-  document.getElementById('grade_text_el').textContent = desc + ` (${hits}/${total} factors hit)`;
-  document.getElementById('grade_computed').value = grade === '—' ? '' : grade;
-
-  const pills = document.getElementById('grade_pills');
-  pills.innerHTML = Object.entries(checks).map(([k,v]) =>
-    `<span class="pill ${v?'hit':'miss'}">${v?'✓':'✗'} ${k}</span>`
-  ).join('');
-
-  updateSummary({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec, grade});
+  return { grade, cls, title, desc, core, bonus, coreHits, coreTotal: 4, bonusHits, bonusTotal: 6 };
 }
 
 function updateSummary({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec, grade}) {
@@ -2424,7 +2517,7 @@ function renderJournal() {
     const result = t.result || 'Pending';
     const rBadge = result==='Profit'?'badge-profit':result==='Loss'?'badge-loss':'badge-pending';
     const dBadge = t.trade_decision==='Buy CE'?'badge-ce':t.trade_decision==='Buy PE'?'badge-pe':'badge-notrade';
-    const gBadge = t.grade ? 'badge-' + t.grade.replace('+','plus') : '';
+    const gBadge = t.grade ? 'badge-' + gradeClassSuffix(t.grade) : '';
     const moveVal = t.next_day_move;
     let mCls = 'move-neutral', mDisp = moveVal || '—';
     if (moveVal) { const n=parseFloat(moveVal.replace('%','')); mCls = n>0?'move-positive':n<0?'move-negative':'move-neutral'; }
@@ -2671,37 +2764,20 @@ function editRecalcGrade() {
   const pm = document.getElementById('edit_possible_move').value;
   const atr = document.getElementById('edit_atr_direction').value;
   const crsiD = document.getElementById('edit_crsi_direction').value;
+  const crsiL = document.getElementById('edit_crsi_level').value;
   const vix = document.getElementById('edit_vix_direction').value;
   const ms = document.getElementById('edit_market_structure').value;
   const mr = document.getElementById('edit_market_regime').value;
   const ob = document.getElementById('edit_order_block').value;
   const dec = document.getElementById('edit_trade_decision').value;
 
-  const checks = {
-    'Strong candle': GRADE_CRITERIA.strongCandle(ct),
-    'Clean close': GRADE_CRITERIA.goodClose(cs),
-    'Free space': GRADE_CRITERIA.freeSpace(pm),
-    'ATR expanding': GRADE_CRITERIA.atrRising(atr),
-    'CRSI aligned': GRADE_CRITERIA.crsiAligned(crsiD, dec),
-    'VIX aligned': GRADE_CRITERIA.vixAligned(vix, dec),
-    'Trending market': GRADE_CRITERIA.trendingRegime(mr),
-    'Structure aligned': GRADE_CRITERIA.structureAligned(ms, dec),
-    'Valid OB': GRADE_CRITERIA.validOB(ob),
-  };
-  const hits = Object.values(checks).filter(Boolean).length;
-  const total = Object.keys(checks).length;
-
-  let grade = 'C', cls = 'g-C', desc = 'Weak alignment. Most likely NO TRADE.';
-  if (hits >= 8) { grade = 'A+'; cls = 'g-Aplus'; desc = 'All factors aligned. Strongest edge.'; }
-  else if (hits >= 6) { grade = 'A'; cls = 'g-A'; desc = 'Most factors aligned. Good trade opportunity.'; }
-  else if (hits >= 4) { grade = 'B'; cls = 'g-B'; desc = 'Partial alignment. Consider reducing size.'; }
-  if (hits === 0 && !ct) { grade = '—'; cls = 'g-none'; desc = 'Fill in the checklist above to compute a grade.'; }
+  const result = computeUltimateGrade({ct, cs, pm, atr, crsiD, crsiL, vix, ms, mr, ob, dec});
 
   const badge = document.getElementById('edit_grade_badge_el');
-  badge.textContent = grade;
-  badge.className = 'grade-auto-badge ' + cls;
-  document.getElementById('edit_grade_text_el').textContent = desc + ` (${hits}/${total} factors hit)`;
-  document.getElementById('edit_grade').value = grade === '—' ? '' : grade;
+  badge.textContent = result.grade;
+  badge.className = 'grade-auto-badge ' + result.cls;
+  document.getElementById('edit_grade_text_el').textContent = result.desc;
+  document.getElementById('edit_grade').value = result.grade === '—' ? '' : result.grade;
 }
 
 // ── EDIT MODAL: SCREENSHOT ──
@@ -2789,7 +2865,7 @@ function openEditModal(id) {
   // Grade — show the stored grade; it will recalculate live if factor fields are changed
   document.getElementById('edit_grade').value = t.grade || '';
   const gBadge = document.getElementById('edit_grade_badge_el');
-  const gCls = t.grade ? 'g-' + t.grade.replace('+', 'plus') : 'g-none';
+  const gCls = t.grade ? 'g-' + gradeClassSuffix(t.grade) : 'g-none';
   gBadge.textContent = t.grade || '—';
   gBadge.className = 'grade-auto-badge ' + gCls;
   document.getElementById('edit_grade_text_el').textContent = t.grade
@@ -3151,7 +3227,7 @@ function renderAnalysis() {
     }
 
     renderFactor('strategy_breakdown', calcBreakdown(t => t.strategy_name));
-    renderFactor('grade_breakdown',    calcBreakdown(t => t.grade),            ['A+','A','B','C']);
+    renderFactor('grade_breakdown',    calcBreakdown(t => t.grade),            ['🎯','A','B','C','NO TRADE']);
     renderFactor('candle_breakdown',   calcBreakdown(t => t.candle_type));
     renderFactor('atr_breakdown',      calcBreakdown(t => t.atr_direction),    ['Rising','Neutral','Falling']);
     renderFactor('crsi_breakdown',     calcBreakdown(t => t.crsi_direction),   ['Rising','Neutral','Falling']);
