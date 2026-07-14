@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕯 Candlestick Pattern Encyclopedia</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+:root{--bg:#0a0c10;--surf:#111318;--surf2:#181b22;--border:#1e222c;--border2:#252a36;--text:#e2e8f0;--muted:#64748b;--accent:#f59e0b;--green:#10b981;--red:#ef4444;--blue:#3b82f6;--purple:#8b5cf6;--mono:'JetBrains Mono',monospace;--sans:'Inter',sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;min-height:100vh;}
+::-webkit-scrollbar{width:5px;height:5px;}::-webkit-scrollbar-track{background:transparent;}::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(10,12,16,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 20px;height:54px;display:flex;align-items:center;justify-content:space-between;gap:14px;}
+.nav-brand{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.search-wrap{flex:1;max-width:420px;position:relative;}
+.search-wrap input{width:100%;background:var(--surf2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:13px;padding:8px 12px 8px 34px;outline:none;transition:border-color .15s;}
+.search-wrap input:focus{border-color:var(--accent);}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);}
+.nav-right{display:flex;align-items:center;gap:8px;}
+.npill{font-size:10px;padding:4px 10px;border-radius:20px;font-weight:700;border:1px solid;white-space:nowrap;cursor:default;}
+.np-g{background:rgba(16,185,129,.1);color:var(--green);border-color:rgba(16,185,129,.25);}
+.np-r{background:rgba(239,68,68,.1);color:var(--red);border-color:rgba(239,68,68,.25);}
+.np-a{background:rgba(245,158,11,.1);color:var(--accent);border-color:rgba(245,158,11,.25);}
+.np-p{background:rgba(139,92,246,.1);color:var(--purple);border-color:rgba(139,92,246,.25);}
+.back-btn{background:var(--surf2);border:1px solid var(--border2);color:var(--muted);font-size:11px;font-weight:600;padding:5px 12px;border-radius:6px;cursor:pointer;text-decoration:none;transition:all .15s;}
+.back-btn:hover{color:var(--text);border-color:var(--accent);}
+
+.fbar{background:var(--surf);border-bottom:1px solid var(--border);padding:8px 20px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;position:sticky;top:54px;z-index:99;}
+.fbtn{background:var(--surf2);border:1px solid var(--border2);border-radius:5px;color:var(--muted);font-size:10px;font-weight:700;padding:4px 11px;cursor:pointer;transition:all .15s;white-space:nowrap;letter-spacing:.04em;}
+.fbtn:hover{color:var(--text);}
+.fbtn.on{color:var(--accent);background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.35);}
+.fsep{width:1px;height:18px;background:var(--border);margin:0 2px;flex-shrink:0;}
+
+.wrap{max-width:1600px;margin:0 auto;padding:18px 20px;}
+
+/* ── INDICATOR PANELS ── */
+.ind-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+@media(max-width:700px){.ind-grid{grid-template-columns:1fr;}}
+.ind-card{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:16px 18px;}
+.ind-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:12px;}
+.ind-row{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:8px;background:var(--surf2);border:1px solid var(--border);margin-bottom:8px;}
+.ind-row:last-child{margin-bottom:0;}
+.ind-svg-wrap{flex-shrink:0;}
+.ind-body{flex:1;}
+.ind-name{font-size:12px;font-weight:700;margin-bottom:2px;}
+.ind-sub{font-size:10px;color:var(--muted);line-height:1.4;}
+.ind-str-bar{margin-top:6px;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.ind-str-fill{height:100%;border-radius:3px;}
+.ind-right{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:48px;}
+.big-arrow{font-size:28px;line-height:1;font-weight:700;}
+.big-pct{font-family:var(--mono);font-size:13px;font-weight:700;}
+.c-up{color:var(--green);}.c-dn{color:var(--red);}.c-nt{color:var(--muted);}
+
+/* ── COMBO / FREE SPACE ── */
+.section-card{background:var(--surf);border:1px solid var(--border);border-radius:11px;padding:16px 18px;margin-bottom:20px;}
+.section-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);margin-bottom:14px;}
+
+.combo-row{display:flex;align-items:flex-start;gap:12px;padding:11px 14px;background:var(--surf2);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;}
+.combo-rank{font-size:18px;width:28px;flex-shrink:0;}
+.combo-body{flex:1;}
+.combo-name{font-size:12px;font-weight:700;margin-bottom:4px;}
+.combo-tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:5px;}
+.ctag{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;}
+.ct-g{background:rgba(16,185,129,.12);color:var(--green);}
+.ct-r{background:rgba(239,68,68,.12);color:var(--red);}
+.ct-a{background:rgba(245,158,11,.12);color:var(--accent);}
+.ct-b{background:rgba(59,130,246,.12);color:var(--blue);}
+.ct-m{background:rgba(100,116,139,.1);color:var(--muted);}
+.combo-why{font-size:10px;color:var(--muted);line-height:1.5;}
+.combo-pct-block{flex-shrink:0;display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+.combo-pct{font-family:var(--mono);font-size:22px;font-weight:700;}
+.combo-move{font-size:10px;font-family:var(--mono);color:var(--muted);}
+.combo-bar{width:80px;height:4px;background:var(--border);border-radius:2px;margin-top:4px;overflow:hidden;}
+.combo-bar-fill{height:100%;border-radius:2px;}
+
+.space-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;}
+.space-item{background:var(--surf2);border:1px solid var(--border);border-radius:8px;padding:13px;}
+.si-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.si-name{font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.si-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:3px;}
+.sb-block{background:rgba(239,68,68,.12);color:var(--red);}
+.sb-ok{background:rgba(16,185,129,.12);color:var(--green);}
+.sb-warn{background:rgba(245,158,11,.12);color:var(--accent);}
+.si-desc{font-size:10px;color:var(--muted);line-height:1.5;margin-bottom:6px;}
+.si-impact{font-size:10px;font-weight:700;}
+
+/* ── CATEGORY HEADER ── */
+.cat-hdr{display:flex;align-items:center;gap:10px;margin:24px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border);}
+.cat-ico{font-size:18px;}
+.cat-ttl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);}
+.cat-cnt{font-size:10px;color:var(--muted);background:var(--surf2);padding:2px 8px;border-radius:4px;}
+
+/* ── PATTERN GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:10px;}
+
+/* ── PATTERN CARD — bigger everything ── */
+.pcard{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:16px;cursor:pointer;transition:all .18s;position:relative;}
+.pcard:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 8px 28px rgba(0,0,0,.35);}
+.pcard.xpand{border-color:var(--accent);background:var(--surf2);}
+.pcard.elite{border-color:rgba(139,92,246,.35);box-shadow:0 0 0 1px rgba(139,92,246,.1);}
+
+/* Card top — big SVG left, info right */
+.ctop{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;}
+.csvg-box{flex-shrink:0;background:var(--surf2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;display:flex;align-items:center;justify-content:center;min-width:80px;}
+.cmeta{flex:1;min-width:0;}
+.cname{font-size:13px;font-weight:700;color:var(--text);line-height:1.3;margin-bottom:5px;}
+.cbadges{display:flex;flex-wrap:wrap;gap:3px;}
+.cbadge{font-size:9px;font-weight:700;letter-spacing:.05em;padding:2px 7px;border-radius:3px;text-transform:uppercase;}
+.cb-bull{background:rgba(16,185,129,.12);color:var(--green);}
+.cb-bear{background:rgba(239,68,68,.12);color:var(--red);}
+.cb-neut{background:rgba(100,116,139,.12);color:var(--muted);}
+.cb-rev{background:rgba(245,158,11,.12);color:var(--accent);}
+.cb-cont{background:rgba(59,130,246,.12);color:var(--blue);}
+.cb-elite{background:rgba(139,92,246,.15);color:var(--purple);border:1px solid rgba(139,92,246,.3);}
+.ccnt{position:absolute;top:10px;right:10px;font-size:9px;color:var(--muted);background:var(--surf2);padding:2px 7px;border-radius:3px;border:1px solid var(--border);}
+
+/* ── BIG NEXT-MOVE BLOCK ── */
+.nmove{display:flex;align-items:stretch;border-radius:9px;overflow:hidden;border:1px solid;margin-top:2px;}
+.nmove.up{border-color:rgba(16,185,129,.3);}
+.nmove.dn{border-color:rgba(239,68,68,.3);}
+.nmove.nt{border-color:rgba(100,116,139,.2);}
+/* Arrow column */
+.nm-arw{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 14px;gap:3px;flex-shrink:0;}
+.nmove.up .nm-arw{background:rgba(16,185,129,.1);}
+.nmove.dn .nm-arw{background:rgba(239,68,68,.1);}
+.nmove.nt .nm-arw{background:rgba(100,116,139,.07);}
+.nm-sym{font-size:28px;line-height:1;font-weight:700;}
+.nmove.up .nm-sym{color:var(--green);}
+.nmove.dn .nm-sym{color:var(--red);}
+.nmove.nt .nm-sym{color:var(--muted);}
+/* PCT column */
+.nm-pct{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 12px;border-left:1px solid;flex-shrink:0;}
+.nmove.up .nm-pct{border-left-color:rgba(16,185,129,.2);}
+.nmove.dn .nm-pct{border-left-color:rgba(239,68,68,.2);}
+.nmove.nt .nm-pct{border-left-color:rgba(100,116,139,.15);}
+.nm-pct-val{font-family:var(--mono);font-size:20px;font-weight:700;line-height:1;}
+.nmove.up .nm-pct-val{color:var(--green);}
+.nmove.dn .nm-pct-val{color:var(--red);}
+.nmove.nt .nm-pct-val{color:var(--muted);}
+.nm-pct-lbl{font-size:8px;color:var(--muted);font-weight:600;margin-top:2px;letter-spacing:.05em;}
+/* Text column */
+.nm-txt{flex:1;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;gap:3px;}
+.nm-label{font-size:12px;font-weight:700;}
+.nmove.up .nm-label{color:var(--green);}
+.nmove.dn .nm-label{color:var(--red);}
+.nmove.nt .nm-label{color:var(--muted);}
+.nm-sub{font-size:10px;color:var(--muted);line-height:1.3;}
+/* Avg move pill */
+.nm-avg{font-size:10px;font-family:var(--mono);font-weight:700;margin-top:3px;}
+
+/* ── RELIABILITY BAR ── */
+.rel-row{display:flex;align-items:center;gap:8px;margin-top:9px;}
+.rel-lbl{font-size:9px;color:var(--muted);width:60px;flex-shrink:0;letter-spacing:.04em;font-weight:600;}
+.rel-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden;}
+.rel-fill{height:100%;border-radius:3px;transition:width .5s;}
+.rel-val{font-family:var(--mono);font-size:10px;font-weight:700;width:34px;text-align:right;}
+
+/* ── EXPAND CONTENT ── */
+.cexpand{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+.pcard.xpand .cexpand{display:block;}
+.exp-desc{font-size:11px;color:var(--muted);line-height:1.7;margin-bottom:10px;padding:9px 11px;background:var(--surf);border-radius:7px;}
+.exp-rules{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.exp-rule{font-size:10px;color:var(--text);display:flex;gap:6px;line-height:1.45;}
+.exp-rule span:first-child{color:var(--accent);flex-shrink:0;}
+.exp-section{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:5px;}
+.exp-align{border-top:1px solid var(--border);padding-top:10px;}
+.arow{display:flex;align-items:center;gap:7px;margin-bottom:5px;font-size:10px;}
+.aicon{width:18px;text-align:center;flex-shrink:0;}
+.akey{font-weight:600;color:var(--text);width:58px;flex-shrink:0;}
+.aval{color:var(--muted);flex:1;}
+.atag{font-size:9px;padding:1px 6px;border-radius:3px;font-weight:700;flex-shrink:0;}
+.at-best{background:rgba(16,185,129,.15);color:var(--green);}
+.at-good{background:rgba(245,158,11,.12);color:var(--accent);}
+.at-bad{background:rgba(239,68,68,.12);color:var(--red);}
+.exp-stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.etag{font-size:10px;padding:3px 9px;border-radius:4px;font-weight:600;}
+.et-g{background:rgba(16,185,129,.1);color:var(--green);}
+.et-r{background:rgba(239,68,68,.1);color:var(--red);}
+.et-a{background:rgba(245,158,11,.1);color:var(--accent);}
+.et-b{background:rgba(59,130,246,.1);color:var(--blue);}
+
+.empty-msg{text-align:center;padding:60px 20px;color:var(--muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">🕯 Candle Encyclopedia</div>
+  <div class="search-wrap">
+    <span class="si">🔍</span>
+    <input type="text" id="q" placeholder="Search… hammer, doji, engulfing, star, marubozu" oninput="go()">
+  </div>
+  <div class="nav-right">
+    <span class="npill np-g" id="pill_b">—</span>
+    <span class="npill np-r" id="pill_r">—</span>
+    <span class="npill np-a" id="pill_n">—</span>
+    <span class="npill np-p" id="pill_e">—</span>
+    <a class="back-btn" href="index.html">← Back to Journal</a>
+  </div>
+</nav>
+
+<div class="fbar">
+  <button class="fbtn on" data-f="all" onclick="setF('all',this)">All</button>
+  <div class="fsep"></div>
+  <button class="fbtn" data-f="bullish" onclick="setF('bullish',this)">🟢 Bullish</button>
+  <button class="fbtn" data-f="bearish" onclick="setF('bearish',this)">🔴 Bearish</button>
+  <button class="fbtn" data-f="neutral" onclick="setF('neutral',this)">⚪ Neutral</button>
+  <div class="fsep"></div>
+  <button class="fbtn" data-f="single" onclick="setF('single',this)">1-Candle</button>
+  <button class="fbtn" data-f="double" onclick="setF('double',this)">2-Candle</button>
+  <button class="fbtn" data-f="triple" onclick="setF('triple',this)">3-Candle</button>
+  <button class="fbtn" data-f="multi" onclick="setF('multi',this)">4C+</button>
+  <div class="fsep"></div>
+  <button class="fbtn" data-f="reversal" onclick="setF('reversal',this)">↩ Reversal</button>
+  <button class="fbtn" data-f="continuation" onclick="setF('continuation',this)">→ Continuation</button>
+  <div class="fsep"></div>
+  <button class="fbtn" data-f="elite" onclick="setF('elite',this)">⚡ Elite Only</button>
+</div>
+
+<div class="wrap">
+  <div id="ind_section">
+    <div class="ind-grid">
+      <div class="ind-card"><div class="ind-hdr">📈 ATR Direction — Strength Signal</div><div id="atr_rows"></div></div>
+      <div class="ind-card"><div class="ind-hdr">📉 Connors RSI — Momentum Signal</div><div id="crsi_rows"></div></div>
+    </div>
+    <div class="section-card">
+      <div class="section-hdr">🏆 Top Combination Setups (Candle + ATR + CRSI + Free Space)</div>
+      <div id="combo_rows"></div>
+    </div>
+    <div class="section-card">
+      <div class="section-hdr">🛤 Free Space — What Must Be Clear For Price To Move</div>
+      <div class="space-grid" id="space_grid"></div>
+    </div>
+  </div>
+  <div id="pat_section"></div>
+</div>
+
+<script>
+const GRN='#10b981',RED='#ef4444',AMB='#f59e0b',MUT='#64748b',BLU='#3b82f6',PUR='#8b5cf6';
+
+// ── SVG helpers ──
+function C(cx,bY,bH,wT,wB,col,bw=9){
+  bH=Math.max(2,bH);
+  return `<line x1="${cx}" y1="${wT}" x2="${cx}" y2="${bY}" stroke="${col}" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="${cx-bw/2}" y="${bY}" width="${bw}" height="${bH}" rx="1.5" fill="${col}" opacity=".92"/>
+<line x1="${cx}" y1="${bY+bH}" x2="${cx}" y2="${wB}" stroke="${col}" stroke-width="1.8" stroke-linecap="round"/>`;
+}
+function DJ(cx,mY,wT,wB,col=MUT){
+  return `<line x1="${cx}" y1="${wT}" x2="${cx}" y2="${wB}" stroke="${col}" stroke-width="1.6"/>
+<line x1="${cx-5}" y1="${mY}" x2="${cx+5}" y2="${mY}" stroke="${col}" stroke-width="2.5" stroke-linecap="round"/>`;
+}
+function sw(w,h,inner){return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;}
+function sl(pts,w,h,col){
+  const xs=pts.map((_,i)=>i/(pts.length-1)*w);
+  const mn=Math.min(...pts),mx=Math.max(...pts),rng=mx-mn||1;
+  const ys=pts.map(v=>h-((v-mn)/rng)*(h*.78)-h*.11);
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+    <polyline points="${xs.map((x,i)=>x.toFixed(1)+','+ys[i].toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${xs[xs.length-1]}" cy="${ys[ys.length-1]}" r="3" fill="${col}"/></svg>`;
+}
+
+// ── PATTERN DATA ──
+// next: up/down/neutral | pct: accuracy % | reliability: 0-100
+// atr: best ATR | crsi: best CRSI | elite: bool
+const P=[
+// ── SINGLE BULLISH ──
+{name:'Hammer',bias:'bullish',c:'single',type:'reversal',next:'up',pct:65,avgMove:'+1.0%',reliability:65,atr:'Rising',crsi:'Rising',space:'1 ATR clear above close',elite:false,
+ desc:'Forms at bottom of downtrend. Small body at top with long lower wick (≥2× body). Sellers pushed price down but buyers recovered near close. Confirmation by next bullish candle increases reliability.',
+ rules:['Lower wick ≥ 2× the body','Small body near the top','Little or no upper wick','Appears after a downtrend'],
+ svg:()=>sw(52,66,C(26,10,8,8,60,GRN))},
+{name:'Inverted Hammer',bias:'bullish',c:'single',type:'reversal',next:'up',pct:55,avgMove:'+0.7%',reliability:55,atr:'Neutral',crsi:'Rising',space:'Needs confirmation next session',elite:false,
+ desc:'Long upper wick, small body at bottom, appears after downtrend. Early buyers tried to push higher. Needs follow-through bullish candle for confirmation.',
+ rules:['Upper wick ≥ 2× the body','Small body at the bottom','After downtrend','Confirm with next session'],
+ svg:()=>sw(52,66,C(26,46,8,6,58,GRN))},
+{name:'Dragonfly Doji',bias:'bullish',c:'single',type:'reversal',next:'up',pct:65,avgMove:'+0.9%',reliability:65,atr:'Neutral',crsi:'Rising',space:'No OB/FVG within 0.5 ATR above',elite:false,
+ desc:'Open = High = Close at top, with a long lower shadow. Strong rejection of lower prices. Buyers completely overcame sellers by session close.',
+ rules:['No body (tiny) at the very top','Long lower wick','No upper wick','At support or demand zone'],
+ svg:()=>sw(52,66,`<line x1="26" y1="6" x2="26" y2="60" stroke="${GRN}" stroke-width="1.8"/><line x1="20" y1="7" x2="32" y2="7" stroke="${GRN}" stroke-width="3" stroke-linecap="round"/>`)},
+{name:'Bullish Marubozu',bias:'bullish',c:'single',type:'continuation',next:'up',pct:78,avgMove:'+1.8%',reliability:78,atr:'Rising',crsi:'Rising',space:'No resistance for 1.5 ATR above',elite:true,
+ desc:'Opens at low, closes at high — no wicks at all. Pure buyer domination from open to close. One of the strongest single-candle signals. High reliability with rising ATR.',
+ rules:['No upper wick (< 0.1%)','No lower wick','Long green body','High volume confirms'],
+ svg:()=>sw(52,66,C(26,6,54,6,60,GRN))},
+{name:'Spinning Top (Bull)',bias:'bullish',c:'single',type:'reversal',next:'up',pct:48,avgMove:'+0.4%',reliability:48,atr:'Neutral',crsi:'Neutral',space:'Any — low conviction',elite:false,
+ desc:'Small body with roughly equal wicks on both sides. Indecision. After a downtrend, may signal seller exhaustion but needs confirmation.',
+ rules:['Small body in the middle','Equal wicks on both sides','After downtrend context'],
+ svg:()=>sw(52,66,C(26,24,18,8,58,GRN))},
+{name:'High Wave Candle',bias:'neutral',c:'single',type:'reversal',next:'neutral',pct:50,avgMove:'±0.8%',reliability:50,atr:'Rising',crsi:'Any',space:'Wait for next session',elite:false,
+ desc:'Very long wicks on both sides, tiny body. Extreme intraday volatility with no clear winner. Often precedes a large directional move.',
+ rules:['Body < 10% of total range','Very long upper and lower wicks','High ATR','Next candle direction is critical'],
+ svg:()=>sw(52,66,C(26,26,14,2,64,AMB))},
+// ── SINGLE BEARISH ──
+{name:'Shooting Star',bias:'bearish',c:'single',type:'reversal',next:'down',pct:65,avgMove:'-1.0%',reliability:65,atr:'Rising',crsi:'Falling',space:'No support for 1 ATR below',elite:false,
+ desc:'Long upper wick, small body at bottom, after uptrend. Buyers pushed higher but sellers rejected and closed near the open. Bearish confirmation strengthens signal.',
+ rules:['Upper wick ≥ 2× body','Small body at the bottom','After uptrend at resistance','Little or no lower wick'],
+ svg:()=>sw(52,66,C(26,46,8,6,58,RED))},
+{name:'Hanging Man',bias:'bearish',c:'single',type:'reversal',next:'down',pct:55,avgMove:'-0.7%',reliability:55,atr:'Rising',crsi:'Falling',space:'1 ATR clear below',elite:false,
+ desc:'Identical shape to Hammer but appears after an uptrend. The long lower wick signals sellers are beginning to emerge. Needs bearish confirmation.',
+ rules:['Lower wick ≥ 2× body','Small body at top','After an uptrend — not downtrend','Bearish next candle confirms'],
+ svg:()=>sw(52,66,C(26,10,8,8,60,RED))},
+{name:'Gravestone Doji',bias:'bearish',c:'single',type:'reversal',next:'down',pct:65,avgMove:'-0.9%',reliability:65,atr:'Neutral',crsi:'Falling',space:'Support 1 ATR below',elite:false,
+ desc:'Open = Low = Close at bottom, long upper shadow. Buyers pushed price high but were fully rejected by close. Strong signal at resistance.',
+ rules:['Tiny body at the very bottom','Long upper wick','No lower wick','At resistance or supply zone'],
+ svg:()=>sw(52,66,`<line x1="26" y1="6" x2="26" y2="60" stroke="${RED}" stroke-width="1.8"/><line x1="20" y1="59" x2="32" y2="59" stroke="${RED}" stroke-width="3" stroke-linecap="round"/>`)},
+{name:'Bearish Marubozu',bias:'bearish',c:'single',type:'continuation',next:'down',pct:78,avgMove:'-1.8%',reliability:78,atr:'Rising',crsi:'Falling',space:'No support for 1.5 ATR below',elite:true,
+ desc:'Opens at high, closes at low — no wicks. Pure seller domination. One of the most reliable bearish continuation signals.',
+ rules:['No upper wick','No lower wick','Long red body','High volume confirms'],
+ svg:()=>sw(52,66,C(26,6,54,6,60,RED))},
+// ── SINGLE NEUTRAL / DOJI ──
+{name:'Doji',bias:'neutral',c:'single',type:'reversal',next:'neutral',pct:50,avgMove:'±0.2%',reliability:50,atr:'Any',crsi:'Any',space:'Context decides',elite:false,
+ desc:'Open ≈ Close. Complete market indecision. At resistance → bearish signal. At support → bullish signal. During trend → pause, not reversal.',
+ rules:['Open = Close (< 0.1% diff)','Wicks on both sides','Context determines bias','Next candle direction is critical'],
+ svg:()=>sw(52,66,DJ(26,33,8,58))},
+{name:'Long-Legged Doji',bias:'neutral',c:'single',type:'reversal',next:'neutral',pct:50,avgMove:'±0.5%',reliability:50,atr:'Rising',crsi:'Any',space:'Wait for resolution',elite:false,
+ desc:'Doji with very long wicks both ways. Extreme intraday battle, no winner. Usually precedes a large explosive move in one direction.',
+ rules:['Open ≈ Close','Very long wicks on both sides','High volatility environment'],
+ svg:()=>sw(52,66,DJ(26,33,4,62))},
+// ── TWO-CANDLE BULLISH ──
+{name:'Bullish Engulfing',bias:'bullish',c:'double',type:'reversal',next:'up',pct:72,avgMove:'+1.5%',reliability:72,atr:'Rising',crsi:'Rising',space:'No FVG/OB within 1.5 ATR above',elite:true,
+ desc:'Small bearish candle then large bullish candle whose body completely engulfs the prior. Decisive buyer takeover. Best at support with high volume on day 2.',
+ rules:['Day 1: Bearish candle','Day 2: Bullish body fully engulfs day 1 body','Higher volume on day 2','Best at support/demand zone'],
+ svg:()=>sw(68,66,C(18,20,20,18,44,RED,7)+C(46,8,44,6,56,GRN,13))},
+{name:'Piercing Line',bias:'bullish',c:'double',type:'reversal',next:'up',pct:63,avgMove:'+1.1%',reliability:63,atr:'Rising',crsi:'Rising',space:'No resistance above day 2 close',elite:false,
+ desc:'Bearish candle then bull opening below prior close, closing above 50% of day 1. Buyers aggressively stepping in after heavy selling.',
+ rules:['Day 1: Strong bearish','Day 2: Opens below day 1 close','Day 2: Closes above 50% of day 1 body'],
+ svg:()=>sw(68,66,C(18,6,40,4,50,RED)+C(46,18,30,46,60,GRN))},
+{name:'Bullish Harami',bias:'bullish',c:'double',type:'reversal',next:'up',pct:55,avgMove:'+0.7%',reliability:55,atr:'Neutral',crsi:'Rising',space:'0.8 ATR clear above',elite:false,
+ desc:'Large bearish candle then small bullish candle contained within prior body. Selling momentum is slowing. Low reliability alone — needs more confirmation.',
+ rules:['Day 1: Large bearish','Day 2: Small bullish inside day 1 body','Day 2 ≤ 25% of day 1 body'],
+ svg:()=>sw(68,66,C(18,6,48,4,58,RED)+C(46,22,20,20,44,GRN,7))},
+{name:'Harami Cross (Bull)',bias:'bullish',c:'double',type:'reversal',next:'up',pct:63,avgMove:'+0.9%',reliability:63,atr:'Neutral',crsi:'Rising',space:'1 ATR clear above',elite:false,
+ desc:'Large bearish then Doji inside prior body. Doji signals complete exhaustion of sellers. Stronger signal than plain Bullish Harami.',
+ rules:['Day 1: Large bearish','Day 2: Doji inside day 1 body','Doji = complete indecision'],
+ svg:()=>sw(68,66,C(18,6,48,4,58,RED)+DJ(46,32,20,44))},
+{name:'Tweezer Bottom',bias:'bullish',c:'double',type:'reversal',next:'up',pct:62,avgMove:'+0.9%',reliability:62,atr:'Neutral',crsi:'Rising',space:'No OB/FVG within 1 ATR above',elite:false,
+ desc:'Two candles with identical lows. Micro double-bottom showing strong support at that exact price. Buyers defended the same level twice.',
+ rules:['Same low on both candles','Day 1: Bearish; Day 2: Bullish','Support confirmed at that low'],
+ svg:()=>sw(68,66,C(18,10,26,8,58,RED)+C(46,18,28,16,58,GRN))},
+{name:'Bullish Kicker',bias:'bullish',c:'double',type:'reversal',next:'up',pct:80,avgMove:'+2.5%',reliability:80,atr:'Rising',crsi:'Rising',space:'2+ ATR clear above',elite:true,
+ desc:'Bearish candle then bullish candle gapping UP above prior open. Extreme sentiment reversal often from news/events. No overlap between candles.',
+ rules:['Day 1: Bearish','Day 2: Gaps UP above day 1 open','Strong bullish close','No price overlap'],
+ svg:()=>sw(68,66,C(18,14,32,12,50,RED)+C(46,4,38,4,48,GRN))},
+{name:'Kicking Pattern (Bull)',bias:'bullish',c:'double',type:'reversal',next:'up',pct:82,avgMove:'+2.8%',reliability:82,atr:'Rising',crsi:'Rising',space:'2+ ATR clean above',elite:true,
+ desc:'Bearish Marubozu + Bullish Marubozu with gap up. Both have no wicks. Rarest and most powerful reversal — complete sentiment flip.',
+ rules:['Day 1: Bearish Marubozu (no wicks)','Day 2: Bullish Marubozu gapping UP','No wicks on either candle','Very rare pattern'],
+ svg:()=>sw(68,66,C(18,10,38,10,48,RED)+C(46,4,38,4,42,GRN))},
+// ── TWO-CANDLE BEARISH ──
+{name:'Bearish Engulfing',bias:'bearish',c:'double',type:'reversal',next:'down',pct:72,avgMove:'-1.5%',reliability:72,atr:'Rising',crsi:'Falling',space:'No demand/OB within 1.5 ATR below',elite:true,
+ desc:'Small bullish then large bearish candle engulfing prior body. Decisive seller takeover. Best at resistance with high volume on day 2.',
+ rules:['Day 1: Bullish candle','Day 2: Bearish body fully engulfs day 1','Higher volume on day 2'],
+ svg:()=>sw(68,66,C(18,20,20,18,44,GRN,7)+C(46,8,44,6,56,RED,13))},
+{name:'Dark Cloud Cover',bias:'bearish',c:'double',type:'reversal',next:'down',pct:63,avgMove:'-1.1%',reliability:63,atr:'Rising',crsi:'Falling',space:'No demand for 1 ATR below day 2',elite:false,
+ desc:'Bullish candle then bear opening above prior high, closing below 50% of day 1. Sellers gaining aggressive control after initial buyer push.',
+ rules:['Day 1: Strong bullish','Day 2: Opens above day 1 high','Day 2: Closes below 50% of day 1 body'],
+ svg:()=>sw(68,66,C(18,18,30,16,52,GRN)+C(46,4,36,2,46,RED))},
+{name:'Bearish Harami',bias:'bearish',c:'double',type:'reversal',next:'down',pct:55,avgMove:'-0.7%',reliability:55,atr:'Neutral',crsi:'Falling',space:'0.8 ATR clear below',elite:false,
+ desc:'Large bullish then small bearish inside prior body. Buying momentum slowing. Needs confirmation.',
+ rules:['Day 1: Large bullish','Day 2: Small bearish inside day 1 body'],
+ svg:()=>sw(68,66,C(18,8,48,6,58,GRN)+C(46,22,20,20,44,RED,7))},
+{name:'Harami Cross (Bear)',bias:'bearish',c:'double',type:'reversal',next:'down',pct:63,avgMove:'-0.9%',reliability:63,atr:'Neutral',crsi:'Falling',space:'1 ATR clear below',elite:false,
+ desc:'Large bullish then Doji inside prior body. Buyer exhaustion signal at tops.',
+ rules:['Day 1: Large bullish','Day 2: Doji inside day 1 body'],
+ svg:()=>sw(68,66,C(18,8,48,6,58,GRN)+DJ(46,32,20,44))},
+{name:'Tweezer Top',bias:'bearish',c:'double',type:'reversal',next:'down',pct:62,avgMove:'-0.9%',reliability:62,atr:'Neutral',crsi:'Falling',space:'No demand within 1 ATR below',elite:false,
+ desc:'Two candles with identical highs. Micro double-top at resistance. Buyers tried twice and failed.',
+ rules:['Same high on both candles','Day 1: Bullish; Day 2: Bearish'],
+ svg:()=>sw(68,66,C(18,16,26,8,44,GRN)+C(46,16,26,8,44,RED))},
+{name:'Bearish Kicker',bias:'bearish',c:'double',type:'reversal',next:'down',pct:80,avgMove:'-2.5%',reliability:80,atr:'Rising',crsi:'Falling',space:'2+ ATR clear below',elite:true,
+ desc:'Bullish then bearish candle gapping DOWN below prior open. Extreme reversal. No overlap.',
+ rules:['Day 1: Bullish','Day 2: Gaps DOWN below day 1 open','Strong bearish close','No overlap'],
+ svg:()=>sw(68,66,C(18,14,32,12,50,GRN)+C(46,22,38,22,62,RED))},
+{name:'Kicking Pattern (Bear)',bias:'bearish',c:'double',type:'reversal',next:'down',pct:82,avgMove:'-2.8%',reliability:82,atr:'Rising',crsi:'Falling',space:'2+ ATR clean below',elite:true,
+ desc:'Bullish Marubozu + Bearish Marubozu gapping down. No wicks. Mirror of bullish kicker. Very rare, very powerful.',
+ rules:['Day 1: Bullish Marubozu','Day 2: Bearish Marubozu gapping DOWN','No wicks on either'],
+ svg:()=>sw(68,66,C(18,10,38,10,48,GRN)+C(46,16,38,16,54,RED))},
+{name:'On-Neck Pattern',bias:'bearish',c:'double',type:'continuation',next:'down',pct:60,avgMove:'-0.7%',reliability:60,atr:'Neutral',crsi:'Falling',space:'1 ATR below with no demand',elite:false,
+ desc:'In downtrend: bearish candle then small bull closing near prior low. Buyers tried recovery but failed — sellers remain in control.',
+ rules:['Day 1: Bearish candle','Day 2: Small bull closing near day 1 low','Downtrend continuation'],
+ svg:()=>sw(68,66,C(18,6,40,4,50,RED)+C(46,34,14,48,52,GRN))},
+{name:'In-Neck Pattern',bias:'bearish',c:'double',type:'continuation',next:'down',pct:58,avgMove:'-0.6%',reliability:58,atr:'Neutral',crsi:'Falling',space:'Clear path below',elite:false,
+ desc:'Similar to On-Neck but closes slightly above prior close. Still bearish continuation — selling pressure remains dominant.',
+ rules:['Day 1: Bearish','Day 2: Closes slightly above day 1 close','Still within lower range','Downtrend continues'],
+ svg:()=>sw(68,66,C(18,6,40,4,50,RED)+C(46,30,16,48,50,GRN))},
+{name:'Thrusting Pattern',bias:'bearish',c:'double',type:'continuation',next:'down',pct:58,avgMove:'-0.6%',reliability:58,atr:'Neutral',crsi:'Falling',space:'1 ATR clear below',elite:false,
+ desc:'Bearish candle then bull retracing into day 1 body but failing to close above midpoint. Sellers still in control despite bounce.',
+ rules:['Day 1: Strong bearish','Day 2: Bull but fails to reach 50% of day 1','Sellers remain dominant'],
+ svg:()=>sw(68,66,C(18,6,42,4,52,RED)+C(46,24,22,50,52,GRN))},
+// ── TWO-CANDLE NEUTRAL ──
+{name:'Separating Lines',bias:'neutral',c:'double',type:'continuation',next:'neutral',pct:58,avgMove:'±0.5%',reliability:58,atr:'Neutral',crsi:'Any',space:'Trend context decides',elite:false,
+ desc:'Two candles with the same opening price but opposite colors. Uptrend: bear then bull at same open = continuation up. Downtrend: bull then bear = continuation down.',
+ rules:['Same opening price on both candles','Opposite colors','In uptrend: bullish continuation','In downtrend: bearish continuation'],
+ svg:()=>sw(68,66,C(18,12,26,10,42,RED)+C(46,12,26,10,42,GRN))},
+// ── THREE-CANDLE BULLISH ──
+{name:'Morning Star',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:75,avgMove:'+1.8%',reliability:75,atr:'Rising',crsi:'Rising',space:'1.5 ATR clear above',elite:true,
+ desc:'Bear candle, small indecision star, then strong bull. The star marks the pivot point. Classic bottom reversal. More reliable with volume surge on day 3.',
+ rules:['Day 1: Long bearish','Day 2: Small body gaps below day 1','Day 3: Bull closes above 50% of day 1'],
+ svg:()=>sw(92,66,C(16,6,36,4,46,RED)+C(46,44,10,42,58,AMB,7)+C(76,8,36,6,48,GRN))},
+{name:'Morning Doji Star',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:78,avgMove:'+2.0%',reliability:78,atr:'Rising',crsi:'Rising',space:'1.5 ATR clear; at key support',elite:true,
+ desc:'Morning Star with Doji as middle candle. The Doji amplifies indecision signal, making this the stronger version.',
+ rules:['Day 1: Long bearish','Day 2: Doji gaps below day 1','Day 3: Long bullish gap up'],
+ svg:()=>sw(92,66,C(16,6,36,4,46,RED)+DJ(46,48,42,58)+C(76,8,36,6,48,GRN))},
+{name:'Three White Soldiers',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:80,avgMove:'+2.5%',reliability:80,atr:'Rising',crsi:'Rising',space:'2+ ATR free above',elite:true,
+ desc:'Three consecutive long bullish candles, each opening inside prior body and closing higher. Sustained buyer momentum. Very strong signal after downtrend.',
+ rules:['Three consecutive bullish candles','Each opens inside prior body','Each closes near its high','Small or no upper wicks'],
+ svg:()=>sw(92,66,C(16,36,22,34,60,GRN)+C(46,26,24,24,52,GRN)+C(76,14,26,12,42,GRN))},
+{name:'Three Inside Up',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:67,avgMove:'+1.2%',reliability:67,atr:'Rising',crsi:'Rising',space:'1 ATR clear above day 3',elite:false,
+ desc:'Bullish Harami confirmed by third bullish candle closing above day 1 open. Third candle removes uncertainty.',
+ rules:['Day 1+2: Form Bullish Harami','Day 3: Bullish, closes above day 1 open'],
+ svg:()=>sw(92,66,C(16,6,48,4,56,RED)+C(46,20,18,18,40,GRN,7)+C(76,8,32,6,44,GRN))},
+{name:'Three Outside Up',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:70,avgMove:'+1.5%',reliability:70,atr:'Rising',crsi:'Rising',space:'1.5 ATR free above',elite:false,
+ desc:'Bullish Engulfing confirmed by third bullish candle. Stronger reversal signal than plain engulfing.',
+ rules:['Day 1+2: Bullish Engulfing','Day 3: Higher bullish close'],
+ svg:()=>sw(92,66,C(16,20,20,18,42,RED,7)+C(46,6,44,4,52,GRN,13)+C(76,4,28,2,36,GRN))},
+{name:'Bullish Abandoned Baby',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:82,avgMove:'+2.8%',reliability:82,atr:'Rising',crsi:'Rising',space:'2 ATR completely free above',elite:true,
+ desc:'Bearish candle, then Doji GAPPING DOWN (no overlap), then bullish GAPPING UP (no overlap). All gaps are essential. Very rare — very powerful.',
+ rules:['Day 1: Bearish','Day 2: Doji with gap down — no overlap','Day 3: Bull with gap up — no overlap'],
+ svg:()=>sw(92,66,C(16,6,36,4,46,RED)+DJ(46,56,52,62)+C(76,6,36,4,46,GRN))},
+{name:'Stick Sandwich (Bull)',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:58,avgMove:'+0.8%',reliability:58,atr:'Neutral',crsi:'Rising',space:'1 ATR clear above',elite:false,
+ desc:'Bear, bull, then another bear closing at the same level as day 1. Same close = strong support. Market found its floor.',
+ rules:['Day 1+3: Bearish, same close price','Day 2: Bullish closing higher','Support level established'],
+ svg:()=>sw(92,66,C(16,8,34,6,46,RED)+C(46,6,26,4,40,GRN)+C(76,10,32,8,46,RED))},
+{name:'Tri-Star Pattern (Bull)',bias:'bullish',c:'triple',type:'reversal',next:'up',pct:68,avgMove:'+1.2%',reliability:68,atr:'Neutral',crsi:'Rising',space:'1 ATR clear above',elite:false,
+ desc:'Three consecutive Doji candles at the bottom of a downtrend. Extremely rare. Signals complete seller exhaustion.',
+ rules:['Three Doji candles in a row','At bottom of downtrend','Very rare','Confirm with next session'],
+ svg:()=>sw(92,66,DJ(16,38,32,46)+DJ(46,42,36,50)+DJ(76,34,28,42))},
+{name:'Ladder Bottom',bias:'bullish',c:'multi',type:'reversal',next:'up',pct:62,avgMove:'+1.2%',reliability:62,atr:'Rising',crsi:'Rising',space:'1.5 ATR free above final candle',elite:false,
+ desc:'Four declining bear candles followed by a bull. Day 4 shows long upper wick signaling buyer emergence. Day 5 confirms reversal.',
+ rules:['Days 1–3: Consecutive bearish','Day 4: Bearish with long upper wick','Day 5: Strong bullish confirmation'],
+ svg:()=>sw(118,66,C(14,4,22,2,30,RED)+C(32,10,20,8,34,RED)+C(50,16,18,12,38,RED)+C(68,16,12,8,52,RED)+C(90,12,28,10,46,GRN))},
+// ── THREE-CANDLE BEARISH ──
+{name:'Evening Star',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:75,avgMove:'-1.8%',reliability:75,atr:'Rising',crsi:'Falling',space:'1.5 ATR clear below',elite:true,
+ desc:'Bull candle, small star gapping up, then strong bear. Mirror of Morning Star. Classic top reversal.',
+ rules:['Day 1: Long bullish','Day 2: Small body gaps above day 1','Day 3: Bear closes below 50% of day 1'],
+ svg:()=>sw(92,66,C(16,20,36,18,58,GRN)+C(46,6,10,4,18,AMB,7)+C(76,8,36,6,48,RED))},
+{name:'Evening Doji Star',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:78,avgMove:'-2.0%',reliability:78,atr:'Rising',crsi:'Falling',space:'1.5 ATR clear; at key resistance',elite:true,
+ desc:'Evening Star with Doji as middle. Stronger top reversal signal.',
+ rules:['Day 1: Long bullish','Day 2: Doji gaps above day 1','Day 3: Long bearish'],
+ svg:()=>sw(92,66,C(16,20,36,18,58,GRN)+DJ(46,8,4,16)+C(76,8,36,6,48,RED))},
+{name:'Three Black Crows',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:80,avgMove:'-2.5%',reliability:80,atr:'Rising',crsi:'Falling',space:'2+ ATR free below',elite:true,
+ desc:'Three consecutive long bearish candles, each opening inside prior body and closing lower. Sustained selling. Mirror of Three White Soldiers.',
+ rules:['Three consecutive bearish candles','Each opens inside prior body','Each closes near its low'],
+ svg:()=>sw(92,66,C(16,8,22,6,32,RED)+C(46,18,22,16,44,RED)+C(76,28,24,26,56,RED))},
+{name:'Three Inside Down',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:67,avgMove:'-1.2%',reliability:67,atr:'Rising',crsi:'Falling',space:'1 ATR clear below day 3',elite:false,
+ desc:'Bearish Harami confirmed by third bearish candle. Confirmation makes this highly reliable.',
+ rules:['Day 1+2: Bearish Harami','Day 3: Bearish, closes below day 1 open'],
+ svg:()=>sw(92,66,C(16,8,48,6,58,GRN)+C(46,20,18,18,40,RED,7)+C(76,20,32,18,56,RED))},
+{name:'Bearish Abandoned Baby',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:82,avgMove:'-2.8%',reliability:82,atr:'Rising',crsi:'Falling',space:'2 ATR completely free below',elite:true,
+ desc:'Bullish, Doji gapping UP (no overlap), bearish gapping DOWN (no overlap). Very rare. Very powerful top reversal.',
+ rules:['Day 1: Bullish','Day 2: Doji with gap up — no overlap','Day 3: Bear with gap down — no overlap'],
+ svg:()=>sw(92,66,C(16,20,36,18,58,GRN)+DJ(46,4,2,10)+C(76,20,36,18,58,RED))},
+{name:'Two Crows',bias:'bearish',c:'triple',type:'reversal',next:'down',pct:63,avgMove:'-1.0%',reliability:63,atr:'Rising',crsi:'Falling',space:'1 ATR clear below',elite:false,
+ desc:'Long bull, small bear gap-up, larger bear closing into day 1 body. Distribution at top over three sessions.',
+ rules:['Day 1: Long bullish','Day 2: Small bear gaps up','Day 3: Larger bear closes into day 1'],
+ svg:()=>sw(92,66,C(16,12,32,10,48,GRN)+C(46,4,14,2,20,RED,7)+C(76,4,30,2,38,RED))},
+{name:'Breakaway Pattern (Bear)',bias:'bearish',c:'multi',type:'reversal',next:'down',pct:62,avgMove:'-1.3%',reliability:62,atr:'Rising',crsi:'Falling',space:'1.5 ATR clear below',elite:false,
+ desc:'After extended uptrend: strong bull, gap-up continuation candles, then final bear reversal candle. Breakaway from the trend.',
+ rules:['Day 1: Strong bullish','Days 2–4: Gap up continuation','Day 5: Strong bear reversal candle'],
+ svg:()=>sw(118,66,C(14,32,20,30,54,GRN)+C(32,20,14,18,36,GRN)+C(50,14,12,12,28,GRN)+C(68,8,12,6,22,GRN)+C(90,6,30,4,40,RED))},
+// ── MULTI-CANDLE BULLISH ──
+{name:'Rising Three Methods',bias:'bullish',c:'multi',type:'continuation',next:'up',pct:68,avgMove:'+1.5%',reliability:68,atr:'Rising',crsi:'Rising',space:'1.5 ATR above first candle high',elite:false,
+ desc:'Strong bull, then 2–3 small bears staying within day 1 range, then strong bull breaking new high. Pullback is absorbed — uptrend continues.',
+ rules:['Day 1: Strong bullish','Days 2–4: Small bears inside range','Final: Bull breaks above day 1 high'],
+ svg:()=>sw(118,66,C(14,6,40,4,52,GRN)+C(32,14,14,12,32,RED,6)+C(50,16,12,14,32,RED,6)+C(68,14,14,12,32,RED,6)+C(90,4,42,2,50,GRN))},
+{name:'Bullish Flag',bias:'bullish',c:'multi',type:'continuation',next:'up',pct:65,avgMove:'+1.3%',reliability:65,atr:'Rising',crsi:'Rising',space:'1+ ATR free above breakout',elite:false,
+ desc:'Strong bullish flagpole, small bearish consolidation, then upside breakout. Buyers remain in control after brief profit-taking.',
+ rules:['Strong bull flagpole','Small bearish consolidation (flag)','Breakout above flag top','Uptrend continuation'],
+ svg:()=>sw(118,66,C(14,4,46,2,52,GRN)+C(32,10,18,8,32,RED,6)+C(50,14,16,12,34,RED,6)+C(90,6,40,4,50,GRN))},
+{name:'Upside Tasuki Gap',bias:'bullish',c:'triple',type:'continuation',next:'up',pct:65,avgMove:'+1.0%',reliability:65,atr:'Rising',crsi:'Rising',space:'Gap must stay open',elite:false,
+ desc:'Two bull candles with a gap, then bearish candle partially fills but does NOT close the gap. Gap support holds — uptrend continues.',
+ rules:['Day 1+2: Bullish with gap between','Day 3: Bear opens in gap, does not fill it','Open gap = support level'],
+ svg:()=>sw(92,66,C(16,22,20,20,44,GRN)+C(46,8,18,6,28,GRN)+C(76,12,22,10,36,RED))},
+{name:'Mat Hold Pattern',bias:'bullish',c:'multi',type:'continuation',next:'up',pct:65,avgMove:'+1.2%',reliability:65,atr:'Rising',crsi:'Rising',space:'1 ATR free above',elite:false,
+ desc:'Strong bull, gap-up small bear, small sideways candles within range, then strong bull making new high. Brief pause before uptrend resumes.',
+ rules:['Day 1: Strong bullish','Day 2: Gaps up but small bearish','Days 3–4: Small candles in range','Day 5: Strong bull new high'],
+ svg:()=>sw(118,66,C(14,6,38,4,48,GRN)+C(32,4,14,2,20,RED,6)+C(50,6,12,4,22,RED,6)+C(68,4,12,2,20,RED,6)+C(90,2,44,2,48,GRN))},
+// ── MULTI-CANDLE BEARISH ──
+{name:'Falling Three Methods',bias:'bearish',c:'multi',type:'continuation',next:'down',pct:68,avgMove:'-1.5%',reliability:68,atr:'Rising',crsi:'Falling',space:'1.5 ATR below first candle low',elite:false,
+ desc:'Strong bear, then 2–3 small bulls within range, then strong bear new low. Bounce is absorbed — downtrend continues.',
+ rules:['Day 1: Strong bearish','Days 2–4: Small bulls inside range','Final: Bear breaks below day 1 low'],
+ svg:()=>sw(118,66,C(14,6,40,4,52,RED)+C(32,14,14,12,32,GRN,6)+C(50,16,12,14,32,GRN,6)+C(68,14,14,12,32,GRN,6)+C(90,4,42,2,50,RED))},
+{name:'Bearish Flag',bias:'bearish',c:'multi',type:'continuation',next:'down',pct:65,avgMove:'-1.3%',reliability:65,atr:'Rising',crsi:'Falling',space:'1+ ATR clear below breakdown',elite:false,
+ desc:'Strong bearish flagpole, small bullish consolidation, then downside breakdown. Sellers in control after brief pullback.',
+ rules:['Strong bear flagpole','Small bullish consolidation','Breakdown below flag low','Downtrend continuation'],
+ svg:()=>sw(118,66,C(14,4,46,2,52,RED)+C(32,14,16,12,34,GRN,6)+C(50,12,18,10,32,GRN,6)+C(90,8,44,6,54,RED))},
+{name:'Downside Tasuki Gap',bias:'bearish',c:'triple',type:'continuation',next:'down',pct:65,avgMove:'-1.0%',reliability:65,atr:'Rising',crsi:'Falling',space:'Gap must stay open',elite:false,
+ desc:'Two bear candles with gap down, then bull partially fills but does NOT close gap. Gap resistance holds — downtrend continues.',
+ rules:['Day 1+2: Bearish with gap','Day 3: Bull opens in gap, does not fill it','Open gap = resistance level'],
+ svg:()=>sw(92,66,C(16,8,20,6,30,RED)+C(46,26,20,24,48,RED)+C(76,32,22,30,56,GRN))},
+{name:'Pennant (Bear)',bias:'bearish',c:'multi',type:'continuation',next:'down',pct:63,avgMove:'-1.2%',reliability:63,atr:'Rising',crsi:'Falling',space:'Free path below pennant low',elite:false,
+ desc:'Strong bearish flagpole, then symmetrical triangle consolidation (pennant), then breakdown continuation. Pause before trend resumes.',
+ rules:['Strong bear flagpole','Symmetrical triangle consolidation','Breakdown below lower trendline'],
+ svg:()=>sw(118,66,C(14,4,48,2,54,RED)+C(32,16,18,14,38,RED,6)+C(50,20,14,18,38,GRN,6)+C(68,22,10,20,36,RED,6)+C(90,22,34,20,58,RED))},
+];
+
+// ── ATR DATA ──
+const ATR=[
+  {name:'Rising ATR',state:'Rising',next:'up',pct:72,strength:85,sub:'Volatility expanding — price has energy to follow through. Best time for breakouts and reversals.',
+   meaning:'Candles getting larger. Best patterns: Marubozu, Engulfing, Stars, Three Soldiers/Crows.',
+   svg:sl([10,11,13,17,22,28,36],58,44,GRN)},
+  {name:'Falling ATR',state:'Falling',next:'down',pct:35,strength:20,sub:'Volatility compressing — price lacks energy. Patterns unreliable. Wait for expansion.',
+   meaning:'Candles shrinking. Most patterns stall midway. Reduce size or stay out.',
+   svg:sl([36,30,25,20,16,13,11],58,44,RED)},
+  {name:'Neutral ATR',state:'Neutral',next:'neutral',pct:50,strength:50,sub:'Flat volatility — sideways market. Patterns need extra confirmation.',
+   meaning:'No clear energy direction. Use higher timeframe context. Wait for ATR to commit.',
+   svg:sl([20,21,19,22,20,23,21],58,44,AMB)},
+];
+
+// ── CRSI DATA ──
+const CRSI=[
+  {name:'CRSI Rising',state:'Rising',next:'up',pct:70,strength:80,sub:'Short-term momentum building upward. Best for bullish candle setups.',
+   meaning:'All 3 CRSI components (RSI, streak, %rank) pointing up. Align with bullish patterns.',
+   svg:sl([18,22,28,36,44,52,60],58,44,GRN)},
+  {name:'CRSI Falling',state:'Falling',next:'down',pct:70,strength:80,sub:'Short-term momentum shifting downward. Best for bearish setups.',
+   meaning:'CRSI components declining. Align with bearish reversal or continuation patterns.',
+   svg:sl([62,56,48,40,32,26,20],58,44,RED)},
+  {name:'CRSI Neutral',state:'Neutral',next:'neutral',pct:50,strength:50,sub:'No clear momentum. Wait for CRSI to commit before trading.',
+   meaning:'CRSI oscillating near midline. Patterns need extra confirmation from structure.',
+   svg:sl([40,43,39,44,41,45,42],58,44,AMB)},
+];
+
+// ── FREE SPACE DATA ──
+const SPACE=[
+  {icon:'🔴',name:'Order Block (OB)',badge:'BLOCKER',cls:'sb-block',desc:'Zone where institutions placed large orders. Price often reverses here. OB in your path = strong blocker.',impact:'70% chance of stall or reversal at OB.',impactCls:'color:var(--red)'},
+  {icon:'🟡',name:'Fair Value Gap (FVG)',badge:'BLOCKER',cls:'sb-block',desc:'3-candle price inefficiency. Unfilled FVG acts as magnet — price is drawn to fill it.',impact:'65% chance price returns to fill FVG before continuing.',impactCls:'color:var(--red)'},
+  {icon:'💧',name:'Liquidity Pools',badge:'CAUTION',cls:'sb-warn',desc:'Clusters of stop-losses at swing highs/lows. Price is attracted to sweep these zones.',impact:'60% chance of a liquidity sweep spike before real move.',impactCls:'color:var(--accent)'},
+  {icon:'⚡',name:'Price Gaps / Windows',badge:'CAUTION',cls:'sb-warn',desc:'Open price gaps act as magnets — 75% probability of being filled eventually.',impact:'Check if gap is in your direction. Can be target OR obstacle.',impactCls:'color:var(--accent)'},
+  {icon:'🟢',name:'Clean Path (No Block)',badge:'OPTIMAL',cls:'sb-ok',desc:'No OB, FVG, liquidity, or gap within 1–2 ATR in the trade direction. Best condition.',impact:'Highest probability the candle follows through to target.',impactCls:'color:var(--green)'},
+  {icon:'📊',name:'Market Structure',badge:'IMPORTANT',cls:'sb-warn',desc:'Bullish patterns need HH/HL structure. Bearish needs LH/LL. Counter-trend reduces reliability 20–30%.',impact:'Aligned structure = +15% reliability boost.',impactCls:'color:var(--green)'},
+  {icon:'🌐',name:'HTF S/R Levels',badge:'IMPORTANT',cls:'sb-warn',desc:'Higher timeframe support/resistance dominates. Pattern at HTF support/resistance = strongest signal.',impact:'At HTF key level = +10–20% reliability. Against HTF = -20–30%.',impactCls:'color:var(--accent)'},
+  {icon:'📐',name:'Inducement Zones',badge:'CAUTION',cls:'sb-warn',desc:'Areas just beyond swing points where stops cluster. Price often sweeps these before the real move.',impact:'Wait for stop sweep then look for your pattern.',impactCls:'color:var(--accent)'},
+];
+
+// ── COMBINATIONS ──
+const COMBOS=[
+  {rank:'🥇',candle:'Three White Soldiers / Morning Doji Star',atr:'Rising ↑',crsi:'Rising ↑',space:'No OB/FVG within 2 ATR + HH/HL structure',pct:87,move:'+2.5%',bias:'bullish',why:'All forces aligned: expanding volatility + building momentum + clear runway = maximum bull probability.'},
+  {rank:'🥈',candle:'Three Black Crows / Evening Doji Star',atr:'Rising ↑',crsi:'Falling ↓',space:'No demand within 2 ATR below + LH/LL structure',pct:85,move:'-2.5%',bias:'bearish',why:'Sustained 3-candle selling + ATR confirming + CRSI declining + clear path down = maximum bear conviction.'},
+  {rank:'🥉',candle:'Abandoned Baby / Kicking Pattern',atr:'Rising ↑',crsi:'Rising ↑',space:'2 ATR clean + liquidity swept below',pct:84,move:'+3.0%',bias:'bullish',why:'Gap-based patterns with all gaps intact, no FVG blocking, CRSI confirming. Rare but extremely accurate.'},
+  {rank:'#4',candle:'Bearish Abandoned Baby / Kicking (Bear)',atr:'Rising ↑',crsi:'Falling ↓',space:'2 ATR clean below + liquidity swept above',pct:84,move:'-3.0%',bias:'bearish',why:'Mirror of #3. Gap-down patterns with no demand below. Very rare, very powerful.'},
+  {rank:'#5',candle:'Bullish Engulfing at HTF Support',atr:'Rising ↑',crsi:'Rising ↑',space:'No OB/FVG for 1.5 ATR above + HTF support',pct:80,move:'+1.8%',bias:'bullish',why:'Most common high-accuracy bull setup. Amplified by ATR expansion and key level.'},
+  {rank:'#6',candle:'Bearish Engulfing at HTF Resistance',atr:'Rising ↑',crsi:'Falling ↓',space:'No demand for 1.5 ATR below + HTF resistance',pct:80,move:'-1.8%',bias:'bearish',why:'Mirror of #5. Most reliable single-event bear reversal at key resistance.'},
+  {rank:'#7',candle:'Bullish Marubozu + Gap Up',atr:'Rising ↑',crsi:'Rising ↑',space:'1.5–2 ATR free above; gap up overnight',pct:78,move:'+2.0%',bias:'bullish',why:'Strong open, strong close, no hesitation. ATR and CRSI confirming. High continuation probability.'},
+  {rank:'#8',candle:'Hammer at HTF Demand Zone',atr:'Neutral→Rising',crsi:'Rising ↑',space:'Support confirmed; 1 ATR clear above',pct:74,move:'+1.2%',bias:'bullish',why:'Hammer at HTF demand with CRSI turning up. Classic highest-probability single-candle setup.'},
+];
+
+// ── RENDER FUNCTIONS ──
+function rc(r){return r>=70?GRN:r>=55?AMB:RED;}
+
+function renderATR(){
+  document.getElementById('atr_rows').innerHTML=ATR.map(a=>{
+    const dir=a.next==='up'?'up':a.next==='down'?'dn':'nt';
+    const col=a.next==='up'?GRN:a.next==='down'?RED:AMB;
+    const arrow=a.next==='up'?'↑':a.next==='down'?'↓':'—';
+    return `<div class="ind-row">
+      <div class="ind-svg-wrap">${a.svg}</div>
+      <div class="ind-body">
+        <div class="ind-name c-${dir}">${a.name}</div>
+        <div class="ind-sub">${a.sub}</div>
+        <div class="ind-sub" style="margin-top:3px;color:var(--text);font-size:10px;">${a.meaning}</div>
+        <div class="ind-str-bar" style="margin-top:6px;"><div class="ind-str-fill" style="width:${a.strength}%;background:${col};"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px;"><span>Strength</span><span style="font-family:var(--mono);font-weight:700;color:${col};">${a.strength}%</span></div>
+      </div>
+      <div class="ind-right">
+        <div class="big-arrow c-${dir}">${arrow}</div>
+        <div class="big-pct c-${dir}">${a.pct}%</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">probability</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderCRSI(){
+  document.getElementById('crsi_rows').innerHTML=CRSI.map(a=>{
+    const dir=a.next==='up'?'up':a.next==='down'?'dn':'nt';
+    const col=a.next==='up'?GRN:a.next==='down'?RED:AMB;
+    const arrow=a.next==='up'?'↑':a.next==='down'?'↓':'—';
+    return `<div class="ind-row">
+      <div class="ind-svg-wrap">${a.svg}</div>
+      <div class="ind-body">
+        <div class="ind-name c-${dir}">${a.name}</div>
+        <div class="ind-sub">${a.sub}</div>
+        <div class="ind-sub" style="margin-top:3px;color:var(--text);font-size:10px;">${a.meaning}</div>
+        <div class="ind-str-bar" style="margin-top:6px;"><div class="ind-str-fill" style="width:${a.strength}%;background:${col};"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:2px;"><span>Strength</span><span style="font-family:var(--mono);font-weight:700;color:${col};">${a.strength}%</span></div>
+      </div>
+      <div class="ind-right">
+        <div class="big-arrow c-${dir}">${arrow}</div>
+        <div class="big-pct c-${dir}">${a.pct}%</div>
+        <div style="font-size:8px;color:var(--muted);margin-top:2px;">probability</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderCombos(){
+  document.getElementById('combo_rows').innerHTML=COMBOS.map(co=>{
+    const col=co.bias==='bullish'?GRN:RED;
+    const dir=co.bias==='bullish'?'↑':'↓';
+    return `<div class="combo-row">
+      <div class="combo-rank">${co.rank}</div>
+      <div class="combo-body">
+        <div class="combo-name">${co.candle}</div>
+        <div class="combo-tags">
+          <span class="ctag ${co.bias==='bullish'?'ct-g':'ct-r'}">${dir} ${co.atr}</span>
+          <span class="ctag ${co.bias==='bullish'?'ct-g':'ct-r'}">${dir} ${co.crsi}</span>
+          <span class="ctag ct-b">🛤 ${co.space.substring(0,35)}…</span>
+        </div>
+        <div class="combo-bar"><div class="combo-bar-fill" style="width:${co.pct}%;background:${col};"></div></div>
+        <div class="combo-why" style="margin-top:5px;">${co.why}</div>
+      </div>
+      <div class="combo-pct-block">
+        <div class="combo-pct" style="color:${col};">${co.pct}%</div>
+        <div class="combo-move">${co.move} avg</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderSpace(){
+  document.getElementById('space_grid').innerHTML=SPACE.map(s=>`
+    <div class="space-item">
+      <div class="si-top">
+        <div class="si-name"><span>${s.icon}</span>${s.name}</div>
+        <span class="si-badge ${s.cls}">${s.badge}</span>
+      </div>
+      <div class="si-desc">${s.desc}</div>
+      <div class="si-impact" style="${s.impactCls}">${s.impact}</div>
+    </div>`).join('');
+}
+
+// ── PATTERN CARDS ──
+let curF='all', curQ='';
+const CATS=[
+  {k:'single',label:'Single Candle Patterns',icon:'🕯'},
+  {k:'double',label:'Two-Candle Patterns',icon:'🕯🕯'},
+  {k:'triple',label:'Three-Candle Patterns',icon:'🕯🕯🕯'},
+  {k:'multi',label:'Multi-Candle Patterns',icon:'📊'},
+];
+
+function getVis(){
+  return P.filter(p=>{
+    const mF=curF==='all'||p.bias===curF||p.c===curF||p.type===curF||(curF==='neutral'&&p.bias==='neutral')||(curF==='elite'&&p.elite);
+    const q=curQ.toLowerCase();
+    const mQ=!q||p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)||p.bias.includes(q)||p.type.includes(q)||p.c.includes(q);
+    return mF&&mQ;
+  });
+}
+
+function card(p,i){
+  const dir=p.next==='up'?'up':p.next==='down'?'dn':'nt';
+  const arrow=p.next==='up'?'↑':p.next==='down'?'↓':'—';
+  const dirLabel=p.next==='up'?'BULLISH NEXT':p.next==='down'?'BEARISH NEXT':'NEUTRAL / WAIT';
+  const col=p.next==='up'?GRN:p.next==='down'?RED:MUT;
+  const tlbl={single:'1C',double:'2C',triple:'3C',multi:'4C+'}[p.c];
+  const rcol=rc(p.reliability);
+  const rules=p.rules.map(r=>`<div class="exp-rule"><span>▸</span><span>${r}</span></div>`).join('');
+  const atrCls=p.atr==='Rising'?'at-best':p.atr==='Falling'?'at-bad':'at-good';
+  const crsiDir=p.bias==='bullish'?'Rising':p.bias==='bearish'?'Falling':'Any';
+  const crsiCls=p.bias!=='neutral'?'at-best':'at-good';
+
+  return `<div class="pcard${p.elite?' elite':''}" id="card_${i}" onclick="toggle(${i})">
+    <span class="ccnt">${tlbl}${p.elite?' ⚡':''}</span>
+    <div class="ctop">
+      <div class="csvg-box">${p.svg()}</div>
+      <div class="cmeta">
+        <div class="cname">${p.name}</div>
+        <div class="cbadges">
+          <span class="cbadge ${p.bias==='bullish'?'cb-bull':p.bias==='bearish'?'cb-bear':'cb-neut'}">${p.bias}</span>
+          <span class="cbadge ${p.type==='reversal'?'cb-rev':'cb-cont'}">${p.type}</span>
+          ${p.elite?'<span class="cbadge cb-elite">⚡ elite</span>':''}
+        </div>
+      </div>
+    </div>
+
+    <div class="nmove ${dir}">
+      <div class="nm-arw">
+        <div class="nm-sym">${arrow}</div>
+      </div>
+      <div class="nm-pct">
+        <div class="nm-pct-val">${p.pct}%</div>
+        <div class="nm-pct-lbl">ACCURACY</div>
+      </div>
+      <div class="nm-txt">
+        <div class="nm-label">${dirLabel}</div>
+        <div class="nm-sub">${p.avgMove} expected · ${p.atr} ATR</div>
+        <div class="nm-avg" style="color:${col};">${p.pct >= 70 ? '⚡ High Probability' : p.pct >= 60 ? '✓ Moderate' : '⚠ Low — needs confirmation'}</div>
+      </div>
+    </div>
+
+    <div class="rel-row">
+      <span class="rel-lbl">RELIABILITY</span>
+      <div class="rel-track"><div class="rel-fill" style="width:${p.reliability}%;background:${rcol};"></div></div>
+      <span class="rel-val" style="color:${rcol};">${p.reliability}%</span>
+    </div>
+
+    <div class="cexpand">
+      <div class="exp-desc">${p.desc}</div>
+      <div class="exp-section">HOW TO IDENTIFY</div>
+      <div class="exp-rules">${rules}</div>
+      <div class="exp-align">
+        <div class="exp-section" style="margin-bottom:6px;">BEST CONDITIONS</div>
+        <div class="arow"><span class="aicon">📈</span><span class="akey">ATR:</span><span class="aval">${p.atr}</span><span class="atag ${atrCls}">${p.atr==='Rising'?'BEST':p.atr==='Neutral'?'OK':'AVOID'}</span></div>
+        <div class="arow"><span class="aicon">📉</span><span class="akey">CRSI:</span><span class="aval">${crsiDir}</span><span class="atag ${crsiCls}">ALIGNED</span></div>
+        <div class="arow"><span class="aicon">🛤</span><span class="akey">Space:</span><span class="aval" style="font-size:10px;">${p.space}</span></div>
+      </div>
+      <div class="exp-stats">
+        <span class="etag et-${p.next==='up'?'g':p.next==='down'?'r':'a'}">Accuracy: ${p.pct}%</span>
+        <span class="etag et-a">Move: ${p.avgMove}</span>
+        <span class="etag et-b">ATR: ${p.atr}</span>
+        <span class="etag et-b">Type: ${p.type}</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggle(i){document.getElementById('card_'+i).classList.toggle('xpand');}
+
+function renderPats(){
+  const vis=getVis();
+  const sec=document.getElementById('pat_section');
+  if(!vis.length){sec.innerHTML='<div class="empty-msg">No patterns match. Try a different filter.</div>';return;}
+  const grouped=['all','bullish','bearish','neutral','reversal','continuation','elite'].includes(curF);
+  let html='';
+  if(grouped){
+    CATS.forEach(cat=>{
+      const cp=vis.filter(p=>p.c===cat.k);
+      if(!cp.length)return;
+      html+=`<div class="cat-hdr"><span class="cat-ico">${cat.ico}</span><span class="cat-ttl">${cat.label}</span><span class="cat-cnt">${cp.length} patterns</span></div>`;
+      html+=`<div class="pgrid">${cp.map(p=>card(p,P.indexOf(p))).join('')}</div>`;
+    });
+  } else {
+    html=`<div class="pgrid">${vis.map(p=>card(p,P.indexOf(p))).join('')}</div>`;
+  }
+  sec.innerHTML=html;
+  updatePills();
+}
+
+function updatePills(){
+  document.getElementById('pill_b').textContent=P.filter(p=>p.bias==='bullish').length+' Bullish';
+  document.getElementById('pill_r').textContent=P.filter(p=>p.bias==='bearish').length+' Bearish';
+  document.getElementById('pill_n').textContent=P.filter(p=>p.bias==='neutral').length+' Neutral';
+  document.getElementById('pill_e').textContent='⚡ '+P.filter(p=>p.elite).length+' Elite';
+}
+
+function setF(f,btn){
+  curF=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ind_section').style.display=(f==='all'||f==='elite')?'block':'none';
+  renderPats();
+}
+
+function go(){
+  curQ=document.getElementById('q').value;
+  renderPats();
+}
+
+renderATR();renderCRSI();renderCombos();renderSpace();renderPats();
+</script>
+</body>
+</html>
