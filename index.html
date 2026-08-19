@@ -26,6 +26,23 @@ nav{position:sticky;top:0;z-index:100;background:rgba(10,12,16,0.96);backdrop-fi
 .tab-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:500;padding:6px 14px;border-radius:6px;transition:all 0.15s;}
 .tab-btn:hover{color:var(--text);background:var(--surface);}
 .tab-btn.active{color:var(--accent);background:rgba(245,158,11,0.1);}
+.nav-dropdown{position:relative;}
+.nav-dropdown-btn::after{content:' ▾';font-size:10px;opacity:0.7;}
+.nav-dropdown-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:190px;background:var(--panel,#14171c);border:1px solid var(--border);border-radius:8px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,0.4);z-index:200;flex-direction:column;gap:2px;}
+.nav-dropdown.open .nav-dropdown-menu{display:flex;}
+.nav-dropdown-item{background:none;border:none;text-align:left;cursor:pointer;color:var(--muted);font-family:var(--sans);font-size:13px;font-weight:500;padding:8px 10px;border-radius:6px;transition:all 0.15s;white-space:nowrap;}
+.nav-dropdown-item:hover{color:var(--text);background:var(--surface);}
+.nav-dropdown-item.active{color:var(--accent);background:rgba(245,158,11,0.1);}
+.candle-filter-dropdown{position:relative;}
+.candle-filter-btn{background:var(--surface,#1a1d23);border:1px solid var(--border);color:var(--text);font-family:var(--sans);font-size:13px;font-weight:500;padding:9px 12px;border-radius:8px;cursor:pointer;min-width:200px;text-align:left;display:flex;align-items:center;justify-content:space-between;}
+.candle-filter-btn::after{content:'▾';font-size:10px;color:var(--muted);margin-left:8px;}
+.candle-filter-btn span{display:inline-flex;align-items:center;gap:8px;}
+.candle-filter-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;min-width:260px;max-height:360px;overflow-y:auto;background:var(--panel,#14171c);border:1px solid var(--border);border-radius:8px;padding:6px;box-shadow:0 10px 30px rgba(0,0,0,0.4);z-index:150;flex-direction:column;gap:2px;}
+.candle-filter-dropdown.open .candle-filter-menu{display:flex;}
+.candle-filter-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--text);}
+.candle-filter-item:hover{background:var(--surface);}
+.candle-filter-item.active{background:rgba(245,158,11,0.12);color:var(--accent);}
+.candle-filter-item svg{flex-shrink:0;}
 
 /* PAGES */
 .page{display:none;padding:20px 24px;max-width:1600px;margin:0 auto;}
@@ -143,6 +160,9 @@ tr:hover td.col-actions{background:var(--surface2);}
 .badge-Sniper{background:rgba(245,197,66,0.15);color:#f5c542;}
 .badge-GradeNoTrade{background:rgba(239,68,68,0.1);color:var(--red);}
 
+/* NEW BADGE FOR STOP-HUNT */
+.badge-stophunt{background:rgba(245,197,66,0.15);color:#f5c542;border:1px solid rgba(245,197,66,0.3);}
+
 /* DETAIL ROW */
 .detail-row td{padding:0!important;background:var(--surface2);}
 .detail-inner{padding:16px;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;}
@@ -178,6 +198,27 @@ tr:hover td.col-actions{background:var(--surface2);}
 .date-side-item .dsi-label{font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .date-side-item .dsi-count{font-size:10px;color:var(--muted);flex-shrink:0;background:var(--surface2);border-radius:10px;padding:1px 7px;}
 .date-side-item.active .dsi-count{background:rgba(245,158,11,0.18);color:var(--accent);}
+.dsi-tick{display:inline-block;width:14px;color:var(--accent);font-weight:700;flex-shrink:0;}
+
+/* PAPER TRADE CARDS */
+.paper-cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start;}
+.paper-cards-grid .empty{grid-column:1/-1;}
+.paper-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color 0.15s;}
+.paper-card:hover{border-color:var(--accent);}
+.paper-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px;}
+.paper-card-symbol{font-size:15px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.paper-card-date{font-size:11px;color:var(--muted);font-family:var(--mono);margin-top:3px;}
+.paper-card-date .pcd-name{color:var(--accent);font-weight:600;font-family:inherit;margin-left:6px;}
+.paper-card-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 12px;font-size:12px;margin-bottom:10px;}
+.paper-card-stats label{display:block;font-size:9px;color:var(--muted);text-transform:uppercase;font-weight:700;letter-spacing:0.04em;}
+.paper-card-stats p{margin-top:1px;font-family:var(--mono);}
+.paper-card-daymoves{display:flex;gap:5px;flex-wrap:wrap;font-size:10px;margin-bottom:10px;}
+.paper-day-chip{background:var(--surface2);border-radius:6px;padding:2px 6px;font-family:var(--mono);}
+.paper-card-actions{display:flex;gap:6px;justify-content:flex-end;border-top:1px solid var(--border2);padding-top:9px;margin-top:2px;}
+.paper-card-detail{border-top:1px solid var(--border2);margin-top:10px;padding-top:10px;}
+.paper-card-detail .detail-inner{padding:0;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+.dsi-checkbox{width:14px;height:14px;flex-shrink:0;accent-color:var(--accent);cursor:pointer;margin:0;}
+.sec-money-card:hover{border-color:var(--accent) !important;}
 .dsi-pending{color:var(--muted);font-weight:400;font-size:9px;}
 .dsi-main{display:flex;flex-direction:column;overflow:hidden;flex:1;min-width:0;}
 .dsi-name{font-size:10px;color:var(--accent);opacity:0.85;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:var(--sans);}
@@ -327,10 +368,26 @@ tr:hover td.col-actions{background:var(--surface2);}
 <nav>
   <div class="nav-brand">NIFTY<span>/journal</span></div>
   <div class="nav-tabs">
-    <button class="tab-btn active" data-page="entry" onclick="showPage('entry')">＋ New Entry</button>
-    <button class="tab-btn" data-page="journal" onclick="showPage('journal')">Journal</button>
-    <button class="tab-btn" data-page="analysis" onclick="showPage('analysis')">Analysis</button>
+    <div class="nav-dropdown" id="nav_manual_dropdown">
+      <button class="tab-btn nav-dropdown-btn" onclick="toggleNavDropdown('nav_manual_dropdown')">📝 Manual Trade</button>
+      <div class="nav-dropdown-menu">
+        <button class="nav-dropdown-item active" data-page="entry" onclick="showPage('entry')">＋ New Entry</button>
+        <button class="nav-dropdown-item" data-page="journal" onclick="showPage('journal')">Journal</button>
+        <button class="nav-dropdown-item" data-page="analysis" onclick="showPage('analysis')">Analysis</button>
+      </div>
+    </div>
+    <div class="nav-dropdown" id="nav_screener_dropdown">
+      <button class="tab-btn nav-dropdown-btn" onclick="toggleNavDropdown('nav_screener_dropdown')">🔍 Screener</button>
+      <div class="nav-dropdown-menu">
+        <button class="nav-dropdown-item" data-page="screener" onclick="showPage('screener')">🔍 Screener</button>
+        <button class="nav-dropdown-item" data-page="paper" onclick="showPage('paper')">💹 Paper Trade</button>
+        <button class="nav-dropdown-item" data-page="paper-analysis" onclick="showPage('paper-analysis')">📊 Paper Trade Analysis</button>
+      </div>
+    </div>
+    <button class="tab-btn" data-page="backtest" onclick="showPage('backtest')">🧪 Backtest</button>
     <a class="tab-btn" href="candle_guide.html" target="_blank" style="text-decoration:none;">🕯 Candle Guide</a>
+    <a class="tab-btn" id="coder_tab" href="http://localhost:5070" target="_blank" rel="noopener noreferrer" onclick="window.open('http://localhost:5070','_blank','noopener'); return false;" style="text-decoration:none;color:var(--accent);" title="Local AI coding assistant (Ollama) — opens in a new tab">🤖 Coder</a>
+
   </div>
 </nav>
 
@@ -388,12 +445,16 @@ tr:hover td.col-actions{background:var(--surface2);}
               </select>
             </div>
             <div class="form-group">
+              <label>Strike Price</label>
+              <input type="text" id="strike_price" placeholder="e.g. 24500" style="font-family:var(--mono);">
+            </div>
+            <div class="form-group">
               <label>Main Leg Entry Price</label>
               <input type="text" id="main_entry_price" placeholder="e.g. 145.50" style="font-family:var(--mono);">
             </div>
             <div class="form-group">
               <label>Main Leg Cost</label>
-              <input type="text" id="main_cost" placeholder="e.g. 10912.50" style="font-family:var(--mono);">
+              <input type="text" id="main_cost" placeholder="e.g. 10912.50" style="font-family:var(--mono);" oninput="checkHedgeCostRatio('main_cost','hedge_cost','hedge_cost_ratio_warning')">
             </div>
 
             <!-- OPTION PRICING — HEDGE LEG -->
@@ -408,12 +469,19 @@ tr:hover td.col-actions{background:var(--surface2);}
               </select>
             </div>
             <div class="form-group">
+              <label>Hedge Strike Price</label>
+              <input type="text" id="hedge_strike_price" placeholder="e.g. 24700" style="font-family:var(--mono);">
+            </div>
+            <div class="form-group">
               <label>Hedge Entry Price</label>
               <input type="text" id="hedge_entry_price" placeholder="e.g. 12.50" style="font-family:var(--mono);">
             </div>
             <div class="form-group">
               <label>Hedge Cost</label>
-              <input type="text" id="hedge_cost" placeholder="e.g. 937.50" style="font-family:var(--mono);">
+              <input type="text" id="hedge_cost" placeholder="e.g. 937.50" style="font-family:var(--mono);" oninput="checkHedgeCostRatio('main_cost','hedge_cost','hedge_cost_ratio_warning')">
+            </div>
+            <div class="form-group full" id="hedge_cost_ratio_warning" style="display:none;">
+              <div style="padding:8px 12px;border-radius:6px;background:rgba(217,119,6,0.12);border:1px solid var(--accent2,#d97706);font-size:11px;color:var(--accent2,#d97706);"></div>
             </div>
 
             <!-- CANDLE -->
@@ -470,10 +538,25 @@ tr:hover td.col-actions{background:var(--surface2);}
               <label>Room to Continue</label>
               <select id="move_value" onchange="recalcGrade()">
                 <option value="">— Select —</option>
-                <option value="Excellent">Excellent — 2+ ATR clear ahead</option>
-                <option value="Good">Good — 1–2 ATR clear ahead</option>
-                <option value="Limited">Limited — less than 1 ATR</option>
-                <option value="Blocked">Blocked — obstacle within 0.5 ATR</option>
+                <option value="1">1%</option>
+                <option value="1.5">1.5%</option>
+                <option value="2">2%</option>
+                <option value="2.5">2.5%</option>
+                <option value="3">3%</option>
+                <option value="3.5">3.5%</option>
+                <option value="4">4%</option>
+                <option value="4.5">4.5%</option>
+                <option value="5">5%</option>
+                <option value="5.5">5.5%</option>
+                <option value="6">6%</option>
+                <option value="6.5">6.5%</option>
+                <option value="7">7%</option>
+                <option value="7.5">7.5%</option>
+                <option value="8">8%</option>
+                <option value="8.5">8.5%</option>
+                <option value="9">9%</option>
+                <option value="9.5">9.5%</option>
+                <option value="10">10%</option>
               </select>
             </div>
             <div class="form-group">
@@ -751,7 +834,7 @@ tr:hover td.col-actions{background:var(--surface2);}
     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;margin-bottom:14px;">
       <div>
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">💰 Total P&amp;L</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px;">The actual points/₹ you logged per trade — this is your real bottom line</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:2px;">Your real bottom line — uses the Auto P&amp;L (₹) from the Outcome modal when available (main leg + hedge leg combined), otherwise falls back to manually logged P&amp;L points</div>
       </div>
       <div style="text-align:right;">
         <div class="stat-label">Net P&amp;L</div>
@@ -774,6 +857,14 @@ tr:hover td.col-actions{background:var(--surface2);}
       <div id="pnl_bar_lost" style="height:100%;background:var(--red);width:0%;transition:width 0.6s;border-radius:0 7px 7px 0;"></div>
     </div>
     <div id="pnl_missing_note" style="font-size:10px;color:var(--muted);margin-top:8px;"></div>
+  </div>
+
+  <!-- ROW 0b: MONEY BY SECURITY — main leg + hedge leg capital & P&L, per stock/security -->
+  <div class="card" style="margin-bottom:18px;padding:18px 20px;border:1px solid var(--border2);">
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">💵 Money By Security</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:2px;margin-bottom:14px;">Capital deployed (Main Leg + Hedge Leg cost) and P&amp;L, grouped by security / strategy name</div>
+    <div id="security_money_cards" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <div id="security_money_total"></div>
   </div>
 
   <!-- ROW 1: HEADLINE NUMBERS -->
@@ -893,175 +984,374 @@ tr:hover td.col-actions{background:var(--surface2);}
 
 </div>
 
-<!-- OUTCOME MODAL -->
-<div class="modal-overlay" id="modal_overlay">
-  <div class="modal" style="width:92vw;max-width:1600px;max-height:88vh;overflow-y:auto;">
-    <div class="modal-header">
-      <h2 id="modal_title">Log Outcome</h2>
-      <button class="close-btn" onclick="closeModal()">✕</button>
+<!-- ══════════════════════ PAGE: SCREENER ══════════════════════ -->
+<div class="page" id="page-screener">
+  <div class="page-header">
+    <h1>🔍 CRSI + ATR Screener</h1>
+    <p>Scans NIFTY 50, Bank Nifty, Sensex stocks &amp; indices for CRSI overbought/oversold extremes with ATR volatility expansion, filtered by candle pattern.</p>
+  </div>
+
+  <div class="stats-row" id="screener_summary" style="margin-bottom:14px;"></div>
+  <div id="screener_errors" style="display:none;font-size:12px;color:var(--red);background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);border-radius:8px;padding:10px 14px;margin-bottom:14px;"></div>
+
+  <div class="filter-row">
+    <select id="scr_universe">
+      <option value="all">Universe — All (Nifty50+BankNifty+Sensex+Indices)</option>
+      <option value="nifty50">Nifty 50 Stocks</option>
+      <option value="banknifty">Bank Nifty Stocks</option>
+      <option value="sensex">Sensex Stocks</option>
+      <option value="indices">Indices Only (NIFTY 50 / BANK NIFTY / SENSEX)</option>
+      <option value="index_nifty50">Index: NIFTY 50 Only</option>
+      <option value="index_bank">Index: BANK NIFTY Only</option>
+      <option value="index_sensex">Index: SENSEX Only</option>
+    </select>
+    <select id="scr_crsi">
+      <option value="any">CRSI — Any Zone</option>
+      <option value="Oversold">Oversold (&lt;30)</option>
+      <option value="Watch Bullish">Watch Bullish (30–40)</option>
+      <option value="Normal">Normal (40–60)</option>
+      <option value="Watch Bearish">Watch Bearish (60–70)</option>
+      <option value="Overbought">Overbought (&gt;70)</option>
+    </select>
+    <select id="scr_atr">
+      <option value="any">ATR — Any State</option>
+      <option value="Expanding">Expanding</option>
+      <option value="Contracting">Contracting</option>
+      <option value="Flat">Flat</option>
+    </select>
+    <select id="scr_candle_dir">
+      <option value="any">Candle — Any Direction</option>
+      <option value="bullish">Bullish only</option>
+      <option value="bearish">Bearish only</option>
+      <option value="neutral">Neutral / Doji only</option>
+    </select>
+    <div class="candle-filter-dropdown" id="scr_candle_pattern_dd">
+      <button type="button" class="candle-filter-btn" onclick="toggleCandleFilterDropdown()">
+        <span id="scr_candle_pattern_label">Candle Pattern — Any</span>
+      </button>
+      <div class="candle-filter-menu" id="scr_candle_pattern_menu"></div>
+      <input type="hidden" id="scr_candle_pattern" value="any">
     </div>
-    <input type="hidden" id="modal_trade_id">
-    <div class="form-grid" style="gap:11px;">
-      <!-- Next Day Move — multi-day tracking -->
-      <div class="form-group full">
-        <label>Next Day Move Tracking <span style="color:var(--muted);font-size:10px;font-weight:400;">— log the move % plus how ATR &amp; CRSI behaved that day</span></label>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px;">
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:10px;color:var(--muted);font-weight:600;">Day 1 Move %</span>
-            <input type="text" id="modal_move_d1" placeholder="e.g. +1.2 or -0.8" style="font-family:var(--mono);font-size:12px;">
-            <select id="modal_atr_d1" style="font-size:11px;padding:5px 6px;">
-              <option value="">ATR — Select</option>
-              <option>Strong Expansion</option><option>Early Expansion</option>
-              <option>Flat</option><option>Contracting</option><option>Already Expanded</option>
-            </select>
-            <select id="modal_crsi_d1" style="font-size:11px;padding:5px 6px;">
-              <option value="">CRSI — Select</option>
-              <option value="<30">&lt;30 — Oversold</option>
-              <option value="30–40">30–40 — Weak oversold</option>
-              <option value="40–50">40–50 — Below mid</option>
-              <option value="50–60">50–60 — Above mid</option>
-              <option value="60–70">60–70 — Weak overbought</option>
-              <option value=">70">&gt;70 — Overbought</option>
-            </select>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:10px;color:var(--muted);font-weight:600;">Day 2 Move %</span>
-            <input type="text" id="modal_move_d2" placeholder="optional" style="font-family:var(--mono);font-size:12px;">
-            <select id="modal_atr_d2" style="font-size:11px;padding:5px 6px;">
-              <option value="">ATR — Select</option>
-              <option>Strong Expansion</option><option>Early Expansion</option>
-              <option>Flat</option><option>Contracting</option><option>Already Expanded</option>
-            </select>
-            <select id="modal_crsi_d2" style="font-size:11px;padding:5px 6px;">
-              <option value="">CRSI — Select</option>
-              <option value="<30">&lt;30 — Oversold</option>
-              <option value="30–40">30–40 — Weak oversold</option>
-              <option value="40–50">40–50 — Below mid</option>
-              <option value="50–60">50–60 — Above mid</option>
-              <option value="60–70">60–70 — Weak overbought</option>
-              <option value=">70">&gt;70 — Overbought</option>
-            </select>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:10px;color:var(--muted);font-weight:600;">Day 3 Move %</span>
-            <input type="text" id="modal_move_d3" placeholder="optional" style="font-family:var(--mono);font-size:12px;">
-            <select id="modal_atr_d3" style="font-size:11px;padding:5px 6px;">
-              <option value="">ATR — Select</option>
-              <option>Strong Expansion</option><option>Early Expansion</option>
-              <option>Flat</option><option>Contracting</option><option>Already Expanded</option>
-            </select>
-            <select id="modal_crsi_d3" style="font-size:11px;padding:5px 6px;">
-              <option value="">CRSI — Select</option>
-              <option value="<30">&lt;30 — Oversold</option>
-              <option value="30–40">30–40 — Weak oversold</option>
-              <option value="40–50">40–50 — Below mid</option>
-              <option value="50–60">50–60 — Above mid</option>
-              <option value="60–70">60–70 — Weak overbought</option>
-              <option value=">70">&gt;70 — Overbought</option>
-            </select>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:10px;color:var(--muted);font-weight:600;">Day 4 Move %</span>
-            <input type="text" id="modal_move_d4" placeholder="optional" style="font-family:var(--mono);font-size:12px;">
-            <select id="modal_atr_d4" style="font-size:11px;padding:5px 6px;">
-              <option value="">ATR — Select</option>
-              <option>Strong Expansion</option><option>Early Expansion</option>
-              <option>Flat</option><option>Contracting</option><option>Already Expanded</option>
-            </select>
-            <select id="modal_crsi_d4" style="font-size:11px;padding:5px 6px;">
-              <option value="">CRSI — Select</option>
-              <option value="<30">&lt;30 — Oversold</option>
-              <option value="30–40">30–40 — Weak oversold</option>
-              <option value="40–50">40–50 — Below mid</option>
-              <option value="50–60">50–60 — Above mid</option>
-              <option value="60–70">60–70 — Weak overbought</option>
-              <option value=">70">&gt;70 — Overbought</option>
-            </select>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:4px;">
-            <span style="font-size:10px;color:var(--muted);font-weight:600;">Day 5 Move %</span>
-            <input type="text" id="modal_move_d5" placeholder="optional" style="font-family:var(--mono);font-size:12px;">
-            <select id="modal_atr_d5" style="font-size:11px;padding:5px 6px;">
-              <option value="">ATR — Select</option>
-              <option>Strong Expansion</option><option>Early Expansion</option>
-              <option>Flat</option><option>Contracting</option><option>Already Expanded</option>
-            </select>
-            <select id="modal_crsi_d5" style="font-size:11px;padding:5px 6px;">
-              <option value="">CRSI — Select</option>
-              <option value="<30">&lt;30 — Oversold</option>
-              <option value="30–40">30–40 — Weak oversold</option>
-              <option value="40–50">40–50 — Below mid</option>
-              <option value="50–60">50–60 — Above mid</option>
-              <option value="60–70">60–70 — Weak overbought</option>
-              <option value=">70">&gt;70 — Overbought</option>
-            </select>
-          </div>
+    
+    <!-- NEW DROPDOWN FOR STOP-HUNT & GOOD ZONE -->
+    <select id="scr_pattern" onchange="renderScreenerTable()">
+      <option value="any">Pattern — Any</option>
+      <option value="stophunt">🎯 Stop-Hunt Reversal Only</option>
+      <option value="goodzone">💎 Good Zone Rejection Only</option>
+    </select>
+    
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text);text-transform:none;letter-spacing:0;cursor:pointer;">
+      <input type="checkbox" id="scr_clean_only" style="width:auto;" checked>
+      Clean/decisive candles only <span style="color:var(--muted);">(body &gt; 60% of range — hides dojis &amp; shadows)</span>
+    </label>
+    <button class="btn btn-sm" id="scr_a_setup_btn" onclick="toggleASetup()"
+      style="background:rgba(245,197,66,0.12);color:#f5c542;border:1px solid rgba(245,197,66,0.4);">
+      🎯 A+ Setups Only
+    </button>
+    <div style="flex:1;"></div>
+    <span id="scr_status" style="font-size:11px;color:var(--muted);"></span>
+    <button class="btn btn-ghost btn-sm" onclick="runScreener(false)">↻ Refresh</button>
+    <button class="btn btn-primary btn-sm" onclick="runScreener(true)">⚡ Force Rescan</button>
+  </div>
+
+  <div class="card" style="margin-bottom:14px;">
+    <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">🔎 Search Any Stock or Index</div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+      <input type="text" id="scr_manual_symbol" list="scr_symbol_list" placeholder="e.g. IRCTC, ZOMATO, NIFTY 50..." style="flex:1;min-width:220px;" onkeydown="if(event.key==='Enter'){event.preventDefault();manualSymbolSearch();}">
+      <datalist id="scr_symbol_list"></datalist>
+      <button class="btn btn-primary btn-sm" onclick="manualSymbolSearch()">Search</button>
+      <span id="scr_manual_status" style="font-size:11px;color:var(--muted);"></span>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:8px;">Search any NSE symbol — get live analysis and open an options trade in one click.</p>
+    <div id="scr_manual_result_wrapper" style="display:none;margin-top:16px;">
+      <div id="scr_manual_stock_card"></div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Setup</th><th>Symbol</th><th>Price</th><th>Day %</th><th>CRSI</th><th>Zone</th>
+            <th>ATR</th><th>ATR %</th><th>ATR State</th><th>Candle Pattern</th>
+            <th>Body %</th><th>Vol vs 20D Avg</th><th>Setup Score</th><th>Your Win Rate</th>
+            <!-- NEW COLUMNS ADDED -->
+            <th>Stop-Hunt / Good Zone</th><th>Direction</th><th>SL Price</th><th>Target Price</th>
+            <th class="col-actions">Trade</th>
+          </tr>
+        </thead>
+        <tbody id="screener_body">
+          <tr><td colspan="19"><div class="empty"><div class="icon">🔍</div>Click "Force Rescan" to run your first scan</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:10px;">
+    Data via Yahoo Finance (yfinance). CRSI = avg(RSI(3), RSI(Streak,2), PercentRank(ROC,100)).
+    ATR state compares current ATR(14) to ATR 5 sessions ago (±5% threshold). Candle patterns cover TradingView's full Screener taxonomy (Abandoned Baby, Tri-Star, Rising/Falling Three Methods, Tasuki Gaps, On-Neck, Long Shadows, and all the standard reversal/continuation patterns) — each shown with its icon plus a <strong>Strength</strong> (Strong/Medium/Weak) and <strong>Type</strong> (Reversal/Continuation) tag. Algorithmically detected from OHLC — verify on your chart before trading.
+    <strong>🎯 A+ Setup</strong> = your guide's high-quality setup: CRSI extreme (Oversold/Overbought) + ATR Expanding + a strong same-direction candle (body &gt;60%).
+    <strong>Setup Score</strong> is a 0–100 technical confluence score (CRSI extremity + candle clarity + ATR expansion + volume) — it is NOT a statistical probability of profit.
+    <strong>Your Win Rate</strong> is pulled from YOUR OWN closed trades in this journal that share the same candle pattern &amp; ATR state (shown only once you have 3+ matching trades) — your real personal track record, not a market-wide guarantee.
+    Results cache for 10 minutes per universe; use Force Rescan for a fresh pull.
+  </p>
+</div>
+
+<div class="page" id="page-paper">
+  <div class="page-header">
+    <h1>💹 Paper Trades</h1>
+    <p>Simulated Buy/Sell trades logged from the Screener, tracked against real market prices — no real orders are placed. Click a date to filter · Click any card to expand full details · A trade stays OPEN and marked-to-market until you click Exit.</p>
+  </div>
+
+  <div class="stats-row" id="paper_summary" style="margin-bottom:14px;"></div>
+
+  <div class="filter-row" style="justify-content:flex-end;">
+    <span id="paper_status" style="font-size:11px;color:var(--muted);"></span>
+    <div style="display:flex;gap:2px;">
+      <button class="btn btn-sm btn-primary" id="paper_view_card_btn" onclick="setPaperViewMode('card')">🔲 Cards</button>
+      <button class="btn btn-sm btn-ghost" id="paper_view_list_btn" onclick="setPaperViewMode('list')">☰ List</button>
+    </div>
+    <button class="btn btn-ghost btn-sm" onclick="loadPaperTrades()" title="Re-fetch current prices and D1-D5 moves">↻ Refresh Prices</button>
+  </div>
+
+  <div class="journal-layout">
+    <!-- DATE SIDEBAR -->
+    <div class="date-side-panel">
+      <div class="date-side-title">Filter by Date</div>
+      <div id="paper_date_list">
+        <div class="date-side-item" style="justify-content:center;color:var(--muted);">Loading…</div>
+      </div>
+    </div>
+
+    <!-- PAPER TRADE CARDS -->
+    <div class="journal-content">
+      <div class="paper-cards-grid" id="paper_body">
+        <div class="empty"><div class="icon">💹</div>No paper trades yet — click Buy or Sell on the Screener to log one</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:10px;">
+    This is simulated tracking only — clicking Buy or Sell on the Screener does not place a real order anywhere. <strong>Entry price</strong> is the screener's latest close at the moment you clicked. <strong>Open</strong> positions are marked to market against the latest available daily close every time you open this page or click Refresh Prices, so P&amp;L updates automatically — refresh tomorrow and it'll reflect tomorrow's close. A trade never auto-closes; it stays OPEN until you click <strong>Exit</strong>. <strong>Day 1–Day 5</strong> are auto-fetched, same as your manual journal's D1–D5 fields, but pulled straight from real market data instead of typed in by hand — Day 1 is the next trading day's close after entry, and so on; blank means that day hasn't happened yet. <strong>Buy</strong> simulates going long; <strong>Sell</strong> simulates going short. Clicking <strong>Exit</strong> opens a dialog pre-filled with the latest fetched price — confirm it as-is or type your own to override — plus an optional exit note. Click any card to expand the full detail panel (candle metrics, CRSI/ATR values, volume, day-by-day moves) and jot down your own notes, same as the Journal's Learnings field. Naming a date in the sidebar (✏️) is shared with the Journal — name a day once, see it in both places. This reflects daily-close prices, not real intraday execution, so treat it as a directional signal test rather than a precise fill simulation.
+  </p>
+</div>
+
+<div class="page" id="page-paper-analysis">
+  <div class="page-header">
+    <h1>📊 Paper Trade Analysis</h1>
+    <p>Does the screener's Setup Score actually predict outcomes for you? Breakdown of your simulated Buy/Sell trades by pattern, universe, and score.</p>
+  </div>
+
+  <div id="paper_analysis_empty" class="card" style="display:none;text-align:center;padding:40px;color:var(--muted);">
+    <div style="font-size:32px;margin-bottom:10px;">📊</div>
+    Log a few Buy/Sell trades on the Screener first — this page needs at least one paper trade to analyze.
+  </div>
+
+  <div id="paper_analysis_content">
+    <!-- HERO: combined P&L -->
+    <div class="card" style="margin-bottom:18px;padding:18px 20px;border:1px solid var(--border2);">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;">
+        <div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent);">💰 Combined P&amp;L (Realized + Unrealized)</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px;">What your account would look like right now if every screener Buy/Sell had been a real order</div>
         </div>
-        <div id="move_preview" style="margin-top:8px;padding:8px 10px;background:var(--surface2);border-radius:6px;font-size:11px;color:var(--muted);display:none;"></div>
+        <div style="text-align:right;">
+          <div class="stat-label">Net P&amp;L</div>
+          <div class="stat-value" id="pa_net_pnl" style="font-size:30px;">—</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Result</label>
-        <select id="modal_result">
-          <option value="">— Select —</option>
-          <option value="Profit">Profit</option>
-          <option value="Loss">Loss</option>
-          <option value="Breakeven">Breakeven</option>
-        </select>
+    </div>
+
+    <div class="stats-row" style="grid-template-columns:repeat(auto-fill,minmax(140px,1fr));margin-bottom:18px;">
+      <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value" id="pa_total">—</div></div>
+      <div class="stat-card"><div class="stat-label">Open</div><div class="stat-value amber" id="pa_open">—</div></div>
+      <div class="stat-card"><div class="stat-label">Closed</div><div class="stat-value" id="pa_closed">—</div></div>
+      <div class="stat-card"><div class="stat-label">Closed Win Rate</div><div class="stat-value green" id="pa_winrate">—</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Win</div><div class="stat-value green" id="pa_avgwin">—</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Loss</div><div class="stat-value red" id="pa_avgloss">—</div></div>
+      <div class="stat-card"><div class="stat-label">Best Trade</div><div class="stat-value green" id="pa_best">—</div></div>
+      <div class="stat-card"><div class="stat-label">Worst Trade</div><div class="stat-value red" id="pa_worst">—</div></div>
+    </div>
+
+    <!-- EQUITY CURVE -->
+    <div class="card" style="margin-bottom:18px;padding:18px 20px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">📈 Cumulative Realized P&amp;L (Closed Trades, in order closed)</div>
+      <div id="pa_equity_curve" style="width:100%;overflow-x:auto;"></div>
+      <div id="pa_equity_empty" style="font-size:11px;color:var(--muted);display:none;">No closed trades yet — this fills in once you close some positions.</div>
+    </div>
+
+    <!-- BREAKDOWNS -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">By Setup Score Bucket</div>
+        <div id="pa_by_score"></div>
       </div>
-      <div class="form-group">
-        <label>P&L (points)</label>
-        <input type="text" id="modal_pnl" placeholder="+8.5 or -3.0" style="font-family:var(--mono);">
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">By Candle Pattern</div>
+        <div id="pa_by_pattern"></div>
       </div>
-      <div class="form-group full">
-        <label>Exit Reason</label>
-        <input type="text" id="modal_exit" placeholder="Target hit / SL triggered / Time exit / Manual exit">
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">By Universe</div>
+        <div id="pa_by_universe"></div>
       </div>
-      <div class="section-divider"><span>Exit Pricing — Main Leg</span></div>
-      <div class="form-group">
-        <label>Main Leg Exit Price</label>
-        <input type="text" id="modal_main_exit_price" placeholder="e.g. 178.00" style="font-family:var(--mono);">
+      <div class="card" style="padding:16px 18px;">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">By Side (Buy vs Sell)</div>
+        <div id="pa_by_side"></div>
       </div>
-      <div class="form-group">
-        <label>Main Leg Cost After Exit</label>
-        <input type="text" id="modal_main_exit_cost" placeholder="e.g. 13350.00" style="font-family:var(--mono);">
+    </div>
+  </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:14px;">
+    All breakdowns below use <strong>closed</strong> trades only (win rate needs a known outcome). Buckets with fewer than 2 trades are still shown but treat them as anecdotal, not statistically meaningful — the whole point of this page is to build up enough of your own sample size to trust (or distrust) the Setup Score.
+  </p>
+</div>
+
+<div class="page" id="page-backtest">
+  <div class="page-header">
+    <h1>🧪 Backtest</h1>
+    <p>Pick a security, set the same filters as the Screener, and replay them over years of real history. Strategy: enter on a matching signal, <strong>hold while the trade is going in your favor</strong>, <strong>exit immediately the first time it isn't</strong>.</p>
+  </div>
+
+  <div class="filter-row">
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Security</label>
+      <input type="text" id="bt_symbol" list="bt_symbol_list" placeholder="e.g. RELIANCE or NIFTY 50" style="min-width:200px;" value="RELIANCE">
+      <datalist id="bt_symbol_list"></datalist>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Years of History</label>
+      <select id="bt_years">
+        <option value="1">1 year</option>
+        <option value="2">2 years</option>
+        <option value="3" selected>3 years</option>
+        <option value="5">5 years</option>
+        <option value="10">10 years</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">CRSI Zone</label>
+      <select id="bt_crsi">
+        <option value="any">Any Zone</option>
+        <option value="Oversold">Oversold (&lt;30)</option>
+        <option value="Watch Bullish">Watch Bullish (30–40)</option>
+        <option value="Normal">Normal (40–60)</option>
+        <option value="Watch Bearish">Watch Bearish (60–70)</option>
+        <option value="Overbought">Overbought (&gt;70)</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">ATR State</label>
+      <select id="bt_atr">
+        <option value="any">Any State</option>
+        <option value="Expanding">Expanding</option>
+        <option value="Contracting">Contracting</option>
+        <option value="Flat">Flat</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Candle Direction</label>
+      <select id="bt_candle_dir">
+        <option value="any">Any Direction</option>
+        <option value="bullish">Bullish only</option>
+        <option value="bearish">Bearish only</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Trade Side</label>
+      <select id="bt_trade_side" title="Auto follows the triggering candle's own color. Buy/Sell Only forces every matching signal to trade that direction regardless of the candle's color.">
+        <option value="auto">Auto (follow candle)</option>
+        <option value="buy">Buy Only</option>
+        <option value="sell">Sell Only</option>
+      </select>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <label style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);">Candle Pattern</label>
+      <div class="candle-filter-dropdown" id="bt_candle_pattern_dd">
+        <button type="button" class="candle-filter-btn" onclick="toggleCandleFilterDropdown('bt_candle_pattern_dd')">
+          <span id="bt_candle_pattern_label">Any Pattern</span>
+        </button>
+        <div class="candle-filter-menu" id="bt_candle_pattern_menu"></div>
+        <input type="hidden" id="bt_candle_pattern" value="any">
       </div>
-      <div class="section-divider"><span>Exit Pricing — Hedge Leg</span></div>
-      <div class="form-group">
-        <label>Hedge Exit Price</label>
-        <input type="text" id="modal_hedge_exit_price" placeholder="e.g. 8.00" style="font-family:var(--mono);">
+    </div>
+    <label style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text);text-transform:none;letter-spacing:0;cursor:pointer;align-self:flex-end;">
+      <input type="checkbox" id="bt_clean_only" style="width:auto;">
+      Clean candles only (body &gt; 60%)
+    </label>
+    <div style="flex:1;"></div>
+    <button class="btn btn-primary btn-sm" style="align-self:flex-end;" onclick="runBacktest()">▶ Run Backtest</button>
+  </div>
+
+  <div id="bt_status" style="font-size:12px;color:var(--muted);margin-bottom:14px;"></div>
+  <div id="bt_diagnostics" class="card" style="display:none;padding:14px 18px;margin-bottom:18px;border:1px solid var(--border2);"></div>
+
+  <div id="bt_results" style="display:none;">
+    <div class="stats-row" style="margin-bottom:18px;">
+      <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value" id="bt_total">—</div></div>
+      <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value" id="bt_winrate">—</div></div>
+      <div class="stat-card"><div class="stat-label">Total P&amp;L %</div><div class="stat-value" id="bt_totalpnl">—</div></div>
+      <div class="stat-card"><div class="stat-label">Avg P&amp;L / Trade</div><div class="stat-value" id="bt_avgpnl">—</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Days Held</div><div class="stat-value" id="bt_avgdays">—</div></div>
+      <div class="stat-card"><div class="stat-label">Best / Worst Trade</div><div class="stat-value" id="bt_bestworst" style="font-size:15px;">—</div></div>
+    </div>
+
+    <div class="card" style="margin-bottom:18px;padding:18px 20px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">📈 Cumulative P&amp;L % Across Trades (in order taken)</div>
+      <div id="bt_equity_curve" style="width:100%;overflow-x:auto;"></div>
+    </div>
+
+    <div class="card" style="padding:0;">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th><th>Side</th><th>Entry Date</th><th>Entry Price</th><th>Exit Date</th><th>Exit Price</th>
+              <th>Days Held</th><th>P&amp;L %</th><th>Setup</th><th>Exit Reason</th>
+            </tr>
+          </thead>
+          <tbody id="bt_trades_body"></tbody>
+        </table>
       </div>
-      <div class="form-group">
-        <label>Hedge Cost After Exit</label>
-        <input type="text" id="modal_hedge_exit_cost" placeholder="e.g. 600.00" style="font-family:var(--mono);">
-      </div>
-      <div class="form-group">
-        <label>REASON FOR FAILURE <span style="color:var(--muted);font-size:10px;">(if trade failed)</span></label>
-        <select id="modal_reason_failure">
-          <option value="">— N/A / Not failed —</option>
-          <option>ATR Failed</option>
-          <option>Volume Missing</option>
-          <option>Resistance Hit</option>
-          <option>Support Hit</option>
-          <option>News Event</option>
-          <option>False Breakout</option>
-          <option>Sideways</option>
-          <option>Trend Exhaustion</option>
-          <option>Unknown</option>
-        </select>
-      </div>
-      <div class="form-group full">
-        <label>What I Learned</label>
-        <textarea id="modal_comments" placeholder="Why did it work or fail? Which rule was violated? What to do next time?" style="min-height:80px;"></textarea>
-      </div>
+    </div>
+  </div>
+
+  <p style="font-size:11px;color:var(--muted);margin-top:14px;">
+    <strong>How this works:</strong> for every day in the chosen history, the same CRSI/ATR/candle filters used in the Screener are checked using only data available up to that day (no lookahead). The first day everything matches, a trade opens at that day's close — in the candle's own direction if <strong>Trade Side</strong> is "Auto", or forced to Buy/Sell regardless of candle color if you pick one explicitly (useful for testing a directional bias independent of what triggers it). It's held as long as each following day closes in its favor (or flat); the moment a day closes against it, the trade exits at that close. Only one trade is open at a time. This uses daily closes, not intraday fills, and assumes you could always enter/exit exactly at the close — a simplification, not a guarantee of real execution. Past performance of a rule like this says nothing certain about future results.
+  </p>
+</div>
+</div>
+
+<!-- BULK DATE EDIT MODAL -->
+<!-- PAPER TRADE EXIT MODAL -->
+<div class="modal-overlay" id="paper_exit_modal_overlay">
+  <div class="modal" style="width:460px;">
+    <div class="modal-header">
+      <h2>🚪 Exit Paper Trade</h2>
+      <button class="close-btn" onclick="closePaperExitModal()">✕</button>
+    </div>
+    <input type="hidden" id="pexit_trade_id">
+    <div id="pexit_summary" style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6;"></div>
+    <div class="form-group full">
+      <label>Exit Price</label>
+      <input type="text" id="pexit_price" style="font-family:var(--mono);" placeholder="e.g. 152.30">
+      <p style="font-size:11px;color:var(--muted);margin-top:4px;">Pre-filled with the latest fetched price. Leave as-is to exit there, or type your own to override.</p>
+    </div>
+    <div class="form-group full">
+      <label>Exit Date</label>
+      <input type="date" id="pexit_date">
+    </div>
+    <div class="form-group full">
+      <label>Exit Note / Reason (optional)</label>
+      <textarea id="pexit_note" placeholder="Why you're exiting, what you learned..."></textarea>
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveOutcome()">💾 Save Outcome</button>
+      <button class="btn btn-ghost" onclick="closePaperExitModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmPaperExit()">✓ Confirm Exit</button>
     </div>
   </div>
 </div>
 
-<!-- BULK DATE EDIT MODAL -->
 <div class="modal-overlay" id="bulk_date_modal_overlay">
   <div class="modal" style="width:380px;">
     <div class="modal-header">
@@ -1085,7 +1375,7 @@ tr:hover td.col-actions{background:var(--surface2);}
 <div class="modal-overlay" id="edit_modal_overlay">
   <div class="modal" style="width:92vw;max-width:1600px;max-height:88vh;overflow-y:auto;">
     <div class="modal-header" style="position:sticky;top:0;background:var(--surface);z-index:10;padding-bottom:12px;border-bottom:1px solid var(--border);margin-bottom:14px;">
-      <h2>✏️ Edit Trade Entry</h2>
+      <h2>✏️ Edit Trade &amp; Outcome</h2>
       <button class="close-btn" onclick="closeEditModal()">✕</button>
     </div>
     <input type="hidden" id="edit_trade_id">
@@ -1129,12 +1419,16 @@ tr:hover td.col-actions{background:var(--surface2);}
             </select>
           </div>
           <div class="form-group">
+            <label>Strike Price</label>
+            <input type="text" id="edit_strike_price" placeholder="e.g. 24500" style="font-family:var(--mono);">
+          </div>
+          <div class="form-group">
             <label>Main Leg Entry Price</label>
-            <input type="text" id="edit_main_entry_price" placeholder="e.g. 145.50" style="font-family:var(--mono);">
+            <input type="text" id="edit_main_entry_price" placeholder="e.g. 145.50" style="font-family:var(--mono);" oninput="editRecalcAllDayMoves()">
           </div>
           <div class="form-group">
             <label>Main Leg Cost</label>
-            <input type="text" id="edit_main_cost" placeholder="e.g. 10912.50" style="font-family:var(--mono);">
+            <input type="text" id="edit_main_cost" placeholder="e.g. 10912.50" style="font-family:var(--mono);" oninput="checkHedgeCostRatio('edit_main_cost','edit_hedge_cost','edit_hedge_cost_ratio_warning');editUpdateAutoPnl()">
           </div>
 
           <div class="section-divider"><span>Hedge Leg</span></div>
@@ -1148,12 +1442,19 @@ tr:hover td.col-actions{background:var(--surface2);}
             </select>
           </div>
           <div class="form-group">
+            <label>Hedge Strike Price</label>
+            <input type="text" id="edit_hedge_strike_price" placeholder="e.g. 24700" style="font-family:var(--mono);">
+          </div>
+          <div class="form-group">
             <label>Hedge Entry Price</label>
-            <input type="text" id="edit_hedge_entry_price" placeholder="e.g. 12.50" style="font-family:var(--mono);">
+            <input type="text" id="edit_hedge_entry_price" placeholder="e.g. 12.50" style="font-family:var(--mono);" oninput="editRecalcAllDayMoves()">
           </div>
           <div class="form-group">
             <label>Hedge Cost</label>
-            <input type="text" id="edit_hedge_cost" placeholder="e.g. 937.50" style="font-family:var(--mono);">
+            <input type="text" id="edit_hedge_cost" placeholder="e.g. 937.50" style="font-family:var(--mono);" oninput="checkHedgeCostRatio('edit_main_cost','edit_hedge_cost','edit_hedge_cost_ratio_warning');editUpdateAutoPnl()">
+          </div>
+          <div class="form-group full" id="edit_hedge_cost_ratio_warning" style="display:none;">
+            <div style="padding:8px 12px;border-radius:6px;background:rgba(217,119,6,0.12);border:1px solid var(--accent2,#d97706);font-size:11px;color:var(--accent2,#d97706);"></div>
           </div>
 
           <div class="section-divider"><span>Candle</span></div>
@@ -1197,6 +1498,8 @@ tr:hover td.col-actions{background:var(--surface2);}
               <option>Ladder Bottom</option>
               <option>Pennant (Bull)</option><option>Pennant (Bear)</option>
               <option>Breakaway Pattern (Bull)</option><option>Breakaway Pattern (Bear)</option>
+              <option>CRT Bearish (3-Candle)</option><option>CRT Bearish (4-Candle)</option>
+              <option>CRT Bullish (4-Candle)</option><option>Weekly CRT (Tue High → Fri Distribution)</option>
             </select>
           </div>
           <div class="form-group">
@@ -1228,8 +1531,25 @@ tr:hover td.col-actions{background:var(--surface2);}
             <label>Room to Continue</label>
             <select id="edit_move_value">
               <option value="">— Select —</option>
-              <option>Excellent</option><option>Good</option>
-              <option>Limited</option><option>Blocked</option>
+              <option value="1">1%</option>
+              <option value="1.5">1.5%</option>
+              <option value="2">2%</option>
+              <option value="2.5">2.5%</option>
+              <option value="3">3%</option>
+              <option value="3.5">3.5%</option>
+              <option value="4">4%</option>
+              <option value="4.5">4.5%</option>
+              <option value="5">5%</option>
+              <option value="5.5">5.5%</option>
+              <option value="6">6%</option>
+              <option value="6.5">6.5%</option>
+              <option value="7">7%</option>
+              <option value="7.5">7.5%</option>
+              <option value="8">8%</option>
+              <option value="8.5">8.5%</option>
+              <option value="9">9%</option>
+              <option value="9.5">9.5%</option>
+              <option value="10">10%</option>
             </select>
           </div>
           <div class="form-group">
@@ -1342,7 +1662,8 @@ tr:hover td.col-actions{background:var(--surface2);}
         <div class="form-grid" style="gap:11px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));">
 
           <div class="form-group full" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;">
-            <div class="form-group"><label>Day 1 Move %</label><input type="text" id="edit_move_d1" placeholder="+1.2 or -0.8" style="font-family:var(--mono);"></div>
+            <div class="form-group"><label>Day 1 Main Price</label><input type="text" id="edit_price_d1" placeholder="e.g. 152.30" style="font-family:var(--mono);" oninput="editRecalcDayMove(1)"><div id="edit_move_d1_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_move_d1"></div>
+            <div class="form-group"><label>Day 1 Hedge Price</label><input type="text" id="edit_hedge_price_d1" placeholder="e.g. 9.50" style="font-family:var(--mono);border-color:var(--accent2, #d97706);" oninput="editRecalcDayMove(1)"><div id="edit_hedge_move_d1_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_hedge_move_d1"></div>
             <div class="form-group"><label>Day 1 ATR</label>
               <select id="edit_atr_d1">
                 <option value="">ATR — Select</option>
@@ -1363,7 +1684,8 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
           </div>
           <div class="form-group full" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;">
-            <div class="form-group"><label>Day 2 Move %</label><input type="text" id="edit_move_d2" placeholder="optional" style="font-family:var(--mono);"></div>
+            <div class="form-group"><label>Day 2 Main Price</label><input type="text" id="edit_price_d2" placeholder="e.g. 152.30" style="font-family:var(--mono);" oninput="editRecalcDayMove(2)"><div id="edit_move_d2_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_move_d2"></div>
+            <div class="form-group"><label>Day 2 Hedge Price</label><input type="text" id="edit_hedge_price_d2" placeholder="e.g. 9.50" style="font-family:var(--mono);border-color:var(--accent2, #d97706);" oninput="editRecalcDayMove(2)"><div id="edit_hedge_move_d2_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_hedge_move_d2"></div>
             <div class="form-group"><label>Day 2 ATR</label>
               <select id="edit_atr_d2">
                 <option value="">ATR — Select</option>
@@ -1384,7 +1706,8 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
           </div>
           <div class="form-group full" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;">
-            <div class="form-group"><label>Day 3 Move %</label><input type="text" id="edit_move_d3" placeholder="optional" style="font-family:var(--mono);"></div>
+            <div class="form-group"><label>Day 3 Main Price</label><input type="text" id="edit_price_d3" placeholder="e.g. 152.30" style="font-family:var(--mono);" oninput="editRecalcDayMove(3)"><div id="edit_move_d3_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_move_d3"></div>
+            <div class="form-group"><label>Day 3 Hedge Price</label><input type="text" id="edit_hedge_price_d3" placeholder="e.g. 9.50" style="font-family:var(--mono);border-color:var(--accent2, #d97706);" oninput="editRecalcDayMove(3)"><div id="edit_hedge_move_d3_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_hedge_move_d3"></div>
             <div class="form-group"><label>Day 3 ATR</label>
               <select id="edit_atr_d3">
                 <option value="">ATR — Select</option>
@@ -1405,7 +1728,8 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
           </div>
           <div class="form-group full" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;">
-            <div class="form-group"><label>Day 4 Move %</label><input type="text" id="edit_move_d4" placeholder="optional" style="font-family:var(--mono);"></div>
+            <div class="form-group"><label>Day 4 Main Price</label><input type="text" id="edit_price_d4" placeholder="e.g. 152.30" style="font-family:var(--mono);" oninput="editRecalcDayMove(4)"><div id="edit_move_d4_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_move_d4"></div>
+            <div class="form-group"><label>Day 4 Hedge Price</label><input type="text" id="edit_hedge_price_d4" placeholder="e.g. 9.50" style="font-family:var(--mono);border-color:var(--accent2, #d97706);" oninput="editRecalcDayMove(4)"><div id="edit_hedge_move_d4_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_hedge_move_d4"></div>
             <div class="form-group"><label>Day 4 ATR</label>
               <select id="edit_atr_d4">
                 <option value="">ATR — Select</option>
@@ -1426,7 +1750,8 @@ tr:hover td.col-actions{background:var(--surface2);}
             </div>
           </div>
           <div class="form-group full" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;align-items:end;">
-            <div class="form-group"><label>Day 5 Move %</label><input type="text" id="edit_move_d5" placeholder="optional" style="font-family:var(--mono);"></div>
+            <div class="form-group"><label>Day 5 Main Price</label><input type="text" id="edit_price_d5" placeholder="e.g. 152.30" style="font-family:var(--mono);" oninput="editRecalcDayMove(5)"><div id="edit_move_d5_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_move_d5"></div>
+            <div class="form-group"><label>Day 5 Hedge Price</label><input type="text" id="edit_hedge_price_d5" placeholder="e.g. 9.50" style="font-family:var(--mono);border-color:var(--accent2, #d97706);" oninput="editRecalcDayMove(5)"><div id="edit_hedge_move_d5_display" style="font-size:11px;margin-top:4px;color:var(--muted);">—</div><input type="hidden" id="edit_hedge_move_d5"></div>
             <div class="form-group"><label>Day 5 ATR</label>
               <select id="edit_atr_d5">
                 <option value="">ATR — Select</option>
@@ -1446,6 +1771,7 @@ tr:hover td.col-actions{background:var(--surface2);}
               </select>
             </div>
           </div>
+          <div class="form-group full" style="margin-top:-4px;font-size:10px;color:var(--muted);">🟠 Orange-bordered boxes = hedge leg's own price that day. Enter the raw option price you observed each day — the % move is calculated automatically from the entry price above, so you never have to do the math yourself.</div>
 
           <div class="section-divider"><span>Result</span></div>
           <div class="form-group">
@@ -1458,6 +1784,11 @@ tr:hover td.col-actions{background:var(--surface2);}
           <div class="form-group">
             <label>P&L (points)</label>
             <input type="text" id="edit_pnl" placeholder="+8.5" style="font-family:var(--mono);">
+          </div>
+          <div class="form-group">
+            <label>Auto P&amp;L (₹) <span style="color:var(--muted);font-size:10px;font-weight:400;">— entry cost × day % move</span></label>
+            <div id="edit_auto_pnl_display" style="padding:9px 12px;border-radius:6px;background:var(--surface2);font-family:var(--mono);font-size:13px;font-weight:700;color:var(--muted);">—</div>
+            <input type="hidden" id="edit_pnl_amount">
           </div>
           <div class="form-group">
             <label>Exit Reason</label>
@@ -1559,7 +1890,7 @@ let editScreenshotDataUrl = '';
 // SVG CANDLE / INDICATOR GENERATORS
 // ═══════════════════════════════════════════════════
 
-const GRN = '#10b981', RED = '#ef4444', AMB = '#f59e0b', MUT = '#64748b';
+const GRN = '#10b981', RED = '#ef4444', AMB = '#f59e0b', MUT = '#64748b', BLUE = '#38bdf8';
 
 function C(cx, bodyY, bodyH, wickT, wickB, color, bw=7) {
   bodyH = Math.max(1.5, bodyH);
@@ -1572,6 +1903,13 @@ function DOJI(cx,midY,wickT,wickB){
 <line x1="${cx-4}" y1="${midY}" x2="${cx+4}" y2="${midY}" stroke="${MUT}" stroke-width="2.2"/>`;
 }
 function sw(w,h,inner){ return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`; }
+// Highlighted "range box" used by CRT (Candle Range Theory) patterns — draws
+// the shaded zone plus dashed CRT High / CRT Low lines across the icon.
+function CRTBOX(w, x1, x2, yHigh, yLow) {
+  return `<rect x="${x1}" y="${yHigh}" width="${x2-x1}" height="${yLow-yHigh}" fill="${BLUE}" opacity="0.18" rx="2"/>
+<line x1="0" y1="${yHigh}" x2="${w}" y2="${yHigh}" stroke="${BLUE}" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>
+<line x1="0" y1="${yLow}" x2="${w}" y2="${yLow}" stroke="${BLUE}" stroke-width="1" stroke-dasharray="3,2" opacity="0.7"/>`;
+}
 
 // Candle type definitions: {value, label, sub, moveTxt, moveClass, svgFn}
 const CANDLE_OPTIONS = [
@@ -1714,6 +2052,15 @@ const CANDLE_OPTIONS = [
     svg: sw(88,44, C(10,26,16,24,44,RED) + C(28,18,12,16,32,RED) + C(46,12,10,10,24,RED) + C(64,8,10,6,20,RED) + C(78,4,24,2,30,GRN)) },
   { value:'Breakaway Pattern (Bear)', label:'Breakaway Pattern (Bear)', sub:'5 candles: gap + continuation + reversal bear', moveTxt:'↓ -1.3%', moveClass:'down',
     svg: sw(88,44, C(10,8,16,6,26,GRN) + C(28,4,14,2,20,GRN) + C(46,2,12,2,16,GRN) + C(64,2,12,2,16,GRN) + C(78,4,28,2,34,RED)) },
+  // ── CRT (CANDLE RANGE THEORY) ──
+  { value:'CRT Bearish (3-Candle)', label:'CRT Bearish (3-Candle)', sub:'C1-C2 build the range/CRT High, C3 breaks CRT Low', moveTxt:'↓ -1.0%', moveClass:'down',
+    svg: sw(66,44, CRTBOX(66,2,40,4,26) + C(12,16,10,12,28,GRN,5) + C(30,4,20,4,26,GRN,7) + C(52,20,18,18,40,RED,7)) },
+  { value:'CRT Bearish (4-Candle)', label:'CRT Bearish (4-Candle)', sub:'C1-C2 build the range/CRT High, C3-C4 distribute below CRT Low', moveTxt:'↓ -1.4%', moveClass:'down',
+    svg: sw(88,44, CRTBOX(88,2,40,4,26) + C(12,16,10,12,28,GRN,5) + C(30,4,20,4,26,GRN,7) + C(52,14,14,12,32,RED,6) + C(74,22,20,20,42,RED,7)) },
+  { value:'CRT Bullish (4-Candle)', label:'CRT Bullish (4-Candle)', sub:'C1-C2 build the range/CRT Low, C3-C4 distribute above CRT High', moveTxt:'↑ +1.4%', moveClass:'up',
+    svg: sw(88,44, CRTBOX(88,2,40,18,40) + C(12,24,10,20,36,RED,5) + C(30,20,20,18,42,RED,7) + C(52,18,14,14,32,GRN,6) + C(74,2,20,2,22,GRN,7)) },
+  { value:'Weekly CRT (Tue High → Fri Distribution)', label:'Weekly CRT', sub:'Tue manipulates the high, Thu/Fri distribute — Mon low = target', moveTxt:'↓ -1.8%', moveClass:'down',
+    svg: sw(88,44, CRTBOX(88,2,40,4,26) + C(12,16,10,12,28,GRN,5) + C(30,4,20,4,26,GRN,7) + C(52,14,14,12,32,RED,6) + C(74,22,20,20,42,RED,7)) },
 ];
 
 // ATR options
@@ -1820,6 +2167,10 @@ const CANDLE_EXTENDED = {
   'Pennant (Bear)':{pct:63,avgMove:'-1.2%',reliability:63,bias:'down',atr:'Rising',crsi:'Falling',space:'Free path below pennant low',desc:'Strong bearish flagpole then symmetrical triangle then downside breakdown.',rules:['Strong bear flagpole','Symmetrical triangle','Breakdown below lower trendline']},
   'Breakaway Pattern (Bull)':{pct:62,avgMove:'+1.3%',reliability:62,bias:'up',atr:'Rising',crsi:'Rising',space:'1.5 ATR clear above',desc:'After downtrend: strong bear, gap+continuation bears, then strong bull reversal candle. Bulls break away.',rules:['Days 1–4: Bearish with gaps','Day 5: Strong bull reversal']},
   'Breakaway Pattern (Bear)':{pct:62,avgMove:'-1.3%',reliability:62,bias:'down',atr:'Rising',crsi:'Falling',space:'1.5 ATR clear below',desc:'After uptrend: strong bull, gap+continuation bulls, then strong bear reversal. Bears break away.',rules:['Days 1–4: Bullish with gaps','Day 5: Strong bear reversal']},
+  'CRT Bearish (3-Candle)':{pct:68,avgMove:'-1.0%',reliability:68,bias:'down',atr:'Rising',crsi:'Falling',space:'No support below CRT Low',desc:'Candle 1–2 form the range and manipulate price up to set the CRT High. Candle 3 reverses and closes through the CRT Low — the range low becomes the downside target.',rules:['C1: small candle inside the eventual range','C2: pushes up, its high = CRT High','C3: closes below CRT Low','Target = prior range low / old low']},
+  'CRT Bearish (4-Candle)':{pct:72,avgMove:'-1.4%',reliability:72,bias:'down',atr:'Rising',crsi:'Falling',space:'No support below CRT Low',desc:'Candle 1–2 build the range and manipulate price up to the CRT High (liquidity grab). Candle 3 starts distribution, Candle 4 confirms the breakdown through the CRT Low.',rules:['C1–C2: range + manipulation up to CRT High','C3: distribution begins','C4: confirms close below CRT Low','Best with: Old High/Low, Orderblock, FVG, or Breaker nearby']},
+  'CRT Bullish (4-Candle)':{pct:72,avgMove:'+1.4%',reliability:72,bias:'up',atr:'Rising',crsi:'Rising',space:'No resistance above CRT High',desc:'Mirror of the bearish CRT: Candle 1–2 build the range and manipulate price down to the CRT Low (liquidity grab below). Candle 3 starts distribution up, Candle 4 confirms the breakout through the CRT High.',rules:['C1–C2: range + manipulation down to CRT Low','C3: distribution begins upward','C4: confirms close above CRT High','Best with: Old High/Low, Orderblock, FVG, or Breaker nearby']},
+  'Weekly CRT (Tue High → Fri Distribution)':{pct:70,avgMove:'-1.8%',reliability:70,bias:'down',atr:'Rising',crsi:'Falling',space:"Target = prior week's/Monday's low",desc:"Daily CRT applied across the week: Wednesday's manipulation confirms the setup, Tuesday's high becomes the weekly CRT High, Thursday & Friday distribute price down, and Monday's low is the target.",rules:['Wed: Manipulation = confirmation','Tue high = weekly CRT High','Thu & Fri: Distribution down','Mon low = target']},
 };
 
 const ATR_EXTENDED = {
@@ -2032,6 +2383,7 @@ const CANDLE_OPTIONS_GROUPED = CANDLE_OPTIONS.map(o => {
   else if (['Bullish Engulfing','Bearish Engulfing','Piercing Line','Dark Cloud Cover','Bullish Harami','Bearish Harami','Tweezer Bottom','Tweezer Top','Harami Cross (Bull)','Harami Cross (Bear)','Bullish Kicker','Bearish Kicker','On-Neck Pattern','In-Neck Pattern','Thrusting Pattern','Separating Lines (Bull)','Separating Lines (Bear)','Kicking Pattern (Bull)','Kicking Pattern (Bear)'].includes(v)) group='Two Candle';
   else if (['Morning Star','Evening Star','Morning Doji Star','Evening Doji Star','Three White Soldiers','Three Black Crows','Three Inside Up','Three Inside Down','Abandoned Baby (Bull)','Abandoned Baby (Bear)','Two Crows','Upside Tasuki Gap','Downside Tasuki Gap','Tri-Star (Bull)','Tri-Star (Bear)'].includes(v)) group='Three Candle';
   else if (['Stick Sandwich (Bull)','Bullish Flag','Bearish Flag','Rising Three Methods','Falling Three Methods','Mat Hold Pattern','Ladder Bottom','Pennant (Bull)','Pennant (Bear)','Breakaway Pattern (Bull)','Breakaway Pattern (Bear)'].includes(v)) group='Multi Candle';
+  else if (['CRT Bearish (3-Candle)','CRT Bearish (4-Candle)','CRT Bullish (4-Candle)','Weekly CRT (Tue High → Fri Distribution)'].includes(v)) group='CRT Setups';
   else group='Other';
   return {...o, group};
 });
@@ -2044,16 +2396,36 @@ function initRCS() {
 initRCS();
 
 // ── NAV ──
-const PAGE_TITLES = { entry: 'New Entry', journal: 'Journal', analysis: 'Analysis' };
+const PAGE_TITLES = { entry: 'New Entry', journal: 'Journal', analysis: 'Analysis', screener: 'Screener', paper: 'Paper Trades', 'paper-analysis': 'Paper Trade Analysis', backtest: 'Backtest' };
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-btn, .nav-dropdown-item').forEach(b => b.classList.remove('active'));
   document.getElementById('page-' + name).classList.add('active');
-  document.querySelector(`[data-page="${name}"]`).classList.add('active');
+  const navItem = document.querySelector(`[data-page="${name}"]`);
+  if (navItem) navItem.classList.add('active');
+  closeNavDropdowns();
   document.title = 'NIFTY Trade Journal · ' + (PAGE_TITLES[name] || name);
   if (name === 'journal') loadJournal();
   if (name === 'analysis') loadAnalysis();
+  if (name === 'screener' && !screenerLastResults.length) runScreener(false);
+  if (name === 'screener') loadScreenerSymbolList();
+  if (name === 'paper') loadPaperTrades();
+  if (name === 'paper-analysis') loadPaperAnalysis();
+  if (name === 'backtest') initBacktestPage();
 }
+
+function toggleNavDropdown(id) {
+  const dd = document.getElementById(id);
+  const isOpen = dd.classList.contains('open');
+  document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) dd.classList.add('open');
+}
+function closeNavDropdowns() {
+  document.querySelectorAll('.nav-dropdown.open').forEach(d => d.classList.remove('open'));
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.nav-dropdown')) closeNavDropdowns();
+});
 
 document.getElementById('trade_date').value = new Date().toISOString().slice(0, 10);
 document.title = 'NIFTY Trade Journal · New Entry';
@@ -2289,9 +2661,11 @@ async function saveEntry() {
     strategy_name: document.getElementById('strategy_name').value,
     trade_decision: dec,
     option_type: document.getElementById('option_type').value,
+    strike_price: document.getElementById('strike_price').value,
     main_entry_price: document.getElementById('main_entry_price').value,
     main_cost: document.getElementById('main_cost').value,
     hedge_type: document.getElementById('hedge_type').value,
+    hedge_strike_price: document.getElementById('hedge_strike_price').value,
     hedge_entry_price: document.getElementById('hedge_entry_price').value,
     hedge_cost: document.getElementById('hedge_cost').value,
     candle_type: document.getElementById('candle_type').value,
@@ -2346,6 +2720,7 @@ function clearForm() {
     }
   });
   document.getElementById('grade_computed').value = '';
+  document.getElementById('hedge_cost_ratio_warning').style.display = 'none';
   clearScreenshot();
   recalcGrade();
 }
@@ -2374,6 +2749,8 @@ async function editDayLabel(date) {
     renderJournalDateList();
     if (typeof renderAnalysisDateList === 'function') renderAnalysisDateList();
     if (typeof updateAnalysisDateHeading === 'function') updateAnalysisDateHeading();
+    if (typeof renderPaperDateList === 'function' && document.getElementById('paper_date_list')) renderPaperDateList();
+    if (typeof renderPaperCards === 'function' && document.getElementById('paper_body')) renderPaperResults();
     toast('Day name saved');
   } catch { toast('Could not save day name', 'error'); }
 }
@@ -2421,7 +2798,7 @@ async function saveBulkDate() {
     closeBulkDateModal();
     toast(`Moved ${tradesToMove.length} trade(s) to ${newDate} ✓`, 'success');
     if (journalSelectedDate === oldDate) journalSelectedDate = newDate;
-    if (typeof analysisSelectedDate !== 'undefined' && analysisSelectedDate === oldDate) analysisSelectedDate = newDate;
+    if (typeof analysisSelectedDates !== 'undefined' && analysisSelectedDates.has(oldDate)) { analysisSelectedDates.delete(oldDate); analysisSelectedDates.add(newDate); }
     await loadDayLabels();
     if (typeof loadJournal === 'function') loadJournal();
     if (typeof loadAnalysis === 'function' && document.getElementById('page-analysis') && document.getElementById('page-analysis').classList.contains('active')) loadAnalysis();
@@ -2457,7 +2834,7 @@ function renderJournalDateList() {
   const listEl = document.getElementById('journal_date_list');
   const allActive = journalSelectedDate === 'all' ? ' active' : '';
   let html = `<div class="date-side-item${allActive}" data-date="all" onclick="selectJournalDate('all')">
-      <span class="dsi-label">All Dates</span><span class="dsi-count">${allTrades.length}</span>
+      <span class="dsi-tick">${journalSelectedDate === 'all' ? '✓' : ''}</span><span class="dsi-label">All Dates</span><span class="dsi-count">${allTrades.length}</span>
     </div><div class="date-side-divider"></div>`;
 
   if (!dates.length) {
@@ -2467,6 +2844,7 @@ function renderJournalDateList() {
       const active = d === journalSelectedDate ? ' active' : '';
       const name = dayLabels[d];
       return `<div class="date-side-item${active}" data-date="${d}" onclick="selectJournalDate('${d}')">
+        <span class="dsi-tick">${d === journalSelectedDate ? '✓' : ''}</span>
         <div class="dsi-main">
           <span class="dsi-label">${d}</span>
           ${name ? `<span class="dsi-name">${name}</span>` : ''}
@@ -2546,7 +2924,18 @@ function renderJournal() {
         const v=t[f];
         if(!v) return `<td style="color:var(--muted);font-size:11px;">—${subLine}</td>`;
         const n=parseFloat(v.replace('%','')); const cls=n>0?'move-positive':n<0?'move-negative':'move-neutral';
-        return `<td><span class="${cls}">${v.includes('%')?v:v+'%'}</span>${subLine}</td>`;
+        // ₹ P&L for this specific day: leg cost × that day's own % move (main + hedge)
+        const mainCost = parseFloat(t.main_cost) || 0;
+        const hedgeCost = parseFloat(t.hedge_cost) || 0;
+        const hedgePctStr = t['hedge_move_d'+dayNum];
+        const hedgePct = hedgePctStr ? parseFloat(hedgePctStr.replace('%','')) || 0 : 0;
+        const dayMainPnl = mainCost * (n/100);
+        const dayHedgePnl = hedgeCost * (hedgePct/100);
+        const dayTotalPnl = dayMainPnl + dayHedgePnl;
+        const pnlLine = (mainCost || hedgeCost)
+          ? `<br><span style="font-family:var(--mono);font-size:10px;font-weight:700;color:${dayTotalPnl>0?'var(--green)':dayTotalPnl<0?'var(--red)':'var(--muted)'};">${dayTotalPnl>=0?'+':''}₹${dayTotalPnl.toFixed(2)}</span>`
+          : '';
+        return `<td><span class="${cls}">${v.includes('%')?v:v+'%'}</span>${pnlLine}${subLine}</td>`;
       }).join('')}
       <td style="font-size:11px;font-family:var(--mono);">
         ${t.main_exit_price?`<span>${t.main_exit_price}</span>`:'<span style="color:var(--muted);">—</span>'}
@@ -2558,8 +2947,9 @@ function renderJournal() {
       </td>
       <td><span class="badge ${rBadge}">${result}</span></td>
       <td class="col-actions" onclick="event.stopPropagation();" style="white-space:nowrap;">
-        ${!t.result?`<button class="btn btn-green btn-sm" onclick="openModal(${t.id})">+ Outcome</button> `:''}
-        <button class="btn btn-ghost btn-sm" onclick="openEditModal(${t.id})" style="margin-right:4px;">✏️</button>
+        ${!t.result
+          ? `<button class="btn btn-green btn-sm" onclick="openEditModal(${t.id})" style="margin-right:4px;">+ Outcome</button>`
+          : `<button class="btn btn-ghost btn-sm" onclick="openEditModal(${t.id})" style="margin-right:4px;">✏️ Edit</button>`}
         <button class="btn btn-ghost btn-sm" onclick="exportTradeSingle(${t.id})" style="margin-right:4px;" title="Export this trade only">⬇</button>
         <button class="btn btn-danger btn-sm" onclick="deleteTrade(${t.id})">✕</button>
       </td>
@@ -2570,12 +2960,14 @@ function renderJournal() {
           <div class="detail-field"><label>Date</label><p>${t.trade_date}</p></div>
           ${t.strategy_name?`<div class="detail-field"><label>Strategy Name</label><p style="color:var(--accent);font-weight:600;">${t.strategy_name}</p></div>`:''}
           <div class="detail-field"><label>Decision</label><p>${t.trade_decision||'—'}</p></div>
-          ${(t.option_type||t.main_entry_price||t.main_cost)?`
+          ${(t.option_type||t.strike_price||t.main_entry_price||t.main_cost)?`
           <div class="detail-field"><label>Main Option Type</label><p>${t.option_type||'—'}</p></div>
+          <div class="detail-field"><label>Strike Price</label><p>${t.strike_price||'—'}</p></div>
           <div class="detail-field"><label>Main Leg Entry Price</label><p>${t.main_entry_price||'—'}</p></div>
           <div class="detail-field"><label>Main Leg Cost</label><p>${t.main_cost||'—'}</p></div>`:''}
-          ${(t.hedge_type||t.hedge_entry_price||t.hedge_cost)?`
+          ${(t.hedge_type||t.hedge_strike_price||t.hedge_entry_price||t.hedge_cost)?`
           <div class="detail-field"><label>Hedge Type</label><p>${t.hedge_type||'—'}</p></div>
+          <div class="detail-field"><label>Hedge Strike Price</label><p>${t.hedge_strike_price||'—'}</p></div>
           <div class="detail-field"><label>Hedge Entry Price</label><p>${t.hedge_entry_price||'—'}</p></div>
           <div class="detail-field"><label>Hedge Cost</label><p>${t.hedge_cost||'—'}</p></div>`:''}
           ${(t.main_exit_price||t.main_exit_cost)?`
@@ -2599,22 +2991,29 @@ function renderJournal() {
           <div class="detail-field"><label>HTF FVG</label><p>${t.htf_fvg||'—'}</p></div>
           <div class="detail-field"><label>Order Block</label><p>${t.order_block||'—'}</p></div>
           ${(()=>{
-            function fmtMove(label, val, atr, crsi) {
+            function fmtMove(label, val, atr, crsi, hedgePct) {
               if (!val) return '';
               const clean = val.toString().replace('%','').trim();
               const n = parseFloat(clean);
               const col = n > 0 ? 'var(--green)' : n < 0 ? 'var(--red)' : 'var(--muted)';
               const sign = (n > 0 && !clean.startsWith('+')) ? '+' : '';
               const extra = [atr, crsi].filter(Boolean).join(' · ');
-              return `<div class="detail-field"><label>${label}</label><p style="font-family:var(--mono);font-weight:700;color:${col};">${sign}${clean}%</p>${extra?`<p style="font-size:10px;color:var(--muted);font-weight:400;">${extra}</p>`:''}</div>`;
+              const hedgeLine = hedgePct ? `<p style="font-size:10px;color:var(--muted);font-weight:400;">Hedge: ${hedgePct}%</p>` : '';
+              const mainCost = parseFloat(t.main_cost) || 0;
+              const hedgeCost = parseFloat(t.hedge_cost) || 0;
+              const hedgePctNum = hedgePct ? parseFloat(hedgePct.toString().replace('%','')) || 0 : 0;
+              const dayPnl = mainCost * (n/100) + hedgeCost * (hedgePctNum/100);
+              const pnlLine = (mainCost || hedgeCost) ? `<p style="font-family:var(--mono);font-size:11px;font-weight:700;color:${dayPnl>0?'var(--green)':dayPnl<0?'var(--red)':'var(--muted)'};">${dayPnl>=0?'+':''}₹${dayPnl.toFixed(2)}</p>` : '';
+              return `<div class="detail-field"><label>${label}</label><p style="font-family:var(--mono);font-weight:700;color:${col};">${sign}${clean}%</p>${pnlLine}${extra?`<p style="font-size:10px;color:var(--muted);font-weight:400;">${extra}</p>`:''}${hedgeLine}</div>`;
             }
-            return fmtMove('Day 1 Move', t.next_day_move, t.atr_d1, t.crsi_d1)
-                 + fmtMove('Day 2 Move', t.move_d2, t.atr_d2, t.crsi_d2)
-                 + fmtMove('Day 3 Move', t.move_d3, t.atr_d3, t.crsi_d3)
-                 + fmtMove('Day 4 Move', t.move_d4, t.atr_d4, t.crsi_d4)
-                 + fmtMove('Day 5 Move', t.move_d5, t.atr_d5, t.crsi_d5);
+            return fmtMove('Day 1 Move', t.next_day_move, t.atr_d1, t.crsi_d1, t.hedge_move_d1)
+                 + fmtMove('Day 2 Move', t.move_d2, t.atr_d2, t.crsi_d2, t.hedge_move_d2)
+                 + fmtMove('Day 3 Move', t.move_d3, t.atr_d3, t.crsi_d3, t.hedge_move_d3)
+                 + fmtMove('Day 4 Move', t.move_d4, t.atr_d4, t.crsi_d4, t.hedge_move_d4)
+                 + fmtMove('Day 5 Move', t.move_d5, t.atr_d5, t.crsi_d5, t.hedge_move_d5);
           })()}
           ${t.pnl?`<div class="detail-field"><label>P&amp;L</label><p style="font-family:var(--mono);font-weight:700;">${t.pnl}</p></div>`:''}
+          ${t.pnl_amount?`<div class="detail-field"><label>Auto P&amp;L (₹)</label><p style="font-family:var(--mono);font-weight:700;color:${parseFloat(t.pnl_amount)>=0?'var(--green)':'var(--red)'};">${parseFloat(t.pnl_amount)>=0?'+':''}${t.pnl_amount}</p></div>`:''}
           ${t.nearest_obstacle?`<div class="detail-field"><label>Nearest Obstacle</label><p>${t.nearest_obstacle}</p></div>`:''}
           ${t.reason_failure?`<div class="detail-field"><label style="color:var(--red);">Reason for Failure</label><p style="color:var(--red);">${t.reason_failure}</p></div>`:''}
           ${t.exit_reason?`<div class="detail-field"><label>Exit Reason</label><p>${t.exit_reason}</p></div>`:''}
@@ -2650,110 +3049,6 @@ async function deleteTrade(id) {
   if (!confirm('Delete this entry?')) return;
   await fetch(API + '/trades/' + id, {method:'DELETE'});
   toast('Deleted', 'success'); loadJournal();
-}
-
-// ── OUTCOME MODAL ──
-function openModal(id) {
-  const t = allTrades.find(x=>x.id===id);
-  ['modal_move_d1','modal_move_d2','modal_move_d3','modal_move_d4','modal_move_d5','modal_pnl','modal_exit','modal_comments','modal_main_exit_price','modal_main_exit_cost','modal_hedge_exit_price','modal_hedge_exit_cost'].forEach(el => document.getElementById(el).value = '');
-  ['modal_atr_d1','modal_atr_d2','modal_atr_d3','modal_atr_d4','modal_atr_d5','modal_crsi_d1','modal_crsi_d2','modal_crsi_d3','modal_crsi_d4','modal_crsi_d5'].forEach(el => document.getElementById(el).value = '');
-  const rfEl = document.getElementById('modal_reason_failure'); if(rfEl) rfEl.value = '';
-  document.getElementById('modal_result').value = '';
-  document.getElementById('modal_trade_id').value = id;
-  document.getElementById('modal_title').textContent = 'Log Outcome' + (t ? ` — ${t.trade_date}` : '');
-  // pre-fill if already has data
-  if (t) {
-    if (t.next_day_move) document.getElementById('modal_move_d1').value = t.next_day_move;
-    if (t.move_d2) document.getElementById('modal_move_d2').value = t.move_d2;
-    if (t.move_d3) document.getElementById('modal_move_d3').value = t.move_d3;
-    if (t.move_d4) document.getElementById('modal_move_d4').value = t.move_d4;
-    if (t.move_d5) document.getElementById('modal_move_d5').value = t.move_d5;
-    if (t.atr_d1) document.getElementById('modal_atr_d1').value = t.atr_d1;
-    if (t.atr_d2) document.getElementById('modal_atr_d2').value = t.atr_d2;
-    if (t.atr_d3) document.getElementById('modal_atr_d3').value = t.atr_d3;
-    if (t.atr_d4) document.getElementById('modal_atr_d4').value = t.atr_d4;
-    if (t.atr_d5) document.getElementById('modal_atr_d5').value = t.atr_d5;
-    if (t.crsi_d1) document.getElementById('modal_crsi_d1').value = t.crsi_d1;
-    if (t.crsi_d2) document.getElementById('modal_crsi_d2').value = t.crsi_d2;
-    if (t.crsi_d3) document.getElementById('modal_crsi_d3').value = t.crsi_d3;
-    if (t.crsi_d4) document.getElementById('modal_crsi_d4').value = t.crsi_d4;
-    if (t.crsi_d5) document.getElementById('modal_crsi_d5').value = t.crsi_d5;
-    if (t.result) document.getElementById('modal_result').value = t.result;
-    if (t.pnl) document.getElementById('modal_pnl').value = t.pnl;
-    if (t.reason_failure) { const rfEl2=document.getElementById('modal_reason_failure'); if(rfEl2) rfEl2.value=t.reason_failure; }
-    if (t.exit_reason) document.getElementById('modal_exit').value = t.exit_reason;
-    if (t.comments) document.getElementById('modal_comments').value = t.comments;
-    if (t.main_exit_price) document.getElementById('modal_main_exit_price').value = t.main_exit_price;
-    if (t.main_exit_cost) document.getElementById('modal_main_exit_cost').value = t.main_exit_cost;
-    if (t.hedge_exit_price) document.getElementById('modal_hedge_exit_price').value = t.hedge_exit_price;
-    if (t.hedge_exit_cost) document.getElementById('modal_hedge_exit_cost').value = t.hedge_exit_cost;
-  }
-  updateMovePreview();
-  document.getElementById('modal_overlay').classList.add('open');
-}
-
-function updateMovePreview() {
-  const d1 = document.getElementById('modal_move_d1').value;
-  const d2 = document.getElementById('modal_move_d2').value;
-  const d3 = document.getElementById('modal_move_d3').value;
-  const d4 = document.getElementById('modal_move_d4').value;
-  const d5 = document.getElementById('modal_move_d5').value;
-  const prev = document.getElementById('move_preview');
-  const vals = [d1,d2,d3,d4,d5].filter(Boolean);
-  if (!vals.length) { prev.style.display='none'; return; }
-  prev.style.display='block';
-  const allVals = [d1,d2,d3,d4,d5];
-  const atrs = [1,2,3,4,5].map(n => document.getElementById('modal_atr_d'+n).value);
-  const crsis = [1,2,3,4,5].map(n => document.getElementById('modal_crsi_d'+n).value);
-  prev.innerHTML = allVals.map((v,i)=>{
-    if (!v) return '';
-    const n = parseFloat(v);
-    const col = isNaN(n)?'var(--muted)':n>0?'var(--green)':'var(--red)';
-    const arrow = isNaN(n)?'—':n>0?'↑':'↓';
-    const extra = [atrs[i], crsis[i]].filter(Boolean).join(' / ');
-    return `<span style="margin-right:14px;"><span style="color:var(--muted);font-size:10px;">Day ${i+1}: </span><span style="font-family:var(--mono);font-weight:700;color:${col};">${arrow} ${v}%</span>${extra?` <span style="font-size:10px;color:var(--muted);">(${extra})</span>`:''}</span>`;
-  }).join('');
-}
-
-function closeModal() {
-  document.getElementById('modal_overlay').classList.remove('open');
-  document.getElementById('move_preview').style.display='none';
-}
-
-async function saveOutcome() {
-  const id = document.getElementById('modal_trade_id').value;
-  if (!id) { toast('No trade selected', 'error'); return; }
-  const payload = {
-    next_day_move: document.getElementById('modal_move_d1').value,
-    move_d2: document.getElementById('modal_move_d2').value,
-    move_d3: document.getElementById('modal_move_d3').value,
-    move_d4: document.getElementById('modal_move_d4').value,
-    move_d5: document.getElementById('modal_move_d5').value,
-    atr_d1: document.getElementById('modal_atr_d1').value,
-    atr_d2: document.getElementById('modal_atr_d2').value,
-    atr_d3: document.getElementById('modal_atr_d3').value,
-    atr_d4: document.getElementById('modal_atr_d4').value,
-    atr_d5: document.getElementById('modal_atr_d5').value,
-    crsi_d1: document.getElementById('modal_crsi_d1').value,
-    crsi_d2: document.getElementById('modal_crsi_d2').value,
-    crsi_d3: document.getElementById('modal_crsi_d3').value,
-    crsi_d4: document.getElementById('modal_crsi_d4').value,
-    crsi_d5: document.getElementById('modal_crsi_d5').value,
-    result: document.getElementById('modal_result').value,
-    pnl: document.getElementById('modal_pnl').value,
-    exit_reason: document.getElementById('modal_exit').value,
-    reason_failure: document.getElementById('modal_reason_failure').value,
-    comments: document.getElementById('modal_comments').value,
-    main_exit_price: document.getElementById('modal_main_exit_price').value,
-    main_exit_cost: document.getElementById('modal_main_exit_cost').value,
-    hedge_exit_price: document.getElementById('modal_hedge_exit_price').value,
-    hedge_exit_cost: document.getElementById('modal_hedge_exit_cost').value,
-  };
-  try {
-    const res = await fetch(API + '/trades/' + id, {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
-    if (!res.ok) { const txt = await res.text(); console.error('Save failed:', res.status, txt); toast('Save failed (' + res.status + ')', 'error'); return; }
-    closeModal(); toast('Outcome saved ✓', 'success'); loadJournal();
-  } catch(e) { console.error('Save error:', e); toast('Save failed — check server connection', 'error'); }
 }
 
 // ── EDIT TRADE MODAL ──
@@ -2816,6 +3111,111 @@ function clearEditScreenshot() {
   document.getElementById('edit_screenshot_actions').style.display = 'none';
 }
 
+// Auto-calculates ₹ P&L from entry cost × the day-% move logged for whichever
+// day the trade resolved on (checked D5 → D1), for both legs, then sums them.
+// Mirrors the logic that used to live only in the separate Outcome modal.
+// Auto-calculates the Day N % move (main + hedge) from the raw price the
+// user typed for that day, against the leg's Entry Price. This replaces
+// manual %-math entry — the person only ever types the price they observed.
+// Falls back to whatever % was previously stored (legacy manually-typed
+// data) if no price is entered for that day.
+function editRecalcDayMove(n) {
+  const priceEl = document.getElementById('edit_price_d' + n);
+  const hedgePriceEl = document.getElementById('edit_hedge_price_d' + n);
+  const moveHidden = document.getElementById('edit_move_d' + n);
+  const hedgeMoveHidden = document.getElementById('edit_hedge_move_d' + n);
+  const moveDisplay = document.getElementById('edit_move_d' + n + '_display');
+  const hedgeMoveDisplay = document.getElementById('edit_hedge_move_d' + n + '_display');
+  const cleanNum = s => parseFloat(String(s || '').replace(/[₹,\s]/g, ''));
+  const entryPrice = cleanNum(document.getElementById('edit_main_entry_price').value) || 0;
+  const hedgeEntryPrice = cleanNum(document.getElementById('edit_hedge_entry_price').value) || 0;
+
+  // Main leg
+  const priceStr = priceEl.value.trim();
+  if (priceStr !== '') {
+    const priceVal = cleanNum(priceStr);
+    if (entryPrice > 0 && !isNaN(priceVal)) {
+      const pct = ((priceVal - entryPrice) / entryPrice) * 100;
+      moveHidden.value = pct.toFixed(2);
+      moveDisplay.innerHTML = `→ <b style="color:${pct>=0?'var(--green)':'var(--red)'};">${pct>=0?'+':''}${pct.toFixed(2)}%</b> auto`;
+    } else {
+      moveDisplay.textContent = 'Set Main Entry Price above first';
+    }
+  } else if (moveHidden.value) {
+    moveDisplay.textContent = `${moveHidden.value}% (previously entered)`;
+  } else {
+    moveDisplay.textContent = '—';
+  }
+
+  // Hedge leg
+  const hedgePriceStr = hedgePriceEl.value.trim();
+  if (hedgePriceStr !== '') {
+    const hedgePriceVal = cleanNum(hedgePriceStr);
+    if (hedgeEntryPrice > 0 && !isNaN(hedgePriceVal)) {
+      const hpct = ((hedgePriceVal - hedgeEntryPrice) / hedgeEntryPrice) * 100;
+      hedgeMoveHidden.value = hpct.toFixed(2);
+      hedgeMoveDisplay.innerHTML = `→ <b style="color:${hpct>=0?'var(--green)':'var(--red)'};">${hpct>=0?'+':''}${hpct.toFixed(2)}%</b> auto`;
+    } else {
+      hedgeMoveDisplay.textContent = 'Set Hedge Entry Price above first';
+    }
+  } else if (hedgeMoveHidden.value) {
+    hedgeMoveDisplay.textContent = `${hedgeMoveHidden.value}% (previously entered)`;
+  } else {
+    hedgeMoveDisplay.textContent = '—';
+  }
+
+  editUpdateAutoPnl();
+}
+
+// Re-runs Day 1–5 auto-calc whenever the entry price itself changes, since
+// every day's % move is derived from that baseline.
+function editRecalcAllDayMoves() {
+  for (let n = 1; n <= 5; n++) editRecalcDayMove(n);
+}
+
+function editUpdateAutoPnl() {
+  const disp = document.getElementById('edit_auto_pnl_display');
+  const hidden = document.getElementById('edit_pnl_amount');
+  if (!disp || !hidden) return;
+  // Strip ₹, commas, spaces etc. in case a cost was typed with formatting
+  const cleanNum = s => parseFloat(String(s || '').replace(/[₹,\s]/g, '')) || 0;
+  const mainCost = cleanNum(document.getElementById('edit_main_cost').value);
+  const hedgeCost = cleanNum(document.getElementById('edit_hedge_cost').value);
+
+  let dayNum = null, mainPctStr = '', hedgePctStr = '';
+  for (let n = 5; n >= 1; n--) {
+    const mv = document.getElementById('edit_move_d' + n).value.trim();
+    if (mv) { dayNum = n; mainPctStr = mv; hedgePctStr = document.getElementById('edit_hedge_move_d' + n).value.trim(); break; }
+  }
+
+  if (dayNum === null) {
+    disp.textContent = '— (enter a Day Move % below)';
+    disp.style.color = 'var(--muted)';
+    hidden.value = '';
+    return;
+  }
+  if (!mainCost && !hedgeCost) {
+    disp.textContent = '— (enter Main/Hedge Leg Cost in Session Info above)';
+    disp.style.color = 'var(--muted)';
+    hidden.value = '';
+    return;
+  }
+
+  const mainPct = parseFloat(mainPctStr.replace('%', '')) || 0;
+  const hedgePct = parseFloat(hedgePctStr.replace('%', '')) || 0;
+  const mainPnl = mainCost * (mainPct / 100);
+  const hedgePnl = hedgeCost * (hedgePct / 100);
+  const total = mainPnl + hedgePnl;
+
+  hidden.value = total.toFixed(2);
+  const sign = total > 0 ? '+' : '';
+  disp.style.color = total > 0 ? 'var(--green)' : total < 0 ? 'var(--red)' : 'var(--muted)';
+  const parts = [];
+  if (mainCost) parts.push(`Main ₹${mainCost.toFixed(0)}×${mainPct}% = ${mainPnl>=0?'+':''}${mainPnl.toFixed(2)}`);
+  if (hedgeCost) parts.push(`Hedge ₹${hedgeCost.toFixed(0)}×${hedgePct}% = ${hedgePnl>=0?'+':''}${hedgePnl.toFixed(2)}`);
+  disp.innerHTML = `${sign}₹${total.toFixed(2)} <span style="font-weight:400;font-size:10px;color:var(--muted);">(Day ${dayNum} — ${parts.join(' · ')})</span>`;
+}
+
 function openEditModal(id) {
   const t = allTrades.find(x=>x.id===id);
   if (!t) return;
@@ -2824,9 +3224,9 @@ function openEditModal(id) {
   const map = {
     edit_trade_date:'trade_date', edit_trade_decision:'trade_decision',
     edit_strategy_name:'strategy_name',
-    edit_option_type:'option_type', edit_candle_type:'candle_type',
+    edit_option_type:'option_type', edit_strike_price:'strike_price', edit_candle_type:'candle_type',
     edit_main_entry_price:'main_entry_price', edit_main_cost:'main_cost',
-    edit_hedge_type:'hedge_type', edit_hedge_entry_price:'hedge_entry_price', edit_hedge_cost:'hedge_cost',
+    edit_hedge_type:'hedge_type', edit_hedge_strike_price:'hedge_strike_price', edit_hedge_entry_price:'hedge_entry_price', edit_hedge_cost:'hedge_cost',
     edit_main_exit_price:'main_exit_price', edit_main_exit_cost:'main_exit_cost',
     edit_hedge_exit_price:'hedge_exit_price', edit_hedge_exit_cost:'hedge_exit_cost',
     edit_candle_score:'candle_score', edit_candle_note:'candle_note',
@@ -2851,6 +3251,21 @@ function openEditModal(id) {
   document.getElementById('edit_move_d3').value = t.move_d3 || '';
   document.getElementById('edit_move_d4').value = t.move_d4 || '';
   document.getElementById('edit_move_d5').value = t.move_d5 || '';
+  document.getElementById('edit_hedge_move_d1').value = t.hedge_move_d1 || '';
+  document.getElementById('edit_hedge_move_d2').value = t.hedge_move_d2 || '';
+  document.getElementById('edit_hedge_move_d3').value = t.hedge_move_d3 || '';
+  document.getElementById('edit_hedge_move_d4').value = t.hedge_move_d4 || '';
+  document.getElementById('edit_hedge_move_d5').value = t.hedge_move_d5 || '';
+  document.getElementById('edit_price_d1').value = t.main_price_d1 || '';
+  document.getElementById('edit_price_d2').value = t.main_price_d2 || '';
+  document.getElementById('edit_price_d3').value = t.main_price_d3 || '';
+  document.getElementById('edit_price_d4').value = t.main_price_d4 || '';
+  document.getElementById('edit_price_d5').value = t.main_price_d5 || '';
+  document.getElementById('edit_hedge_price_d1').value = t.hedge_price_d1 || '';
+  document.getElementById('edit_hedge_price_d2').value = t.hedge_price_d2 || '';
+  document.getElementById('edit_hedge_price_d3').value = t.hedge_price_d3 || '';
+  document.getElementById('edit_hedge_price_d4').value = t.hedge_price_d4 || '';
+  document.getElementById('edit_hedge_price_d5').value = t.hedge_price_d5 || '';
   document.getElementById('edit_atr_d1').value = t.atr_d1 || '';
   document.getElementById('edit_atr_d2').value = t.atr_d2 || '';
   document.getElementById('edit_atr_d3').value = t.atr_d3 || '';
@@ -2889,6 +3304,9 @@ function openEditModal(id) {
   }
 
   document.getElementById('edit_modal_overlay').classList.add('open');
+  checkHedgeCostRatio('edit_main_cost','edit_hedge_cost','edit_hedge_cost_ratio_warning');
+  document.getElementById('edit_pnl_amount').value = t.pnl_amount || '';
+  editRecalcAllDayMoves();
 }
 
 function closeEditModal() {
@@ -2902,9 +3320,9 @@ async function saveEditTrade() {
   const map = {
     edit_trade_date:'trade_date', edit_trade_decision:'trade_decision',
     edit_strategy_name:'strategy_name',
-    edit_option_type:'option_type', edit_candle_type:'candle_type',
+    edit_option_type:'option_type', edit_strike_price:'strike_price', edit_candle_type:'candle_type',
     edit_main_entry_price:'main_entry_price', edit_main_cost:'main_cost',
-    edit_hedge_type:'hedge_type', edit_hedge_entry_price:'hedge_entry_price', edit_hedge_cost:'hedge_cost',
+    edit_hedge_type:'hedge_type', edit_hedge_strike_price:'hedge_strike_price', edit_hedge_entry_price:'hedge_entry_price', edit_hedge_cost:'hedge_cost',
     edit_main_exit_price:'main_exit_price', edit_main_exit_cost:'main_exit_cost',
     edit_hedge_exit_price:'hedge_exit_price', edit_hedge_exit_cost:'hedge_exit_cost',
     edit_candle_score:'candle_score', edit_candle_note:'candle_note',
@@ -2914,12 +3332,18 @@ async function saveEditTrade() {
     edit_market_structure:'market_structure', edit_market_regime:'market_regime',
     edit_nearest_obstacle:'nearest_obstacle', edit_reason_failure:'reason_failure',
     edit_htf_fvg:'htf_fvg', edit_order_block:'order_block',
-    edit_result:'result', edit_pnl:'pnl',
+    edit_result:'result', edit_pnl:'pnl', edit_pnl_amount:'pnl_amount',
     edit_exit_reason:'exit_reason', edit_entry_reason:'entry_reason',
     edit_nearest_obstacle:'nearest_obstacle', edit_reason_failure:'reason_failure',
     edit_comments:'comments',
     edit_move_d1:'next_day_move', edit_move_d2:'move_d2', edit_move_d3:'move_d3',
     edit_move_d4:'move_d4', edit_move_d5:'move_d5',
+    edit_hedge_move_d1:'hedge_move_d1', edit_hedge_move_d2:'hedge_move_d2', edit_hedge_move_d3:'hedge_move_d3',
+    edit_hedge_move_d4:'hedge_move_d4', edit_hedge_move_d5:'hedge_move_d5',
+    edit_price_d1:'main_price_d1', edit_price_d2:'main_price_d2', edit_price_d3:'main_price_d3',
+    edit_price_d4:'main_price_d4', edit_price_d5:'main_price_d5',
+    edit_hedge_price_d1:'hedge_price_d1', edit_hedge_price_d2:'hedge_price_d2', edit_hedge_price_d3:'hedge_price_d3',
+    edit_hedge_price_d4:'hedge_price_d4', edit_hedge_price_d5:'hedge_price_d5',
     edit_atr_d1:'atr_d1', edit_atr_d2:'atr_d2', edit_atr_d3:'atr_d3', edit_atr_d4:'atr_d4', edit_atr_d5:'atr_d5',
     edit_crsi_d1:'crsi_d1', edit_crsi_d2:'crsi_d2', edit_crsi_d3:'crsi_d3', edit_crsi_d4:'crsi_d4', edit_crsi_d5:'crsi_d5',
     edit_grade:'grade', edit_screenshot_data:'screenshot',
@@ -2945,14 +3369,25 @@ async function deleteTradeFromEdit() {
 // ── ANALYSIS ENGINE ──
 // ── ANALYSIS PAGE STATE ──
 let analysisAllTrades  = [];   // full trade list from API (cached so date clicks don't refetch)
-let analysisSelectedDate = 'all';
+let analysisSelectedDates = new Set(); // empty = "All Dates"; otherwise the set of ticked dates (combined)
+let selectedSecurityNames = new Set(); // Money By Security: which cards are multi-selected
+
+function toggleSecurityCard(name) {
+  if (selectedSecurityNames.has(name)) selectedSecurityNames.delete(name);
+  else selectedSecurityNames.add(name);
+  renderAnalysis();
+}
+function clearSecuritySelection() {
+  selectedSecurityNames.clear();
+  renderAnalysis();
+}
 
 async function loadAnalysis() {
   try {
     const res = await fetch(API + '/trades');
     analysisAllTrades = await res.json();
     if (!Object.keys(dayLabels).length) await loadDayLabels();
-    analysisSelectedDate = 'all';
+    analysisSelectedDates.clear();
     renderAnalysisDateList();
     renderAnalysis();
   } catch(e) {
@@ -2977,19 +3412,21 @@ function renderAnalysisDateList() {
   const totalPending = totalAll - analysisAllTrades.filter(t => t.result && t.result !== '').length;
 
   const listEl = document.getElementById('analysis_date_list');
-  const allActive = analysisSelectedDate === 'all' ? ' active' : '';
-  let html = `<div class="date-side-item${allActive}" data-date="all" onclick="selectAnalysisDate('all')">
-      <span class="dsi-label">All Dates</span><span class="dsi-count">${totalAll}${totalPending ? ` <span class="dsi-pending" title="${totalPending} pending, excluded from analysis">·${totalPending}p</span>` : ''}</span>
+  const allActive = analysisSelectedDates.size === 0 ? ' active' : '';
+  let html = `<div class="date-side-item${allActive}" data-date="all" onclick="clearAnalysisDateSelection()">
+      <span class="dsi-tick">${analysisSelectedDates.size === 0 ? '✓' : ''}</span><span class="dsi-label">All Dates</span><span class="dsi-count">${totalAll}${totalPending ? ` <span class="dsi-pending" title="${totalPending} pending, excluded from analysis">·${totalPending}p</span>` : ''}</span>
     </div><div class="date-side-divider"></div>`;
 
   if (!dates.length) {
     html += '<div style="color:var(--muted);font-size:11px;padding:6px 9px;">No trades yet</div>';
   } else {
     html += dates.map(d => {
-      const active = d === analysisSelectedDate ? ' active' : '';
+      const isChecked = analysisSelectedDates.has(d);
+      const active = isChecked ? ' active' : '';
       const pending = counts[d] - (resultCounts[d] || 0);
       const name = dayLabels[d];
-      return `<div class="date-side-item${active}" data-date="${d}" onclick="selectAnalysisDate('${d}')">
+      return `<div class="date-side-item${active}" data-date="${d}" onclick="toggleAnalysisDate('${d}')">
+        <input type="checkbox" class="dsi-checkbox" ${isChecked ? 'checked' : ''} onclick="event.stopPropagation();toggleAnalysisDate('${d}')">
         <div class="dsi-main">
           <span class="dsi-label">${d}</span>
           ${name ? `<span class="dsi-name">${name}</span>` : ''}
@@ -3008,29 +3445,42 @@ function renderAnalysisDateList() {
 function updateAnalysisDateHeading() {
   const el = document.getElementById('analysis_date_heading');
   if (!el) return;
-  if (analysisSelectedDate !== 'all' && dayLabels[analysisSelectedDate]) {
-    el.textContent = `${analysisSelectedDate} — ${dayLabels[analysisSelectedDate]}`;
+  const n = analysisSelectedDates.size;
+  if (n === 0) {
+    el.style.display = 'none';
+  } else if (n === 1) {
+    const d = Array.from(analysisSelectedDates)[0];
+    el.textContent = dayLabels[d] ? `${d} — ${dayLabels[d]}` : d;
     el.style.display = '';
   } else {
-    el.style.display = 'none';
+    el.textContent = `${n} dates combined — ` + Array.from(analysisSelectedDates).sort((a,b)=>b.localeCompare(a)).join(', ');
+    el.style.display = '';
   }
 }
 
-function selectAnalysisDate(date) {
-  analysisSelectedDate = date;
+function toggleAnalysisDate(date) {
+  if (analysisSelectedDates.has(date)) analysisSelectedDates.delete(date);
+  else analysisSelectedDates.add(date);
+  renderAnalysisDateList();
+  updateAnalysisDateHeading();
+  renderAnalysis();
+}
+
+function clearAnalysisDateSelection() {
+  analysisSelectedDates.clear();
   renderAnalysisDateList();
   updateAnalysisDateHeading();
   renderAnalysis();
 }
 
 // Renders every stat card / breakdown / best-setup list for whatever
-// analysisSelectedDate currently is ('all' or a specific trade_date).
+// dates are currently ticked in analysisSelectedDates (empty set = all dates).
 function renderAnalysis() {
   try {
-    // Only trades with a logged result, optionally narrowed to the selected date
+    // Only trades with a logged result, optionally narrowed to the ticked date(s)
     let trades = analysisAllTrades.filter(t => t.result && t.result !== '');
-    if (analysisSelectedDate !== 'all') {
-      trades = trades.filter(t => t.trade_date === analysisSelectedDate);
+    if (analysisSelectedDates.size > 0) {
+      trades = trades.filter(t => analysisSelectedDates.has(t.trade_date));
     }
     const total  = trades.length;
 
@@ -3054,6 +3504,8 @@ function renderAnalysis() {
       document.getElementById('pnl_bar_lost_lbl').textContent = 'Lost: —';
       document.getElementById('pnl_bar_verdict').textContent = '';
       document.getElementById('pnl_missing_note').textContent = '';
+      document.getElementById('security_money_cards').innerHTML = '<div style="color:var(--muted);font-size:12px;">No data yet</div>';
+      document.getElementById('security_money_total').innerHTML = '';
       return;
     }
 
@@ -3085,10 +3537,15 @@ function renderAnalysis() {
     const avgLoss   = lossMoves.length ? parseFloat((lost   / lossMoves.length).toFixed(2)) : 0;
     const rr        = avgLoss ? parseFloat((avgWin / avgLoss).toFixed(2)) : 0;
 
-    // ── TOTAL P&L (actual points/₹ logged per trade, via the pnl field) ──
+    // ── TOTAL P&L (prefers the auto-calculated ₹ pnl_amount — which factors
+    // in BOTH the main leg and hedge leg — falling back to the manually
+    // logged pnl (points) field for older trades that don't have it) ──
     function parsePnl(t) {
-      if (t.pnl === null || t.pnl === undefined) return null;
-      const clean = String(t.pnl).replace(/[%,₹\s]/g, '').trim();
+      const raw = (t.pnl_amount !== null && t.pnl_amount !== undefined && String(t.pnl_amount).trim() !== '')
+        ? t.pnl_amount
+        : t.pnl;
+      if (raw === null || raw === undefined) return null;
+      const clean = String(raw).replace(/[%,₹\s]/g, '').trim();
       if (clean === '') return null;
       const n = parseFloat(clean);
       return isNaN(n) ? null : n;
@@ -3135,8 +3592,93 @@ function renderAnalysis() {
       document.getElementById('pnl_bar_verdict').textContent  = '';
     }
     document.getElementById('pnl_missing_note').textContent = missingPnl > 0
-      ? `⚠️ ${missingPnl} of ${total} trade${total===1?'':'s'} ${analysisSelectedDate==='all' ? '' : 'on ' + analysisSelectedDate + ' '}${missingPnl===1?'has':'have'} no P&L points logged — add them via the Outcome modal (✏️ in the Journal) for a fully accurate total.`
+      ? `⚠️ ${missingPnl} of ${total} trade${total===1?'':'s'} ${analysisSelectedDates.size===0 ? '' : 'on ' + Array.from(analysisSelectedDates).sort((a,b)=>b.localeCompare(a)).join(', ') + ' '}${missingPnl===1?'has':'have'} no P&L logged (neither Auto ₹ nor manual points) — add them via the Edit / Outcome button in the Journal for a fully accurate total.`
       : '';
+
+    // ── MONEY BY SECURITY — group by strategy name (used as the stock/security
+    // label), summing Main Leg cost + Hedge cost as capital deployed, and
+    // pnl_amount (falling back to pnl) as the P&L for that security ──
+    (function renderSecurityMoney() {
+      const groups = {};
+      trades.forEach(t => {
+        const key = (t.strategy_name || '').trim() || 'Unlabeled';
+        if (!groups[key]) groups[key] = { main: 0, hedge: 0, pnl: 0, count: 0 };
+        const g = groups[key];
+        g.main  += parseFloat(t.main_cost)  || 0;
+        g.hedge += parseFloat(t.hedge_cost) || 0;
+        const p = parsePnl(t);
+        if (p !== null) g.pnl += p;
+        g.count++;
+      });
+
+      const names = Object.keys(groups).sort((a,b) => (groups[b].main + groups[b].hedge) - (groups[a].main + groups[a].hedge));
+      const cardsEl = document.getElementById('security_money_cards');
+      const totalEl = document.getElementById('security_money_total');
+
+      if (!names.length) {
+        cardsEl.innerHTML = '<div style="color:var(--muted);font-size:12px;">No data yet</div>';
+        totalEl.innerHTML = '';
+        return;
+      }
+
+      // Drop any selected names that no longer exist in this filtered set (e.g. date changed)
+      Array.from(selectedSecurityNames).forEach(n => { if (!groups[n]) selectedSecurityNames.delete(n); });
+      const hasSelection = selectedSecurityNames.size > 0;
+      const displayNames = hasSelection ? names.filter(n => selectedSecurityNames.has(n)) : names;
+
+      const selectionNote = hasSelection
+        ? `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:11px;color:var(--accent);">
+             <span>Showing ${displayNames.length} of ${names.length} selected — totals below reflect only these</span>
+             <span style="cursor:pointer;text-decoration:underline;" onclick="clearSecuritySelection()">Clear selection ✕</span>
+           </div>`
+        : `<div style="font-size:10px;color:var(--muted);margin-bottom:8px;">Click a card to select it (multi-select supported) and narrow the totals below to just that selection</div>`;
+
+      let grandMain = 0, grandHedge = 0, grandPnl = 0;
+      cardsEl.innerHTML = selectionNote + displayNames.map(name => {
+        const g = groups[name];
+        const used = g.main + g.hedge;
+        grandMain += g.main; grandHedge += g.hedge; grandPnl += g.pnl;
+        const pct = used ? (g.pnl / used * 100) : null;
+        const pnlCol = g.pnl > 0 ? 'var(--green)' : g.pnl < 0 ? 'var(--red)' : 'var(--muted)';
+        const isSel = selectedSecurityNames.has(name);
+        const borderCol = isSel ? 'var(--accent)' : 'var(--border2)';
+        const bg = isSel ? 'rgba(245,158,11,0.08)' : 'var(--surface2)';
+        return `
+        <div class="sec-money-card" data-sec-name="${name.replace(/"/g,'&quot;')}" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:10px 14px;background:${bg};border:1px solid ${borderCol};border-radius:8px;cursor:pointer;transition:all 0.15s;">
+          <span class="dsi-tick" style="width:16px;">${isSel ? '✓' : ''}</span>
+          <div style="min-width:130px;font-weight:600;font-size:13px;">${name}</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;flex:1;">
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Main Leg</div><div style="font-family:var(--mono);font-size:13px;">₹${g.main.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Hedge Leg</div><div style="font-family:var(--mono);font-size:13px;">₹${g.hedge.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Amount Used</div><div style="font-family:var(--mono);font-size:13px;font-weight:700;">₹${used.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">P&amp;L</div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:${pnlCol};">${g.pnl>=0?'+':''}₹${g.pnl.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">P&amp;L %</div><div style="font-family:var(--mono);font-size:13px;font-weight:700;color:${pnlCol};">${pct===null?'—':(pct>=0?'+':'')+pct.toFixed(2)+'%'}</div></div>
+          </div>
+          <div style="font-size:10px;color:var(--muted);">${g.count} trade${g.count===1?'':'s'}</div>
+        </div>`;
+      }).join('');
+
+      cardsEl.querySelectorAll('.sec-money-card').forEach(card => {
+        card.addEventListener('click', () => toggleSecurityCard(card.getAttribute('data-sec-name')));
+      });
+
+      const grandUsed = grandMain + grandHedge;
+      const grandPct = grandUsed ? (grandPnl / grandUsed * 100) : null;
+      const grandCol = grandPnl > 0 ? 'var(--green)' : grandPnl < 0 ? 'var(--red)' : 'var(--muted)';
+      const totalBorder = grandPnl > 0 ? '1px solid rgb(11 245 48 / 59%)' : grandPnl < 0 ? '1px solid rgb(239 68 68 / 59%)' : '1px solid rgba(245,158,11,0.3)';
+      const totalLabel = hasSelection ? `TOTAL <span style="font-size:9px;color:var(--muted);font-weight:400;">(${displayNames.length} selected)</span>` : 'TOTAL';
+      totalEl.innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:12px 14px;margin-top:8px;background:rgba(245,158,11,0.1);border:${totalBorder};border-radius:8px;">
+          <div style="min-width:130px;font-weight:700;font-size:13px;color:var(--accent);">${totalLabel}</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;flex:1;">
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Main Leg</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;">₹${grandMain.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Hedge Leg</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;">₹${grandHedge.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">Amount Used</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;">₹${grandUsed.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">P&amp;L</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:${grandCol};">${grandPnl>=0?'+':''}₹${grandPnl.toFixed(2)}</div></div>
+            <div><div style="font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;">P&amp;L %</div><div style="font-family:var(--mono);font-size:14px;font-weight:700;color:${grandCol};">${grandPct===null?'—':(grandPct>=0?'+':'')+grandPct.toFixed(2)+'%'}</div></div>
+          </div>
+        </div>`;
+    })();
 
     // ── HEADLINE STATS ──
     document.getElementById('s_total').textContent    = total;
@@ -3389,6 +3931,7 @@ function buildTradeRows(t) {
   field('Strategy Name', t.strategy_name);
   field('Decision', t.trade_decision);
   field('Option Type', t.option_type);
+  field('Strike Price', t.strike_price);
   field('Candle Type', t.candle_type);
   field('Candle Close', t.candle_score);
   field('Candle Note', t.candle_note);
@@ -3408,19 +3951,20 @@ function buildTradeRows(t) {
 
   rows.push([]);
   rows.push(['5-DAY TRACKING (POST-ENTRY)']);
-  rows.push(['Day', 'Move %', 'ATR', 'CRSI']);
+  rows.push(['Day', 'Move %', 'ATR', 'CRSI', 'Hedge Move %']);
   [
-    ['Day 1', t.next_day_move, t.atr_d1, t.crsi_d1],
-    ['Day 2', t.move_d2,       t.atr_d2, t.crsi_d2],
-    ['Day 3', t.move_d3,       t.atr_d3, t.crsi_d3],
-    ['Day 4', t.move_d4,       t.atr_d4, t.crsi_d4],
-    ['Day 5', t.move_d5,       t.atr_d5, t.crsi_d5],
-  ].forEach(([label, move, atr, crsi]) => rows.push([label, move || '', atr || '', crsi || '']));
+    ['Day 1', t.next_day_move, t.atr_d1, t.crsi_d1, t.hedge_move_d1],
+    ['Day 2', t.move_d2,       t.atr_d2, t.crsi_d2, t.hedge_move_d2],
+    ['Day 3', t.move_d3,       t.atr_d3, t.crsi_d3, t.hedge_move_d3],
+    ['Day 4', t.move_d4,       t.atr_d4, t.crsi_d4, t.hedge_move_d4],
+    ['Day 5', t.move_d5,       t.atr_d5, t.crsi_d5, t.hedge_move_d5],
+  ].forEach(([label, move, atr, crsi, hedgeMove]) => rows.push([label, move || '', atr || '', crsi || '', hedgeMove || '']));
 
   rows.push([]);
   rows.push(['EXIT / OUTCOME DETAILS']);
   field('Result', t.result);
   field('P&L (points)', t.pnl);
+  field('Auto P&L (₹)', t.pnl_amount);
   field('Exit Reason', t.exit_reason);
   field('Reason for Failure', t.reason_failure);
   field('Learnings', t.comments);
@@ -3462,19 +4006,1468 @@ function toast(msg, type='success') {
   setTimeout(() => el.classList.remove('show'), 3000);
 }
 
-document.getElementById('modal_overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
 document.getElementById('edit_modal_overlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeEditModal(); });
-// Live move preview
-['modal_move_d1','modal_move_d2','modal_move_d3','modal_move_d4','modal_move_d5'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('input', updateMovePreview);
-});
-['modal_atr_d1','modal_atr_d2','modal_atr_d3','modal_atr_d4','modal_atr_d5',
- 'modal_crsi_d1','modal_crsi_d2','modal_crsi_d3','modal_crsi_d4','modal_crsi_d5'].forEach(id => {
-  const el = document.getElementById(id);
-  if (el) el.addEventListener('change', updateMovePreview);
-});
 recalcGrade();
+
+// ══════════════════════ SCREENER ══════════════════════
+let screenerLastResults = [];
+let aSetupOnly = false;
+
+// Look up the same rich SVG icon used in the entry form's candle picker,
+// so the screener shows a matching visual for each detected pattern.
+const CANDLE_ICON_FALLBACK = {
+  'Strong Bullish': sw(24,44, C(12,6,32,4,40,GRN)),
+  'Weak Bullish':   sw(24,44, C(12,16,16,10,40,GRN)),
+  'Strong Bearish': sw(24,44, C(12,6,32,4,38,RED)),
+  'Weak Bearish':   sw(24,44, C(12,18,14,12,40,RED)),
+  'Spinning Top White': sw(24,44, C(12,18,8,6,38,GRN)),
+  'Spinning Top Black': sw(24,44, C(12,18,8,6,38,RED)),
+  'Long Lower Shadow':  sw(24,44, C(12,14,18,10,42,GRN)),
+  'Long Upper Shadow':  sw(24,44, C(12,26,18,4,40,RED)),
+};
+const UNIVERSE_LABELS = {
+  all: 'All (Nifty50+BankNifty+Sensex+Indices)',
+  nifty50: 'Nifty 50 Stocks',
+  banknifty: 'Bank Nifty Stocks',
+  sensex: 'Sensex Stocks',
+  indices: 'Indices Only',
+  index_nifty50: 'Index: NIFTY 50 Only',
+  index_bank: 'Index: BANK NIFTY Only',
+  index_sensex: 'Index: SENSEX Only',
+};
+function candlePatternIcon(pattern) {
+  const opt = CANDLE_OPTIONS.find(o => o.value === pattern || o.label === pattern);
+  if (opt) return opt.svg;
+  if (CANDLE_ICON_FALLBACK[pattern]) return CANDLE_ICON_FALLBACK[pattern];
+  return sw(24,44, C(12,18,8,8,38,AMB)); // generic neutral fallback
+}
+
+function screenerCrsiBadgeClass(zone) {
+  if (zone === 'Oversold') return 'badge-profit';
+  if (zone === 'Overbought') return 'badge-loss';
+  if (zone === 'Watch Bullish') return 'badge-ce';
+  if (zone === 'Watch Bearish') return 'badge-pe';
+  return 'badge-pending';
+}
+function screenerAtrBadgeClass(state) {
+  if (state === 'Expanding') return 'badge-profit';
+  if (state === 'Contracting') return 'badge-loss';
+  return 'badge-pending';
+}
+function screenerCandleBadgeClass(direction) {
+  if (direction === 'bullish') return 'badge-ce';
+  if (direction === 'bearish') return 'badge-pe';
+  return 'badge-pending';
+}
+function setupScoreColor(score) {
+  if (score >= 75) return 'var(--green)';
+  if (score >= 50) return '#f5c542';
+  return 'var(--muted)';
+}
+function strengthBadgeStyle(strength) {
+  if (strength === 'Strong') return 'background:rgba(46,204,113,0.18);color:var(--green);';
+  if (strength === 'Medium') return 'background:rgba(245,197,66,0.18);color:#f5c542;';
+  return 'background:rgba(148,163,184,0.15);color:var(--muted);';
+}
+
+// Matches the CRSI_ATR_Trading_Guide "high-quality setup" definition:
+// High CRSI (extreme) + Expanding ATR + Strong same-direction reversal candle.
+function setupType(r) {
+  if (r.atr_direction !== 'Expanding' || r.candle_body_pct <= 60) return null;
+  if (r.crsi_zone === 'Oversold' && r.candle_direction === 'bullish') return 'bullish';
+  if (r.crsi_zone === 'Overbought' && r.candle_direction === 'bearish') return 'bearish';
+  return null;
+}
+
+function toggleASetup() {
+  aSetupOnly = !aSetupOnly;
+  const btn = document.getElementById('scr_a_setup_btn');
+  btn.style.background = aSetupOnly ? '#f5c542' : 'rgba(245,197,66,0.12)';
+  btn.style.color = aSetupOnly ? '#000' : '#f5c542';
+  renderScreenerTable();
+}
+
+async function runScreener(forceRefresh) {
+  const status = document.getElementById('scr_status');
+  const tbody = document.getElementById('screener_body');
+  const universe = document.getElementById('scr_universe').value;
+  const pattern = document.getElementById('scr_pattern').value;
+  status.textContent = forceRefresh ? 'Scanning live…' : 'Loading…';
+  tbody.innerHTML = '<tr><td colspan="19"><div class="empty"><div class="icon">⏳</div>' +
+    (forceRefresh ? 'Fetching fresh data — this can take 20–60s depending on universe size…' : 'Loading…') + '</div></td></tr>';
+  // Clear the summary row immediately so stale counts from a previous
+  // universe/scan don't sit on screen next to a dropdown that no longer
+  // matches them while the new fetch is in flight.
+  document.getElementById('screener_summary').innerHTML =
+    '<div class="stat-card"><div class="stat-label">Scanned</div><div class="stat-value" style="color:var(--muted);">…</div></div>';
+
+  try {
+    const res = await fetch(`${API}/screener/scan?refresh=${forceRefresh ? 1 : 0}&universe=${encodeURIComponent(universe)}&pattern=${encodeURIComponent(pattern)}`);
+    const data = await res.json();
+
+    if (data.errors && data.errors.length) {
+      console.warn('Screener errors:', data.errors);
+    }
+    if (!data.results || !data.results.length) {
+      status.textContent = 'No data returned.';
+      tbody.innerHTML = '<tr><td colspan="19"><div class="empty"><div class="icon">⚠️</div>' +
+        'No results. ' + (data.errors && data.errors[0] ? data.errors[0] : 'Check the server console — yfinance may need `pip install yfinance` or a live internet connection.') +
+        '</div></td></tr>';
+      renderScreenerSummary([], data.errors || [], data.universe);
+      return;
+    }
+
+    screenerLastResults = data.results;
+    populateCandlePatternFilter(data.results);
+    status.textContent = data.cached
+      ? `Cached result · ${Math.round(data.age_seconds / 60)} min old`
+      : 'Freshly scanned ✓';
+    renderScreenerSummary(data.results, data.errors || [], data.universe);
+    renderScreenerTable();
+  } catch (err) {
+    status.textContent = 'Failed to load.';
+    tbody.innerHTML = '<tr><td colspan="19"><div class="empty"><div class="icon">⚠️</div>Could not reach the screener API. Is the Flask server running?</div></td></tr>';
+    console.error(err);
+  }
+}
+
+function populateCandlePatternFilter(results) {
+  const hidden = document.getElementById('scr_candle_pattern');
+  const current = hidden.value;
+  const patterns = [...new Set(results.flatMap(r => r.candle_all_patterns || [r.candle_pattern]))].sort();
+  const menu = document.getElementById('scr_candle_pattern_menu');
+
+  menu.innerHTML = `<div class="candle-filter-item${current === 'any' ? ' active' : ''}" onclick="selectCandleFilter('scr_candle_pattern','any')">Candle Pattern — Any</div>` +
+    patterns.map(p => `<div class="candle-filter-item${current === p ? ' active' : ''}" onclick="selectCandleFilter('scr_candle_pattern','${p.replace(/'/g, "\\'")}')">${candlePatternIcon(p)}<span>${p}</span></div>`).join('');
+
+  // If the previously selected pattern no longer appears in this scan's
+  // results, fall back to "Any" rather than silently filtering to nothing.
+  if (current !== 'any' && !patterns.includes(current)) {
+    hidden.value = 'any';
+    document.getElementById('scr_candle_pattern_label').textContent = 'Candle Pattern — Any';
+  }
+}
+
+let btPatternListPopulated = false;
+async function populateBacktestPatternFilter() {
+  if (btPatternListPopulated) return;
+  btPatternListPopulated = true;
+  const menu = document.getElementById('bt_candle_pattern_menu');
+  let patterns = [];
+  try {
+    const res = await fetch(`${API}/screener/patterns`);
+    const data = await res.json();
+    patterns = data.patterns || [];
+  } catch (err) {
+    console.error('Could not load canonical pattern list, falling back to a smaller built-in set:', err);
+    // Minimal safe fallback if the API call fails for some reason — still
+    // real algorithmic names only, never the manual "(x/4)" rating labels.
+    patterns = ['Bullish Engulfing', 'Bearish Engulfing', 'Hammer Candle', 'Shooting Star', 'Doji',
+                'Morning Star', 'Evening Star', 'Three White Soldiers', 'Three Black Crows',
+                'Strong Bullish', 'Weak Bullish', 'Strong Bearish', 'Weak Bearish'];
+    btPatternListPopulated = false; // allow a retry next time the page is opened
+  }
+  menu.innerHTML = `<div class="candle-filter-item active" onclick="selectCandleFilter('bt_candle_pattern','any')">Any Pattern</div>` +
+    patterns.map(p => `<div class="candle-filter-item" onclick="selectCandleFilter('bt_candle_pattern','${p.replace(/'/g, "\\'")}')">${candlePatternIcon(p)}<span>${p}</span></div>`).join('');
+}
+
+// Generic candle-icon dropdown machinery — shared by the Screener's filter
+// (prefix 'scr_candle_pattern') and the Backtest page's filter (prefix
+// 'bt_candle_pattern'). Each prefix has: {prefix}_dd (container),
+// {prefix} (hidden input holding the value), {prefix}_label, {prefix}_menu.
+function toggleCandleFilterDropdown(ddId) {
+  ddId = ddId || 'scr_candle_pattern_dd';
+  const dd = document.getElementById(ddId);
+  const isOpen = dd.classList.contains('open');
+  document.querySelectorAll('.candle-filter-dropdown.open').forEach(d => d.classList.remove('open'));
+  if (!isOpen) dd.classList.add('open');
+}
+document.addEventListener('click', e => {
+  if (!e.target.closest('.candle-filter-dropdown')) {
+    document.querySelectorAll('.candle-filter-dropdown.open').forEach(d => d.classList.remove('open'));
+  }
+});
+
+function selectCandleFilter(prefix, pattern) {
+  document.getElementById(prefix).value = pattern;
+  const label = document.getElementById(prefix + '_label');
+  const anyLabel = prefix === 'bt_candle_pattern' ? 'Any Pattern' : 'Candle Pattern — Any';
+  label.innerHTML = pattern === 'any' ? anyLabel : `${candlePatternIcon(pattern)}<span>${pattern}</span>`;
+  document.querySelectorAll(`#${prefix}_menu .candle-filter-item`).forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.candle-filter-dropdown.open').forEach(d => d.classList.remove('open'));
+  if (prefix === 'scr_candle_pattern') renderScreenerTable();
+}
+
+function renderScreenerSummary(results, errors, universeKey) {
+  errors = errors || [];
+  const oversold = results.filter(r => r.crsi_zone === 'Oversold').length;
+  const overbought = results.filter(r => r.crsi_zone === 'Overbought').length;
+  const expanding = results.filter(r => r.atr_direction === 'Expanding').length;
+  const clean = results.filter(r => r.candle_body_pct > 60).length;
+  const setups = results.filter(r => setupType(r)).length;
+  const stopHunts = results.filter(r => r.is_stop_hunt).length;
+  const goodZones = results.filter(r => r.is_good_zone).length;
+  const failedCard = errors.length
+    ? `<div class="stat-card" style="border-color:rgba(239,68,68,0.4);cursor:pointer;" onclick="toggleScreenerErrors()" title="Click to see which symbols failed and why">
+         <div class="stat-label" style="color:var(--red);">⚠ Failed to Fetch</div><div class="stat-value red">${errors.length}</div>
+       </div>`
+    : '';
+  // Trust the universe the SERVER says it scanned (not just the dropdown's
+  // current value) — if these ever disagree, it usually means the backend
+  // is running stale code and needs a restart, and this makes that obvious
+  // instead of silently showing the wrong stocks.
+  const selectedUniverse = document.getElementById('scr_universe').value;
+  const universeMismatch = universeKey && universeKey !== selectedUniverse;
+  const universeCard = universeKey
+    ? `<div class="stat-card" style="${universeMismatch ? 'border-color:rgba(239,68,68,0.5);' : 'border-color:rgba(96,165,250,0.35);'}" title="${universeMismatch ? 'This does not match the dropdown selection — the server may be running old code. Restart the Flask server.' : ''}">
+         <div class="stat-label" style="${universeMismatch ? 'color:var(--red);' : ''}">${universeMismatch ? '⚠ Universe Mismatch!' : 'Universe Scanned'}</div>
+         <div class="stat-value" style="font-size:13px;${universeMismatch ? 'color:var(--red);' : ''}">${UNIVERSE_LABELS[universeKey] || universeKey}</div>
+       </div>`
+    : '';
+  document.getElementById('screener_summary').innerHTML = `
+    ${universeCard}
+    <div class="stat-card"><div class="stat-label">Scanned</div><div class="stat-value">${results.length}</div></div>
+    <div class="stat-card"><div class="stat-label">Oversold</div><div class="stat-value green">${oversold}</div></div>
+    <div class="stat-card"><div class="stat-label">Overbought</div><div class="stat-value red">${overbought}</div></div>
+    <div class="stat-card"><div class="stat-label">ATR Expanding</div><div class="stat-value amber">${expanding}</div></div>
+    <div class="stat-card"><div class="stat-label">Clean Candles (&gt;60% body)</div><div class="stat-value">${clean}</div></div>
+    <div class="stat-card" style="border-color:rgba(245,197,66,0.4);"><div class="stat-label" style="color:#f5c542;">🎯 A+ Setups</div><div class="stat-value" style="color:#f5c542;">${setups}</div></div>
+    <div class="stat-card" style="border-color:rgba(245,197,66,0.4);"><div class="stat-label" style="color:#f5c542;">🎯 Stop-Hunt Setups</div><div class="stat-value" style="color:#f5c542;">${stopHunts}</div></div>
+    <div class="stat-card" style="border-color:rgba(59,130,246,0.4);"><div class="stat-label" style="color:var(--blue);">💎 Good Zone Rejections</div><div class="stat-value" style="color:var(--blue);">${goodZones}</div></div>
+    ${failedCard}
+  `;
+  const errBox = document.getElementById('screener_errors');
+  if (errBox) {
+    errBox.innerHTML = errors.length
+      ? '<strong>Symbols that failed this scan:</strong><ul style="margin:6px 0 0 18px;padding:0;">' +
+        errors.map(e => `<li>${e}</li>`).join('') + '</ul>'
+      : '';
+    errBox.style.display = errors.length ? 'block' : 'none';
+  }
+}
+
+function toggleScreenerErrors() {
+  const box = document.getElementById('screener_errors');
+  if (box) box.style.display = box.style.display === 'none' ? 'block' : 'none';
+}
+
+function renderScreenerTable() {
+  const crsiF = document.getElementById('scr_crsi').value;
+  const atrF = document.getElementById('scr_atr').value;
+  const dirF = document.getElementById('scr_candle_dir').value;
+  const patF = document.getElementById('scr_candle_pattern').value;
+  const cleanOnly = document.getElementById('scr_clean_only').checked;
+  const patternF = document.getElementById('scr_pattern').value;
+
+  let rows = screenerLastResults.filter(r => {
+    if (aSetupOnly && !setupType(r)) return false;
+    if (crsiF !== 'any' && r.crsi_zone !== crsiF) return false;
+    if (atrF !== 'any' && r.atr_direction !== atrF) return false;
+    if (dirF !== 'any' && r.candle_direction !== dirF) return false;
+    if (patF !== 'any' && !(r.candle_all_patterns || [r.candle_pattern]).includes(patF)) return false;
+    if (cleanOnly && r.candle_body_pct <= 60) return false;
+    if (patternF === 'stophunt' && !r.is_stop_hunt) return false;
+    if (patternF === 'goodzone' && !r.is_good_zone) return false;
+    return true;
+  });
+
+  // A+ setups first, then highest setup score, then Stop-Hunt
+  rows.sort((a, b) => {
+    const sa = setupType(a) ? 1 : 0, sb = setupType(b) ? 1 : 0;
+    if (sa !== sb) return sb - sa;
+    const ha = a.is_stop_hunt ? 1 : 0, hb = b.is_stop_hunt ? 1 : 0;
+    if (ha !== hb) return hb - ha;
+    const ga = a.is_good_zone ? 1 : 0, gb = b.is_good_zone ? 1 : 0;
+    if (ga !== gb) return gb - ga;
+    return (b.setup_score ?? 0) - (a.setup_score ?? 0);
+  });
+
+  const tbody = document.getElementById('screener_body');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="19"><div class="empty"><div class="icon">🔍</div>No stocks match these filters right now</div></td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = rows.map(r => {
+    const setup = setupType(r);
+    const setupBadge = setup === 'bullish'
+      ? '<span class="badge" style="background:rgba(245,197,66,0.18);color:#f5c542;">🎯 Bullish</span>'
+      : setup === 'bearish'
+        ? '<span class="badge" style="background:rgba(245,197,66,0.18);color:#f5c542;">🎯 Bearish</span>'
+        : '<span style="color:var(--muted);">—</span>';
+    const winRate = r.hist_win_rate != null
+      ? `<span style="color:${r.hist_win_rate >= 50 ? 'var(--green)' : 'var(--red)'};font-weight:600;">${r.hist_win_rate}%</span> <span style="color:var(--muted);font-size:10px;">(${r.hist_sample})</span>`
+      : `<span style="color:var(--muted);">New setup${r.hist_sample ? ' (' + r.hist_sample + '/3)' : ''}</span>`;
+      
+    // Stop-Hunt Badge
+    const huntBadge = r.is_stop_hunt 
+      ? `<span class="badge badge-stophunt">🎯 Active</span>`
+      : '<span style="color:var(--muted);">—</span>';
+      
+    // Good Zone Badge
+    const gzBadge = r.is_good_zone 
+      ? `<span class="badge" style="background:rgba(59,130,246,0.15);color:#3b82f6;border:1px solid rgba(59,130,246,0.3);">💎 Active</span>`
+      : '<span style="color:var(--muted);">—</span>';
+
+    return `
+    <tr${setup ? ' style="background:rgba(245,197,66,0.04);"' : ''}>
+      <td>${setupBadge}</td>
+      <td style="font-weight:700;">${r.symbol}</td>
+      <td>₹${r.price}</td>
+      <td style="color:${r.day_change_pct >= 0 ? 'var(--green)' : 'var(--red)'};">${r.day_change_pct >= 0 ? '+' : ''}${r.day_change_pct}%</td>
+      <td style="font-family:var(--mono);">${r.crsi ?? '—'}</td>
+      <td><span class="badge ${screenerCrsiBadgeClass(r.crsi_zone)}">${r.crsi_zone}</span></td>
+      <td style="font-family:var(--mono);">${r.atr ?? '—'}</td>
+      <td>${r.atr_pct ?? '—'}%</td>
+      <td><span class="badge ${screenerAtrBadgeClass(r.atr_direction)}">${r.atr_direction}</span></td>
+      <td><div style="display:flex;align-items:center;gap:6px;">${candlePatternIcon(r.candle_pattern)}<div style="display:flex;flex-direction:column;gap:2px;">
+        <span class="badge ${screenerCandleBadgeClass(r.candle_direction)}">${r.candle_pattern}</span>
+        <span style="font-size:9px;padding:1px 5px;border-radius:4px;width:fit-content;${strengthBadgeStyle(r.candle_strength)}">${r.candle_strength || 'Weak'} · ${r.candle_signal_type || 'Reversal'}</span>
+      </div></div></td>
+      <td>${r.candle_body_pct}%</td>
+      <td>${r.vol_vs_avg20 != null ? r.vol_vs_avg20 + '×' : '—'}</td>
+      <td><span style="font-weight:700;color:${setupScoreColor(r.setup_score)};">${r.setup_score ?? '—'}</span></td>
+      <td>${winRate}</td>
+      <td>${huntBadge} ${gzBadge}</td>
+      <td style="color:${r.hunt_direction === 'Bullish' ? 'var(--green)' : r.hunt_direction === 'Bearish' ? 'var(--red)' : 'var(--muted)'};font-weight:600;">${r.hunt_direction || r.gz_direction || '—'}</td>
+      <td style="font-family:var(--mono);">${r.stop_loss_price ?? '—'}</td>
+      <td style="font-family:var(--mono);color:${r.hunt_direction === 'Bullish' ? 'var(--green)' : r.hunt_direction === 'Bearish' ? 'var(--red)' : 'var(--muted)'};">${r.target_price ?? '—'}</td>
+      <td class="col-actions" style="white-space:nowrap;">
+        <button class="btn btn-sm" style="background:rgba(46,204,113,0.15);color:var(--green);border:1px solid rgba(46,204,113,0.4);padding:4px 8px;font-size:11px;margin-right:4px;" onclick="paperTrade('${r.symbol}','BUY',this)">Buy</button>
+        <button class="btn btn-sm" style="background:rgba(239,68,68,0.15);color:var(--red);border:1px solid rgba(239,68,68,0.4);padding:4px 8px;font-size:11px;" onclick="paperTrade('${r.symbol}','SELL',this)">Sell</button>
+      </td>
+    </tr>
+  `;
+  }).join('');
+}
+
+// ── MANUAL SYMBOL SEARCH — search any stock/index not limited to the
+// selected universe, analyze it live, and make it tradeable exactly like
+// a scanned row (reuses the same paperTrade() flow) ──
+let scrSymbolListLoaded = false;
+async function loadScreenerSymbolList() {
+  if (scrSymbolListLoaded) return;
+  scrSymbolListLoaded = true;
+  try {
+    const res = await fetch(`${API}/screener/symbols`);
+    const data = await res.json();
+    const datalist = document.getElementById('scr_symbol_list');
+    const all = [...(data.indices || []), ...(data.stocks || [])];
+    datalist.innerHTML = all.map(s => `<option value="${s}">`).join('');
+  } catch (err) {
+    console.error('Could not load symbol list for autocomplete:', err);
+  }
+}
+
+let manualSearchResult = null;
+
+async function manualSymbolSearch() {
+  const input = document.getElementById('scr_manual_symbol');
+  const symbol = input.value.trim().toUpperCase();
+  const status = document.getElementById('scr_manual_status');
+  const wrapper = document.getElementById('scr_manual_result_wrapper');
+  if (!symbol) { status.textContent = 'Type a symbol first.'; return; }
+  status.textContent = 'Searching…';
+  wrapper.style.display = 'none';
+  try {
+    const res = await fetch(`${API}/screener/lookup?symbol=${encodeURIComponent(symbol)}`);
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      status.textContent = '⚠️ ' + (data.error || 'Not found — check the symbol and try again');
+      manualSearchResult = null;
+      return;
+    }
+    manualSearchResult = data.result;
+    // Feed it into screenerLastResults so the existing paperTrade() lookup
+    // (which searches screenerLastResults by symbol) works unchanged.
+    screenerLastResults = screenerLastResults.filter(r => r.symbol !== manualSearchResult.symbol);
+    screenerLastResults.push(manualSearchResult);
+    renderManualSearchResult();
+    status.textContent = 'Found ✓ ' + new Date().toLocaleTimeString();
+  } catch (err) {
+    console.error(err);
+    status.textContent = '⚠️ Search failed — is the server running?';
+  }
+}
+
+function renderManualSearchResult() {
+  const r = manualSearchResult;
+  const wrapper = document.getElementById('scr_manual_result_wrapper');
+  const card   = document.getElementById('scr_manual_stock_card');
+  if (!r) { wrapper.style.display = 'none'; return; }
+
+  const setup      = setupType(r);
+  const bias       = setup === 'bullish' ? 'Bullish' : setup === 'bearish' ? 'Bearish' : 'Neutral';
+  const biasColor  = bias === 'Bullish' ? 'var(--green)' : bias === 'Bearish' ? 'var(--red)' : 'var(--muted)';
+  const changeColor = (r.day_change_pct || 0) >= 0 ? 'var(--green)' : 'var(--red)';
+  const scoreColor  = setupScoreColor(r.setup_score);
+  const atrBg      = r.atr_direction === 'Expanding' ? 'rgba(245,197,66,0.15)' : r.atr_direction === 'Contracting' ? 'rgba(239,68,68,0.12)' : 'rgba(99,102,241,0.12)';
+  const atrColor   = r.atr_direction === 'Expanding' ? '#f5c542' : r.atr_direction === 'Contracting' ? 'var(--red)' : '#818cf8';
+
+  card.innerHTML = `
+    <div style="background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:20px 22px;position:relative;">
+
+      <!-- Top row: symbol + price + trade button -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px;">
+            <span style="font-size:26px;font-weight:900;letter-spacing:-0.5px;">${r.symbol}</span>
+            <span style="font-size:22px;font-weight:700;color:var(--accent);font-family:var(--mono);">₹${r.price}</span>
+            <span style="font-size:13px;font-weight:700;padding:3px 9px;border-radius:7px;background:${changeColor === 'var(--green)' ? 'rgba(46,204,113,0.15)' : 'rgba(239,68,68,0.15)'};color:${changeColor};">
+              ${(r.day_change_pct || 0) >= 0 ? '+' : ''}${r.day_change_pct}%
+            </span>
+          </div>
+          <div style="display:flex;gap:7px;flex-wrap:wrap;">
+            <span style="font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.3);">${candlePatternIcon(r.candle_pattern)} ${r.candle_pattern}</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:6px;background:${atrBg};color:${atrColor};border:1px solid ${atrColor}33;">⚡ ATR ${r.atr_direction}</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(99,102,241,0.1);color:var(--muted);">CRSI ${r.crsi ?? '—'} · ${r.crsi_zone}</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:6px;background:rgba(245,197,66,0.1);color:#f5c542;">Score ${r.setup_score ?? '—'}/100</span>
+            <span style="font-size:11px;padding:3px 9px;border-radius:6px;font-weight:700;background:${bias === 'Bullish' ? 'rgba(46,204,113,0.15)' : bias === 'Bearish' ? 'rgba(239,68,68,0.12)' : 'rgba(99,102,241,0.1)'};color:${biasColor};">
+              ${bias === 'Bullish' ? '🟢' : bias === 'Bearish' ? '🔴' : '⚪'} ${bias} Bias
+            </span>
+          </div>
+        </div>
+        <button onclick="openTradeModal('${r.symbol}')"
+          style="padding:12px 24px;background:var(--accent);color:#000;border:none;border-radius:10px;font-size:15px;font-weight:800;cursor:pointer;white-space:nowrap;box-shadow:0 0 20px rgba(245,197,66,0.3);">
+          🎯 Trade Options
+        </button>
+      </div>
+
+      <!-- Stats grid -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;">
+        ${[
+          ['ATR Value', '₹'+(r.atr ?? '—')],
+          ['ATR %', (r.atr_pct ?? '—')+'%'],
+          ['Body %', (r.candle_body_pct ?? '—')+'%'],
+          ['Vol vs 20D', r.vol_vs_avg20 != null ? r.vol_vs_avg20+'×' : '—'],
+          ['Pattern Type', r.candle_strength+' · '+(r.candle_signal_type||'Reversal')],
+          ['Stop Hunt', r.is_stop_hunt ? '🎯 Active' : '—'],
+          ['Good Zone', r.is_good_zone ? '💎 Active' : '—'],
+          ['Your Win Rate', r.hist_win_rate != null ? r.hist_win_rate+'% ('+r.hist_sample+' trades)' : 'Not enough data'],
+          ['Stop Loss', r.stop_loss_price ? '₹'+r.stop_loss_price : '—'],
+          ['Target', r.target_price ? '₹'+r.target_price : '—'],
+        ].map(([k,v]) => `
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 12px;">
+            <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);margin-bottom:4px;">${k}</div>
+            <div style="font-size:13px;font-weight:600;color:var(--text);">${v}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+
+  wrapper.style.display = 'block';
+  // keep last result accessible for the modal
+  window._lastSearchResult = r;
+}
+
+['scr_universe', 'scr_crsi', 'scr_atr', 'scr_candle_dir', 'scr_clean_only'].forEach(id => {
+  document.getElementById(id).addEventListener('change', id === 'scr_universe' ? () => runScreener(false) : renderScreenerTable);
+});
+
+// ══════════════════════ PAPER TRADES ══════════════════════
+// Simulated Buy/Sell logging from the Screener. No real broker order is
+// placed — this only records a hypothetical entry at the current screener
+// price and marks it to market against real daily closes so you can see
+// what following the screener's signals would actually have done.
+
+// ══════════════════════════════════════════════════════════════════════════
+// TRADE MODAL — Options trade entry popup
+// ══════════════════════════════════════════════════════════════════════════
+
+// NSE standard lot sizes for major F&O symbols
+const LOT_SIZES = {
+  'NIFTY':7500,'BANKNIFTY':25,'FINNIFTY':40,'MIDCPNIFTY':75,
+  'SENSEX':10,'BANKEX':15,
+  'RELIANCE':250,'TCS':150,'INFY':300,'HDFCBANK':550,'ICICIBANK':700,
+  'SBIN':1500,'AXISBANK':1200,'KOTAKBANK':400,'LT':300,'WIPRO':1500,
+  'HINDUNILVR':300,'BAJFINANCE':125,'BAJAJFINSV':200,'ASIANPAINT':200,
+  'MARUTI':100,'TATAMOTORS':1425,'TATASTEEL':5500,'ADANIPORTS':1250,
+  'ULTRACEMCO':100,'SUNPHARMA':350,'DRREDDY':125,'CIPLA':650,
+  'DIVISLAB':200,'APOLLOHOSP':125,'TITAN':375,'TRENT':275,
+  'NESTLEIND':50,'ITC':3200,'COALINDIA':4200,'ONGC':3850,
+  'NTPC':3750,'POWERGRID':5000,'BPCL':3250,'INDUSINDBK':1000,
+  'M&M':700,'EICHERMOT':175,'HEROMOTOCO':300,'BAJAJ-AUTO':250,
+  'GRASIM':475,'JSWSTEEL':2625,'HINDALCO':2150,'VEDL':1450,
+  'TECHM':600,'HCLTECH':700,'LTIM':150,'PERSISTENT':150,
+};
+
+// NSE weekly/monthly expiries — generate next 4 Thursdays
+function getNseExpiries() {
+  const expiries = [];
+  const today = new Date();
+  // Next 8 Thursdays (covers ~2 months)
+  for (let i = 0; i < 8; i++) {
+    const d = new Date(today);
+    const dayOfWeek = d.getDay(); // 0=Sun,4=Thu
+    const daysUntilThu = ((4 - dayOfWeek) + 7) % 7 || 7;
+    d.setDate(d.getDate() + daysUntilThu + i * 7);
+    expiries.push(d.toLocaleDateString('en-IN', {day:'2-digit',month:'short',year:'numeric'}));
+  }
+  return expiries;
+}
+
+// Generate strikes around ATM
+function generateStrikes(spotPrice, symbol) {
+  // Step sizes by instrument
+  const step = symbol.includes('NIFTY') ? 50
+    : symbol.includes('BANK') || symbol.includes('SENSEX') ? 100
+    : symbol.includes('MIDCP') ? 25
+    : spotPrice > 5000 ? 100
+    : spotPrice > 2000 ? 50
+    : spotPrice > 500  ? 20
+    : spotPrice > 200  ? 10 : 5;
+
+  const atm = Math.round(spotPrice / step) * step;
+  const strikes = [];
+  for (let i = -5; i <= 5; i++) {
+    strikes.push(atm + i * step);
+  }
+  return { strikes, atm, step };
+}
+
+let tradeModalData = { symbol: null, spot: 0, tab: 'CE', strike: null };
+
+function openTradeModal(symbol) {
+  const r = window._lastSearchResult;
+  if (!r) return;
+
+  tradeModalData.symbol = symbol;
+  tradeModalData.spot   = parseFloat(r.price) || 0;
+  tradeModalData.tab    = r.candle_direction === 'bearish' ? 'PE' : 'CE';
+
+  // Header
+  document.getElementById('tm_symbol').textContent = symbol;
+  document.getElementById('tm_price_badge').textContent = '₹' + r.price;
+  const chg = r.day_change_pct || 0;
+  const chgEl = document.getElementById('tm_change_badge');
+  chgEl.textContent = (chg >= 0 ? '+' : '') + chg + '%';
+  chgEl.style.background = chg >= 0 ? 'rgba(46,204,113,0.15)' : 'rgba(239,68,68,0.12)';
+  chgEl.style.color = chg >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('tm_pattern_badge').textContent = r.candle_pattern;
+  document.getElementById('tm_crsi_badge').textContent = 'CRSI ' + (r.crsi ?? '—') + ' · ' + r.crsi_zone;
+  document.getElementById('tm_crsi_badge').style.cssText += ';background:rgba(99,102,241,0.1);color:#818cf8;border:1px solid rgba(99,102,241,0.2);';
+  document.getElementById('tm_atr_badge').textContent = '⚡ ATR ' + r.atr_direction;
+  document.getElementById('tm_atr_badge').style.cssText += ';background:rgba(245,197,66,0.12);color:#f5c542;border:1px solid rgba(245,197,66,0.2);';
+  document.getElementById('tm_score_badge').textContent = '🎯 Score ' + (r.setup_score ?? '—') + '/100';
+
+  // Lot size
+  const lotSize = LOT_SIZES[symbol] || LOT_SIZES[symbol.replace(/[^A-Z]/g,'')] || 50;
+  document.getElementById('tm_lotsize').value = lotSize;
+
+  // Expiries
+  const expSel = document.getElementById('tm_expiry');
+  expSel.innerHTML = '<option value="">— Select Expiry —</option>' +
+    getNseExpiries().map(e => `<option>${e}</option>`).join('');
+
+  // Notes pre-fill
+  document.getElementById('tm_notes').value =
+    [r.candle_pattern, r.candle_strength, r.atr_direction, r.crsi_zone].filter(Boolean).join(' · ');
+  document.getElementById('tm_premium').value = '';
+  document.getElementById('tm_lots').value = '1';
+  document.getElementById('tm_cost_box').style.display = 'none';
+  document.getElementById('tm_confirm_msg').style.display = 'none';
+
+  setTradeTab(tradeModalData.tab);
+  buildStrikes();
+
+  const overlay = document.getElementById('trade_modal_overlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTradeModal() {
+  document.getElementById('trade_modal_overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function setTradeTab(tab) {
+  tradeModalData.tab = tab;
+  const ceBtn = document.getElementById('tm_tab_ce');
+  const peBtn = document.getElementById('tm_tab_pe');
+  ceBtn.style.borderColor  = tab === 'CE' ? 'var(--green)' : 'var(--border)';
+  ceBtn.style.background   = tab === 'CE' ? 'rgba(46,204,113,0.2)' : 'transparent';
+  ceBtn.style.color        = tab === 'CE' ? 'var(--green)' : 'var(--muted)';
+  peBtn.style.borderColor  = tab === 'PE' ? 'var(--red)' : 'var(--border)';
+  peBtn.style.background   = tab === 'PE' ? 'rgba(239,68,68,0.15)' : 'transparent';
+  peBtn.style.color        = tab === 'PE' ? 'var(--red)' : 'var(--muted)';
+
+  const confirmBtn = document.getElementById('tm_confirm_btn');
+  confirmBtn.style.background = tab === 'CE' ? 'var(--green)' : 'var(--red)';
+  confirmBtn.textContent = tab === 'CE' ? '✅ Buy CE — Confirm' : '🔴 Buy PE — Confirm';
+  buildStrikes();
+}
+
+function buildStrikes() {
+  const { strikes, atm } = generateStrikes(tradeModalData.spot, tradeModalData.symbol);
+  const tab = tradeModalData.tab;
+  const container = document.getElementById('tm_strikes');
+
+  container.innerHTML = strikes.map(s => {
+    const isATM  = s === atm;
+    const isITM  = tab === 'CE' ? s < atm : s > atm;
+    const isOTM  = tab === 'CE' ? s > atm : s < atm;
+    const label  = isATM ? 'ATM' : isITM ? 'ITM' : 'OTM';
+    const labelC = isATM ? '#f5c542' : isITM ? 'var(--green)' : 'var(--muted)';
+    const bgC    = isATM ? 'rgba(245,197,66,0.18)' : isITM ? 'rgba(46,204,113,0.1)' : 'var(--surface)';
+    const borderC= isATM ? '#f5c542' : isITM ? 'rgba(46,204,113,0.4)' : 'var(--border)';
+    const selected = tradeModalData.strike === s;
+    return `<button onclick="selectStrike(${s})"
+      style="padding:8px 14px;border-radius:9px;border:2px solid ${selected ? 'var(--accent)' : borderC};
+      background:${selected ? 'rgba(245,197,66,0.25)' : bgC};
+      color:${selected ? 'var(--accent)' : isATM ? '#f5c542' : 'var(--text)'};
+      font-size:13px;font-weight:${isATM ? '800' : '600'};cursor:pointer;min-width:80px;
+      transition:all 0.12s;">
+      <div>${s}</div>
+      <div style="font-size:9px;color:${labelC};margin-top:2px;">${label}</div>
+    </button>`;
+  }).join('');
+}
+
+function selectStrike(s) {
+  tradeModalData.strike = s;
+  buildStrikes();
+}
+
+function calcTradeCost() {
+  const premium = parseFloat(document.getElementById('tm_premium').value) || 0;
+  const lotSize = parseInt(document.getElementById('tm_lotsize').value)  || 0;
+  const lots    = parseInt(document.getElementById('tm_lots').value)     || 1;
+  const costBox = document.getElementById('tm_cost_box');
+  if (premium > 0 && lotSize > 0) {
+    const total = premium * lotSize * lots;
+    document.getElementById('tm_cost_formula').textContent = `₹${premium} × ${lotSize} × ${lots}`;
+    document.getElementById('tm_total_cost').textContent   = '₹' + total.toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
+    costBox.style.display = 'block';
+  } else {
+    costBox.style.display = 'none';
+  }
+}
+
+async function confirmOptionTrade() {
+  const { symbol, tab, strike } = tradeModalData;
+  const premium  = parseFloat(document.getElementById('tm_premium').value);
+  const lotSize  = parseInt(document.getElementById('tm_lotsize').value)  || 50;
+  const lots     = parseInt(document.getElementById('tm_lots').value)     || 1;
+  const expiry   = document.getElementById('tm_expiry').value;
+  const notes    = document.getElementById('tm_notes').value.trim();
+  const r        = window._lastSearchResult || {};
+
+  if (!strike)  { alert('Please select a strike price.'); return; }
+  if (!premium || premium <= 0) { alert('Please enter the option premium.'); return; }
+  if (!expiry)  { alert('Please select an expiry date.'); return; }
+
+  const totalCost  = premium * lotSize * lots;
+  const optSymbol  = `${symbol}${strike}${tab}`;
+  const side       = 'BUY'; // always buy CE or PE
+
+  const btn = document.getElementById('tm_confirm_btn');
+  btn.disabled = true;
+  btn.textContent = 'Logging…';
+
+  try {
+    const body = {
+      symbol:        optSymbol,
+      side:          side,
+      qty:           lotSize * lots,
+      entry_price:   premium,
+      entry_date:    new Date().toISOString().slice(0,10),
+      setup_context: notes || [r.candle_pattern, r.candle_strength, r.atr_direction, r.crsi_zone].filter(Boolean).join(' · '),
+      notes:         `Spot ₹${r.price} | Strike ${strike} | ${tab} | ${lots} lot(s) × ${lotSize} = ${lotSize*lots} qty | Cost ₹${totalCost.toFixed(2)} | Expiry ${expiry}`,
+    };
+    const res = await fetch(`${API}/paper-trades`, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error(await res.text());
+
+    const msg = document.getElementById('tm_confirm_msg');
+    msg.textContent = `✅ ${tab === 'CE' ? 'CE' : 'PE'} trade logged — ${optSymbol} @ ₹${premium} | Total cost ₹${totalCost.toFixed(2)}`;
+    msg.style.display = 'block';
+    msg.style.color = 'var(--green)';
+
+    btn.textContent = '✅ Logged!';
+    setTimeout(() => {
+      closeTradeModal();
+      if (document.getElementById('page_paper')?.style?.display !== 'none') loadPaperTrades();
+    }, 1800);
+  } catch(e) {
+    document.getElementById('tm_confirm_msg').textContent = '⚠️ Failed: ' + e.message;
+    document.getElementById('tm_confirm_msg').style.display = 'block';
+    document.getElementById('tm_confirm_msg').style.color = 'var(--red)';
+    btn.disabled = false;
+    btn.textContent = tradeModalData.tab === 'CE' ? '✅ Buy CE — Confirm' : '🔴 Buy PE — Confirm';
+  }
+}
+
+// Close modal on Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTradeModal(); });
+
+
+let paperTradesLast = [];
+
+async function paperTrade(symbol, side, btnEl) {
+  const r = screenerLastResults.find(x => x.symbol === symbol);
+  if (!r) return;
+  const otherBtn = side === 'BUY' ? btnEl.nextElementSibling : btnEl.previousElementSibling;
+  btnEl.disabled = true;
+  if (otherBtn) otherBtn.disabled = true;
+  const original = btnEl.textContent;
+  btnEl.textContent = '…';
+  try {
+    const res = await fetch(`${API}/paper-trades`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        symbol: r.symbol, side, price: r.price, qty: 1,
+        setup_score: r.setup_score, candle_pattern: r.candle_pattern,
+        crsi_zone: r.crsi_zone, atr_direction: r.atr_direction,
+        universe: document.getElementById('scr_universe').value,
+        // Full metric set — same depth of detail as the manual Journal's
+        // session-info fields, just auto-fetched from the screener instead
+        // of typed in by hand.
+        candle_all_patterns: Array.isArray(r.candle_all_patterns) ? r.candle_all_patterns.join(', ') : (r.candle_all_patterns || null),
+        candle_direction: r.candle_direction, candle_body_pct: r.candle_body_pct,
+        candle_strength: r.candle_strength, candle_signal_type: r.candle_signal_type,
+        crsi: r.crsi, atr: r.atr, atr_pct: r.atr_pct,
+        day_change_pct: r.day_change_pct, volume: r.volume,
+        vol_vs_avg20: r.vol_vs_avg20, as_of: r.as_of,
+      }),
+    });
+    if (!res.ok) throw new Error('Request failed');
+    btnEl.textContent = side === 'BUY' ? '✓ Bought' : '✓ Sold';
+    btnEl.style.opacity = '0.55';
+  } catch (err) {
+    btnEl.textContent = 'Error';
+    console.error(err);
+  } finally {
+    setTimeout(() => {
+      btnEl.textContent = original;
+      btnEl.style.opacity = '1';
+      btnEl.disabled = false;
+      if (otherBtn) otherBtn.disabled = false;
+    }, 1800);
+  }
+}
+
+let paperSelectedDate = 'all';
+
+async function loadPaperTrades() {
+  const grid = document.getElementById('paper_body');
+  const status = document.getElementById('paper_status');
+  if (status) status.textContent = 'Refreshing prices…';
+  grid.innerHTML = '<div class="empty"><div class="icon">⏳</div>Loading — marking open positions to today’s prices and fetching Day 1–5 moves…</div>';
+  try {
+    if (!Object.keys(dayLabels).length) await loadDayLabels();
+    const res = await fetch(`${API}/paper-trades`);
+    const data = await res.json();
+    paperTradesLast = data;
+    renderPaperSummary(data);
+    renderPaperDateList();
+    updatePaperViewToggleButtons();
+    renderPaperResults();
+    if (status) status.textContent = 'Updated ✓ ' + new Date().toLocaleTimeString();
+  } catch (err) {
+    grid.innerHTML = '<div class="empty"><div class="icon">⚠️</div>Could not reach the API. Is the Flask server running?</div>';
+    if (status) status.textContent = 'Failed to refresh.';
+    console.error(err);
+  }
+}
+
+function renderPaperSummary(trades) {
+  const open = trades.filter(t => t.status === 'OPEN');
+  const closed = trades.filter(t => t.status === 'CLOSED');
+  const openPnl = open.reduce((s, t) => s + (t.pnl || 0), 0);
+  const closedPnl = closed.reduce((s, t) => s + (t.pnl || 0), 0);
+  const wins = closed.filter(t => (t.pnl || 0) > 0).length;
+  const winRate = closed.length ? Math.round(wins / closed.length * 100) : 0;
+  document.getElementById('paper_summary').innerHTML = `
+    <div class="stat-card"><div class="stat-label">Open Positions</div><div class="stat-value">${open.length}</div></div>
+    <div class="stat-card"><div class="stat-label">Open Unrealized P&amp;L</div><div class="stat-value" style="color:${openPnl >= 0 ? 'var(--green)' : 'var(--red)'};">₹${openPnl.toFixed(2)}</div></div>
+    <div class="stat-card"><div class="stat-label">Closed Trades</div><div class="stat-value">${closed.length}</div></div>
+    <div class="stat-card"><div class="stat-label">Realized P&amp;L</div><div class="stat-value" style="color:${closedPnl >= 0 ? 'var(--green)' : 'var(--red)'};">₹${closedPnl.toFixed(2)}</div></div>
+    <div class="stat-card"><div class="stat-label">Closed Win Rate</div><div class="stat-value">${winRate}%</div></div>
+  `;
+}
+
+// Builds the clickable date sidebar for Paper Trades from every trade's
+// entry_date — same pattern as the Journal's date sidebar, and shares the
+// same day-name labels (name a day once, see it on both screens).
+function renderPaperDateList() {
+  const trades = paperTradesLast || [];
+  const counts = {};
+  trades.forEach(t => { counts[t.entry_date] = (counts[t.entry_date] || 0) + 1; });
+  const dates = Object.keys(counts).sort((a, b) => b.localeCompare(a));
+
+  const listEl = document.getElementById('paper_date_list');
+  const allActive = paperSelectedDate === 'all' ? ' active' : '';
+  let html = `<div class="date-side-item${allActive}" data-date="all" onclick="selectPaperDate('all')">
+      <span class="dsi-tick">${paperSelectedDate === 'all' ? '✓' : ''}</span><span class="dsi-label">All Dates</span><span class="dsi-count">${trades.length}</span>
+    </div><div class="date-side-divider"></div>`;
+
+  if (!dates.length) {
+    html += '<div style="color:var(--muted);font-size:11px;padding:6px 9px;">No entries yet</div>';
+  } else {
+    html += dates.map(d => {
+      const active = d === paperSelectedDate ? ' active' : '';
+      const name = dayLabels[d];
+      return `<div class="date-side-item${active}" data-date="${d}" onclick="selectPaperDate('${d}')">
+        <span class="dsi-tick">${d === paperSelectedDate ? '✓' : ''}</span>
+        <div class="dsi-main">
+          <span class="dsi-label">${d}</span>
+          ${name ? `<span class="dsi-name">${name}</span>` : ''}
+        </div>
+        <span class="dsi-actions">
+          <span class="dsi-edit" onclick="event.stopPropagation();editDayLabel('${d}')" title="Name this day">✏️</span>
+        </span>
+        <span class="dsi-count">${counts[d]}</span>
+      </div>`;
+    }).join('');
+  }
+  listEl.innerHTML = html;
+}
+
+function selectPaperDate(date) {
+  paperSelectedDate = date;
+  renderPaperDateList();
+  renderPaperResults();
+}
+
+function getVisiblePaperTrades() {
+  const trades = paperTradesLast || [];
+  if (paperSelectedDate === 'all') return trades;
+  return trades.filter(t => t.entry_date === paperSelectedDate);
+}
+
+function buildPaperDetailFields(t) {
+  return `
+    <div class="detail-field"><label>Universe</label><p>${t.universe || '—'}</p></div>
+    <div class="detail-field"><label>As-of Date (screener)</label><p>${t.as_of || '—'}</p></div>
+    <div class="detail-field"><label>Setup Score</label><p style="font-weight:700;">${t.setup_score != null ? t.setup_score : '—'}</p></div>
+    <div class="detail-field"><label>Candle Pattern</label><p>${t.candle_pattern || '—'}</p></div>
+    <div class="detail-field"><label>All Patterns</label><p>${t.candle_all_patterns || '—'}</p></div>
+    <div class="detail-field"><label>Candle Direction</label><p>${t.candle_direction || '—'}</p></div>
+    <div class="detail-field"><label>Candle Body %</label><p>${t.candle_body_pct != null ? t.candle_body_pct + '%' : '—'}</p></div>
+    <div class="detail-field"><label>Candle Strength</label><p>${t.candle_strength || '—'}</p></div>
+    <div class="detail-field"><label>Signal Type</label><p>${t.candle_signal_type || '—'}</p></div>
+    <div class="detail-field"><label>CRSI</label><p>${t.crsi != null ? t.crsi : '—'}</p></div>
+    <div class="detail-field"><label>CRSI Zone</label><p>${t.crsi_zone || '—'}</p></div>
+    <div class="detail-field"><label>ATR</label><p>${t.atr != null ? t.atr : '—'}${t.atr_pct != null ? ' (' + t.atr_pct + '%)' : ''}</p></div>
+    <div class="detail-field"><label>ATR Direction</label><p>${t.atr_direction || '—'}</p></div>
+    <div class="detail-field"><label>Volume</label><p>${t.volume != null ? t.volume.toLocaleString() : '—'}</p></div>
+    <div class="detail-field"><label>Vol vs Avg20</label><p>${t.vol_vs_avg20 != null ? t.vol_vs_avg20 + 'x' : '—'}</p></div>
+    <div class="detail-field"><label>Day Change % (at entry)</label><p>${t.day_change_pct != null ? t.day_change_pct + '%' : '—'}</p></div>
+    ${t.status === 'CLOSED' && t.exit_date ? `<div class="detail-field"><label>Exit Date</label><p>${t.exit_date}</p></div>` : ''}
+    ${(t.day_moves && t.day_moves.length) ? `<div class="detail-field" style="grid-column:1/-1;"><label>Day-by-Day Moves</label><p>${t.day_moves.map(m => `D${m.day}: ${m.move_pct>=0?'+':''}${m.move_pct}% (₹${m.price} on ${m.date})`).join(' · ')}</p></div>` : ''}
+    ${t.exit_note ? `<div class="detail-field" style="grid-column:1/-1;"><label>Exit Note</label><p>${t.exit_note}</p></div>` : ''}
+    <div class="detail-field" style="grid-column:1/-1;">
+      <label>Your Notes / Learnings</label>
+      <textarea id="pnote-${t.id}" style="width:100%;margin-top:4px;" rows="2" placeholder="Type your own observations here..." onclick="event.stopPropagation();">${t.notes || ''}</textarea>
+      <button class="btn btn-ghost btn-sm" style="margin-top:6px;" onclick="event.stopPropagation();savePaperNotes(${t.id})">💾 Save Note</button>
+    </div>`;
+}
+
+function renderPaperCards() {
+  const grid = document.getElementById('paper_body');
+  grid.className = 'paper-cards-grid';
+  const trades = getVisiblePaperTrades();
+  if (!trades.length) {
+    grid.innerHTML = `<div class="empty"><div class="icon">💹</div>${(paperTradesLast||[]).length ? 'No paper trades on this date' : 'No paper trades yet — click Buy or Sell on the Screener to log one'}</div>`;
+    return;
+  }
+  grid.innerHTML = trades.map(t => {
+    const pnlColor = (t.pnl ?? 0) >= 0 ? 'var(--green)' : 'var(--red)';
+    const hasNote = t.notes && t.notes.trim().length > 0;
+    const dayName = dayLabels[t.entry_date];
+    const action = t.status === 'OPEN'
+      ? `<button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openPaperExitModal(${t.id})">Exit</button>
+         <button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();deletePaperTrade(${t.id})" title="Remove from log without closing">🗑</button>`
+      : `<button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();deletePaperTrade(${t.id})" title="Remove from log">🗑</button>`;
+    const dayMoves = t.day_moves || [];
+    const dayChips = [1, 2, 3, 4, 5].map(d => {
+      const m = dayMoves.find(x => x.day === d);
+      if (!m) return `<span class="paper-day-chip" style="color:var(--muted);">D${d} —</span>`;
+      const c = m.move_pct >= 0 ? 'var(--green)' : 'var(--red)';
+      return `<span class="paper-day-chip" style="color:${c};" title="₹${m.price} on ${m.date}">D${d} ${m.move_pct >= 0 ? '+' : ''}${m.move_pct}%</span>`;
+    }).join('');
+    return `
+    <div class="paper-card" onclick="paperToggleDetail(${t.id})">
+      <div class="paper-card-header">
+        <div>
+          <div class="paper-card-symbol">${t.symbol}${hasNote ? ' 📝' : ''} <span class="badge ${t.side === 'BUY' ? 'badge-ce' : 'badge-pe'}">${t.side}</span></div>
+          <div class="paper-card-date">${t.entry_date}${dayName ? `<span class="pcd-name">${dayName}</span>` : ''}</div>
+        </div>
+        <span class="badge ${t.status === 'OPEN' ? 'badge-pending' : 'badge-profit'}">${t.status}</span>
+      </div>
+      <div class="paper-card-stats">
+        <div><label>Entry Price</label><p>₹${t.entry_price} × ${t.qty}</p></div>
+        <div><label>${t.status === 'CLOSED' ? 'Exit Price' : 'Current Price'}</label><p>${t.current_price != null ? '₹' + t.current_price : '—'}</p></div>
+        <div><label>P&amp;L</label><p style="color:${pnlColor};font-weight:700;">${t.pnl != null ? (t.pnl >= 0 ? '+' : '') + '₹' + t.pnl : '—'}</p></div>
+        <div><label>P&amp;L %</label><p style="color:${pnlColor};">${t.pnl_pct != null ? (t.pnl_pct >= 0 ? '+' : '') + t.pnl_pct + '%' : '—'}</p></div>
+      </div>
+      <div class="paper-card-daymoves">${dayChips}</div>
+      <div class="paper-card-actions" onclick="event.stopPropagation();">${action}</div>
+      <div class="paper-card-detail detail-inner" id="pdetail-${t.id}" style="display:none;" onclick="event.stopPropagation();">${buildPaperDetailFields(t)}</div>
+    </div>
+  `;
+  }).join('');
+}
+
+function renderPaperListView() {
+  const grid = document.getElementById('paper_body');
+  grid.className = '';
+  const trades = getVisiblePaperTrades();
+  if (!trades.length) {
+    grid.innerHTML = `<div class="empty"><div class="icon">💹</div>${(paperTradesLast||[]).length ? 'No paper trades on this date' : 'No paper trades yet — click Buy or Sell on the Screener to log one'}</div>`;
+    return;
+  }
+  const rows = trades.map(t => {
+    const pnlColor = (t.pnl ?? 0) >= 0 ? 'var(--green)' : 'var(--red)';
+    const hasNote = t.notes && t.notes.trim().length > 0;
+    const dayName = dayLabels[t.entry_date];
+    const action = t.status === 'OPEN'
+      ? `<button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();openPaperExitModal(${t.id})" style="margin-right:4px;">Exit</button>
+         <button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();deletePaperTrade(${t.id})" title="Remove from log without closing">🗑</button>`
+      : `<button class="btn btn-sm btn-ghost" onclick="event.stopPropagation();deletePaperTrade(${t.id})" title="Remove from log">🗑</button>`;
+    const dayMoves = t.day_moves || [];
+    const dayCells = [1, 2, 3, 4, 5].map(d => {
+      const m = dayMoves.find(x => x.day === d);
+      if (!m) return `<td style="color:var(--muted);">—</td>`;
+      const c = m.move_pct >= 0 ? 'var(--green)' : 'var(--red)';
+      return `<td style="color:${c};" title="₹${m.price} on ${m.date}">${m.move_pct >= 0 ? '+' : ''}${m.move_pct}%</td>`;
+    }).join('');
+    return `
+    <tr onclick="paperToggleDetail(${t.id})" style="cursor:pointer;">
+      <td><span class="badge ${t.status === 'OPEN' ? 'badge-pending' : 'badge-profit'}">${t.status}</span></td>
+      <td style="font-weight:700;">${t.symbol}${hasNote ? ' 📝' : ''}</td>
+      <td><span class="badge ${t.side === 'BUY' ? 'badge-ce' : 'badge-pe'}">${t.side}</span></td>
+      <td>${t.qty}</td>
+      <td>${t.entry_date}${dayName ? `<br><span style="font-size:10px;color:var(--accent);">${dayName}</span>` : ''}</td>
+      <td>₹${t.entry_price}</td>
+      <td>${t.current_price != null ? '₹' + t.current_price : '—'}</td>
+      <td style="color:${pnlColor};font-weight:700;">${t.pnl != null ? (t.pnl >= 0 ? '+' : '') + '₹' + t.pnl : '—'}</td>
+      <td style="color:${pnlColor};">${t.pnl_pct != null ? (t.pnl_pct >= 0 ? '+' : '') + t.pnl_pct + '%' : '—'}</td>
+      ${dayCells}
+      <td style="font-size:11px;color:var(--muted);">${[t.candle_pattern, t.atr_direction, t.crsi_zone].filter(Boolean).join(' · ') || '—'}</td>
+      <td onclick="event.stopPropagation();" style="white-space:nowrap;">${action}</td>
+    </tr>
+    <tr class="detail-row" id="pdetail-${t.id}" style="display:none;">
+      <td colspan="16" onclick="event.stopPropagation();">
+        <div class="detail-inner">${buildPaperDetailFields(t)}</div>
+      </td>
+    </tr>`;
+  }).join('');
+  grid.innerHTML = `
+    <div class="card" style="padding:0;">
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th><th>Symbol</th><th>Side</th><th>Qty</th><th>Entry Date</th><th>Entry Price</th>
+              <th>Current / Exit Price</th><th>P&amp;L</th><th>P&amp;L %</th>
+              <th>Day 1</th><th>Day 2</th><th>Day 3</th><th>Day 4</th><th>Day 5</th>
+              <th>Setup Context</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+let paperViewMode = localStorage.getItem('paperViewMode') === 'list' ? 'list' : 'card';
+
+function renderPaperResults() {
+  if (paperViewMode === 'list') renderPaperListView();
+  else renderPaperCards();
+}
+
+function setPaperViewMode(mode) {
+  paperViewMode = mode;
+  try { localStorage.setItem('paperViewMode', mode); } catch {}
+  updatePaperViewToggleButtons();
+  renderPaperResults();
+}
+
+function updatePaperViewToggleButtons() {
+  const cardBtn = document.getElementById('paper_view_card_btn');
+  const listBtn = document.getElementById('paper_view_list_btn');
+  if (!cardBtn || !listBtn) return;
+  cardBtn.classList.toggle('btn-primary', paperViewMode === 'card');
+  cardBtn.classList.toggle('btn-ghost', paperViewMode !== 'card');
+  listBtn.classList.toggle('btn-primary', paperViewMode === 'list');
+  listBtn.classList.toggle('btn-ghost', paperViewMode !== 'list');
+}
+
+function paperToggleDetail(id) {
+  const row = document.getElementById('pdetail-' + id);
+  if (!row) return;
+  row.style.display = row.style.display === 'none' ? '' : 'none';
+}
+
+async function savePaperNotes(id) {
+  const el = document.getElementById('pnote-' + id);
+  if (!el) return;
+  try {
+    await fetch(`${API}/paper-trades/${id}/notes`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notes: el.value }),
+    });
+    toast('Note saved', 'success');
+    loadPaperTrades();
+  } catch (err) {
+    console.error(err);
+    toast('Failed to save note', 'error');
+  }
+}
+
+function openPaperExitModal(id) {
+  const t = (paperTradesLast || []).find(x => x.id === id);
+  if (!t) return;
+  document.getElementById('pexit_trade_id').value = id;
+  document.getElementById('pexit_price').value = t.current_price != null ? t.current_price : '';
+  document.getElementById('pexit_date').value = new Date().toISOString().slice(0, 10);
+  document.getElementById('pexit_note').value = '';
+  document.getElementById('pexit_summary').innerHTML =
+    `<strong style="color:var(--text);">${t.symbol}</strong> · ${t.side} · Qty ${t.qty}<br>
+     Entry: ₹${t.entry_price} on ${t.entry_date}<br>
+     Latest fetched price: ${t.current_price != null ? '₹' + t.current_price : 'unavailable'}`;
+  document.getElementById('paper_exit_modal_overlay').classList.add('open');
+}
+
+function closePaperExitModal() {
+  document.getElementById('paper_exit_modal_overlay').classList.remove('open');
+}
+
+async function confirmPaperExit() {
+  const id = document.getElementById('pexit_trade_id').value;
+  const priceStr = document.getElementById('pexit_price').value.trim();
+  const date = document.getElementById('pexit_date').value;
+  const note = document.getElementById('pexit_note').value;
+  const body = { date, note };
+  if (priceStr !== '') body.price = parseFloat(priceStr);
+  try {
+    const res = await fetch(`${API}/paper-trades/${id}/close`, {
+      method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+    });
+    if (!res.ok) throw new Error('close failed');
+    closePaperExitModal();
+    toast('Trade exited ✓', 'success');
+    loadPaperTrades();
+  } catch (err) {
+    console.error(err);
+    alert('Could not close this trade — a live price may not be available right now. Try entering a price manually.');
+  }
+}
+
+async function deletePaperTrade(id) {
+  if (!confirm('Remove this paper trade from the log? This cannot be undone.')) return;
+  try {
+    await fetch(`${API}/paper-trades/${id}`, { method: 'DELETE' });
+    loadPaperTrades();
+  } catch (err) {
+    console.error(err);
+    alert('Failed to delete trade.');
+  }
+}
+
+// ══════════════════════ PAPER TRADE ANALYSIS ══════════════════════
+function scoreBucket(score) {
+  if (score == null) return 'Unknown';
+  if (score >= 75) return '75–100 (Strong)';
+  if (score >= 50) return '50–74 (Moderate)';
+  return '0–49 (Weak)';
+}
+
+function paBreakdownGroup(closed, keyFn) {
+  const groups = {};
+  closed.forEach(t => {
+    const key = keyFn(t) || 'Unknown';
+    groups[key] = groups[key] || { total: 0, wins: 0, pnl: 0 };
+    groups[key].total += 1;
+    groups[key].pnl += (t.pnl || 0);
+    if ((t.pnl || 0) > 0) groups[key].wins += 1;
+  });
+  return groups;
+}
+
+function renderPaBreakdown(elId, groups) {
+  const el = document.getElementById(elId);
+  const keys = Object.keys(groups);
+  if (!keys.length) { el.innerHTML = '<div style="color:var(--muted);font-size:12px;">No closed trades yet.</div>'; return; }
+  keys.sort((a, b) => groups[b].total - groups[a].total);
+  el.innerHTML = keys.map(k => {
+    const g = groups[k];
+    const wr = Math.round(g.wins / g.total * 100);
+    const wrColor = wr >= 50 ? 'var(--green)' : 'var(--red)';
+    return `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border2);font-size:12px;">
+      <span>${k}</span>
+      <span style="display:flex;gap:10px;align-items:center;">
+        <span style="color:var(--muted);">${g.total} trade${g.total === 1 ? '' : 's'}</span>
+        <span style="color:${wrColor};font-weight:700;">${wr}%</span>
+        <span style="color:${g.pnl >= 0 ? 'var(--green)' : 'var(--red)'};min-width:70px;text-align:right;">${g.pnl >= 0 ? '+' : ''}₹${g.pnl.toFixed(2)}</span>
+      </span>
+    </div>`;
+  }).join('');
+}
+
+function renderPaEquityCurve(closedSorted) {
+  const container = document.getElementById('pa_equity_curve');
+  const emptyMsg = document.getElementById('pa_equity_empty');
+  if (!closedSorted.length) {
+    container.innerHTML = '';
+    emptyMsg.style.display = 'block';
+    return;
+  }
+  emptyMsg.style.display = 'none';
+  let running = 0;
+  const points = closedSorted.map(t => { running += (t.pnl || 0); return running; });
+  const w = Math.max(320, points.length * 28);
+  const h = 140;
+  const pad = 10;
+  const min = Math.min(0, ...points), max = Math.max(0, ...points);
+  const range = (max - min) || 1;
+  const xs = points.map((_, i) => points.length > 1 ? pad + (i / (points.length - 1)) * (w - pad * 2) : w / 2);
+  const ys = points.map(v => h - pad - ((v - min) / range) * (h - pad * 2));
+  const zeroY = h - pad - ((0 - min) / range) * (h - pad * 2);
+  const lineColor = points[points.length - 1] >= 0 ? '#22c55e' : '#ef4444';
+  const pathPts = xs.map((x, i) => `${x.toFixed(1)},${ys[i].toFixed(1)}`).join(' ');
+  container.innerHTML = `
+    <svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="${zeroY.toFixed(1)}" x2="${w}" y2="${zeroY.toFixed(1)}" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4,3"/>
+      <polyline points="${pathPts}" fill="none" stroke="${lineColor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${xs.map((x, i) => `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="3" fill="${lineColor}"/>`).join('')}
+    </svg>`;
+}
+
+async function loadPaperAnalysis() {
+  const emptyBox = document.getElementById('paper_analysis_empty');
+  const content = document.getElementById('paper_analysis_content');
+  try {
+    const res = await fetch(`${API}/paper-trades`);
+    const trades = await res.json();
+    if (!trades.length) {
+      emptyBox.style.display = 'block';
+      content.style.display = 'none';
+      return;
+    }
+    emptyBox.style.display = 'none';
+    content.style.display = 'block';
+
+    const open = trades.filter(t => t.status === 'OPEN');
+    const closed = trades.filter(t => t.status === 'CLOSED');
+    const openPnl = open.reduce((s, t) => s + (t.pnl || 0), 0);
+    const closedPnl = closed.reduce((s, t) => s + (t.pnl || 0), 0);
+    const netPnl = openPnl + closedPnl;
+    const wins = closed.filter(t => (t.pnl || 0) > 0);
+    const losses = closed.filter(t => (t.pnl || 0) < 0);
+    const winRate = closed.length ? Math.round(wins.length / closed.length * 100) : 0;
+    const avgWin = wins.length ? wins.reduce((s, t) => s + t.pnl, 0) / wins.length : 0;
+    const avgLoss = losses.length ? losses.reduce((s, t) => s + t.pnl, 0) / losses.length : 0;
+    const best = closed.length ? Math.max(...closed.map(t => t.pnl ?? -Infinity)) : null;
+    const worst = closed.length ? Math.min(...closed.map(t => t.pnl ?? Infinity)) : null;
+
+    document.getElementById('pa_net_pnl').textContent = (netPnl >= 0 ? '+' : '') + '₹' + netPnl.toFixed(2);
+    document.getElementById('pa_net_pnl').style.color = netPnl >= 0 ? 'var(--green)' : 'var(--red)';
+    document.getElementById('pa_total').textContent = trades.length;
+    document.getElementById('pa_open').textContent = open.length;
+    document.getElementById('pa_closed').textContent = closed.length;
+    document.getElementById('pa_winrate').textContent = closed.length ? winRate + '%' : '—';
+    document.getElementById('pa_avgwin').textContent = wins.length ? '+₹' + avgWin.toFixed(2) : '—';
+    document.getElementById('pa_avgloss').textContent = losses.length ? '₹' + avgLoss.toFixed(2) : '—';
+    document.getElementById('pa_best').textContent = best != null && isFinite(best) ? '+₹' + best.toFixed(2) : '—';
+    document.getElementById('pa_worst').textContent = worst != null && isFinite(worst) ? '₹' + worst.toFixed(2) : '—';
+
+    // Closed trades in the order they were closed (fall back to entry_date if exit_date missing)
+    const closedSorted = [...closed].sort((a, b) => (a.exit_date || a.entry_date).localeCompare(b.exit_date || b.entry_date) || a.id - b.id);
+    renderPaEquityCurve(closedSorted);
+
+    renderPaBreakdown('pa_by_score', paBreakdownGroup(closed, t => scoreBucket(t.setup_score)));
+    renderPaBreakdown('pa_by_pattern', paBreakdownGroup(closed, t => t.candle_pattern));
+    renderPaBreakdown('pa_by_universe', paBreakdownGroup(closed, t => UNIVERSE_LABELS[t.universe] || t.universe));
+    renderPaBreakdown('pa_by_side', paBreakdownGroup(closed, t => t.side));
+  } catch (err) {
+    console.error(err);
+    emptyBox.style.display = 'block';
+    emptyBox.innerHTML = '<div style="font-size:32px;margin-bottom:10px;">⚠️</div>Could not load paper trades. Is the Flask server running?';
+    content.style.display = 'none';
+  }
+}
+
+// ══════════════════════ BACKTEST ══════════════════════
+let btSymbolListLoaded = false;
+
+async function initBacktestPage() {
+  populateBacktestPatternFilter();
+  if (btSymbolListLoaded) return;
+  btSymbolListLoaded = true;
+  try {
+    const res = await fetch(`${API}/screener/symbols`);
+    const data = await res.json();
+    const datalist = document.getElementById('bt_symbol_list');
+    const all = [...(data.indices || []), ...(data.stocks || [])];
+    datalist.innerHTML = all.map(s => `<option value="${s}">`).join('');
+  } catch (err) {
+    console.error('Could not load symbol list for autocomplete:', err);
+  }
+}
+
+async function runBacktest() {
+  const symbol = document.getElementById('bt_symbol').value.trim();
+  const status = document.getElementById('bt_status');
+  const results = document.getElementById('bt_results');
+  if (!symbol) {
+    status.textContent = 'Enter a security first (e.g. RELIANCE or NIFTY 50).';
+    return;
+  }
+  status.textContent = `Backtesting ${symbol} — this can take 10–30s while it fetches years of history…`;
+  results.style.display = 'none';
+
+  const params = new URLSearchParams({
+    symbol,
+    years: document.getElementById('bt_years').value,
+    crsi: document.getElementById('bt_crsi').value,
+    atr: document.getElementById('bt_atr').value,
+    candle_dir: document.getElementById('bt_candle_dir').value,
+    candle_pattern: document.getElementById('bt_candle_pattern').value,
+    clean_only: document.getElementById('bt_clean_only').checked ? '1' : '0',
+    trade_side: document.getElementById('bt_trade_side').value,
+  });
+
+  try {
+    const res = await fetch(`${API}/backtest/run?${params.toString()}`);
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      status.textContent = '⚠️ ' + (data.error || 'Backtest failed.');
+      return;
+    }
+    status.textContent = `${data.symbol} · ${data.from_date} → ${data.to_date} (${data.bars_analyzed} trading days scanned)`;
+    renderBacktestResults(data);
+  } catch (err) {
+    console.error(err);
+    status.textContent = 'Could not reach the API. Is the Flask server running?';
+  }
+}
+
+function renderBacktestResults(data) {
+  const results = document.getElementById('bt_results');
+  const s = data.summary;
+  const trades = data.trades || [];
+
+  renderBacktestDiagnostics(data.signal_diagnostics, data.filters);
+
+  if (!trades.length) {
+    results.style.display = 'block';
+    document.getElementById('bt_total').textContent = '0';
+    document.getElementById('bt_winrate').textContent = '—';
+    document.getElementById('bt_totalpnl').textContent = '—';
+    document.getElementById('bt_avgpnl').textContent = '—';
+    document.getElementById('bt_avgdays').textContent = '—';
+    document.getElementById('bt_bestworst').textContent = '—';
+    document.getElementById('bt_equity_curve').innerHTML = '';
+    document.getElementById('bt_trades_body').innerHTML =
+      '<tr><td colspan="10"><div class="empty"><div class="icon">🧪</div>No signals matched these filters over this period — try widening them or a longer history.</div></td></tr>';
+    return;
+  }
+
+  results.style.display = 'block';
+  document.getElementById('bt_total').textContent = s.total_trades;
+  document.getElementById('bt_winrate').textContent = s.win_rate + '%';
+  document.getElementById('bt_winrate').style.color = s.win_rate >= 50 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('bt_totalpnl').textContent = (s.total_pnl_pct >= 0 ? '+' : '') + s.total_pnl_pct + '%';
+  document.getElementById('bt_totalpnl').style.color = s.total_pnl_pct >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('bt_avgpnl').textContent = (s.avg_pnl_pct >= 0 ? '+' : '') + s.avg_pnl_pct + '%';
+  document.getElementById('bt_avgpnl').style.color = s.avg_pnl_pct >= 0 ? 'var(--green)' : 'var(--red)';
+  document.getElementById('bt_avgdays').textContent = s.avg_days_held;
+  document.getElementById('bt_bestworst').innerHTML =
+    `<span style="color:var(--green);">+${s.best_trade_pct}%</span> / <span style="color:var(--red);">${s.worst_trade_pct}%</span>`;
+
+  renderBacktestEquityCurve(trades);
+
+  document.getElementById('bt_trades_body').innerHTML = trades.map((t, i) => {
+    const pnlColor = t.pnl_pct >= 0 ? 'var(--green)' : 'var(--red)';
+    const context = [t.candle_pattern, t.candle_strength, t.atr_direction, t.crsi_zone].filter(Boolean).join(' · ');
+    return `
+    <tr>
+      <td>${i + 1}</td>
+      <td><span class="badge ${t.side === 'BUY' ? 'badge-ce' : 'badge-pe'}">${t.side}</span></td>
+      <td>${t.entry_date}</td>
+      <td>₹${t.entry_price}</td>
+      <td>${t.exit_date}</td>
+      <td>₹${t.exit_price}</td>
+      <td>${t.days_held}</td>
+      <td style="color:${pnlColor};font-weight:700;">${t.pnl_pct >= 0 ? '+' : ''}${t.pnl_pct}%</td>
+      <td style="font-size:11px;color:var(--muted);">${context}</td>
+      <td style="font-size:11px;color:var(--muted);">${t.exit_reason}</td>
+    </tr>`;
+  }).join('');
+}
+
+function renderBacktestDiagnostics(diag, filters) {
+  const box = document.getElementById('bt_diagnostics');
+  if (!diag) { box.style.display = 'none'; return; }
+  box.style.display = 'block';
+
+  const rows = [
+    ['CRSI zone = ' + (filters.crsi === 'any' ? 'Any' : filters.crsi), diag.crsi_zone_matches],
+    ['ATR state = ' + (filters.atr === 'any' ? 'Any' : filters.atr), diag.atr_state_matches],
+    ['Candle direction = ' + (filters.candle_dir === 'any' ? 'Any' : filters.candle_dir), diag.candle_direction_matches],
+    ['Candle pattern = ' + (filters.candle_pattern === 'any' ? 'Any' : filters.candle_pattern), diag.candle_pattern_matches],
+  ];
+  if (filters.clean_only) rows.push(['Clean candle (body > 60%)', diag.clean_candle_matches]);
+
+  const total = diag.total_days_scanned;
+  const pct = n => total ? Math.round(n / total * 100) : 0;
+
+  box.innerHTML = `
+    <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin-bottom:10px;">
+      🔬 Signal Diagnostics — how many of the ${total} scanned days matched EACH filter on its own
+    </div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px;">
+      ${rows.map(([label, count]) => `
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="font-size:12px;min-width:220px;color:var(--text);">${label}</span>
+          <div style="flex:1;background:var(--surface);border-radius:4px;height:8px;overflow:hidden;">
+            <div style="width:${pct(count)}%;height:100%;background:var(--accent);"></div>
+          </div>
+          <span style="font-size:12px;color:var(--muted);min-width:90px;text-align:right;">${count} days (${pct(count)}%)</span>
+        </div>
+      `).join('')}
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding-top:8px;border-top:1px solid var(--border2);">
+      <span style="font-size:12px;font-weight:700;min-width:220px;color:#f5c542;">ALL filters combined</span>
+      <div style="flex:1;background:var(--surface);border-radius:4px;height:8px;overflow:hidden;">
+        <div style="width:${pct(diag.all_filters_combined_matches)}%;height:100%;background:#f5c542;"></div>
+      </div>
+      <span style="font-size:12px;font-weight:700;color:#f5c542;min-width:90px;text-align:right;">${diag.all_filters_combined_matches} days</span>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;">
+      This "ALL filters combined" count is <strong>before</strong> the one-trade-at-a-time rule, so it's the true rarity of this exact signal — if it's already small here, a low trade count below isn't a bug, it's just how often this specific combination genuinely occurred.
+    </p>
+  `;
+}
+
+function renderBacktestEquityCurve(trades) {
+  const container = document.getElementById('bt_equity_curve');
+  let running = 0;
+  const points = trades.map(t => { running += t.pnl_pct; return running; });
+  const w = Math.max(320, points.length * 22);
+  const h = 140;
+  const pad = 10;
+  const min = Math.min(0, ...points), max = Math.max(0, ...points);
+  const range = (max - min) || 1;
+  const xs = points.map((_, i) => points.length > 1 ? pad + (i / (points.length - 1)) * (w - pad * 2) : w / 2);
+  const ys = points.map(v => h - pad - ((v - min) / range) * (h - pad * 2));
+  const zeroY = h - pad - ((0 - min) / range) * (h - pad * 2);
+  const lineColor = points[points.length - 1] >= 0 ? '#22c55e' : '#ef4444';
+  const pathPts = xs.map((x, i) => `${x.toFixed(1)},${ys[i].toFixed(1)}`).join(' ');
+  container.innerHTML = `
+    <svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="${zeroY.toFixed(1)}" x2="${w}" y2="${zeroY.toFixed(1)}" stroke="var(--border2)" stroke-width="1" stroke-dasharray="4,3"/>
+      <polyline points="${pathPts}" fill="none" stroke="${lineColor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      ${xs.map((x, i) => `<circle cx="${x.toFixed(1)}" cy="${ys[i].toFixed(1)}" r="3" fill="${lineColor}"/>`).join('')}
+    </svg>`;
+}
 </script>
+
+<!-- ══ TRADE MODAL ══════════════════════════════════════════════════════ -->
+<div id="trade_modal_overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:1000;display:none;align-items:center;justify-content:center;" onclick="if(event.target===this)closeTradeModal()">
+  <div style="background:var(--surface2);border:1px solid var(--border);border-radius:16px;width:min(680px,96vw);max-height:90vh;overflow-y:auto;padding:0;" onclick="event.stopPropagation()">
+
+    <!-- Header -->
+    <div id="tm_header" style="padding:20px 24px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+          <span id="tm_symbol" style="font-size:22px;font-weight:800;"></span>
+          <span id="tm_price_badge" style="font-size:18px;font-weight:700;color:var(--accent);"></span>
+          <span id="tm_change_badge" style="font-size:13px;font-weight:600;padding:3px 8px;border-radius:6px;"></span>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <span id="tm_pattern_badge" style="font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.3);"></span>
+          <span id="tm_crsi_badge" style="font-size:11px;padding:3px 8px;border-radius:6px;"></span>
+          <span id="tm_atr_badge" style="font-size:11px;padding:3px 8px;border-radius:6px;"></span>
+          <span id="tm_score_badge" style="font-size:11px;padding:3px 8px;border-radius:6px;background:rgba(245,197,66,0.12);color:#f5c542;border:1px solid rgba(245,197,66,0.25);"></span>
+        </div>
+      </div>
+      <button onclick="closeTradeModal()" style="background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:0;">✕</button>
+    </div>
+
+    <!-- CE / PE tabs -->
+    <div style="padding:16px 24px 0;display:flex;gap:8px;">
+      <button id="tm_tab_ce" onclick="setTradeTab('CE')"
+        style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--green);background:rgba(46,204,113,0.15);color:var(--green);font-weight:700;font-size:14px;cursor:pointer;">
+        📈 Buy CE &nbsp;<span style="font-size:11px;opacity:0.7;">(Bullish)</span>
+      </button>
+      <button id="tm_tab_pe" onclick="setTradeTab('PE')"
+        style="flex:1;padding:10px;border-radius:10px;border:2px solid var(--border);background:transparent;color:var(--muted);font-weight:700;font-size:14px;cursor:pointer;">
+        📉 Buy PE &nbsp;<span style="font-size:11px;opacity:0.7;">(Bearish)</span>
+      </button>
+    </div>
+
+    <!-- Strike selector -->
+    <div style="padding:16px 24px;">
+      <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:10px;">Select Strike Price</div>
+      <div id="tm_strikes" style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;"></div>
+
+      <!-- Premium + Lot inputs -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Premium (₹)</label>
+          <input id="tm_premium" type="number" step="0.05" min="0.5" placeholder="e.g. 45.50"
+            style="width:100%;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:var(--mono);"
+            oninput="calcTradeCost()">
+        </div>
+        <div>
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Lot Size</label>
+          <input id="tm_lotsize" type="number" step="1" min="1" placeholder="e.g. 75"
+            style="width:100%;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:var(--mono);"
+            oninput="calcTradeCost()">
+        </div>
+        <div>
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">No. of Lots</label>
+          <input id="tm_lots" type="number" step="1" min="1" value="1"
+            style="width:100%;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;font-family:var(--mono);"
+            oninput="calcTradeCost()">
+        </div>
+      </div>
+
+      <!-- Cost breakdown -->
+      <div id="tm_cost_box" style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px;display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-size:12px;color:var(--muted);">Premium × Lot × Lots</span>
+          <span id="tm_cost_formula" style="font-size:12px;color:var(--muted);font-family:var(--mono);"></span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:14px;font-weight:700;">Total Cost</span>
+          <span id="tm_total_cost" style="font-size:22px;font-weight:800;color:var(--accent);font-family:var(--mono);"></span>
+        </div>
+        <div style="font-size:10px;color:var(--muted);margin-top:6px;">Max loss if option expires worthless = Total Cost above</div>
+      </div>
+
+      <!-- Expiry + Notes -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+        <div>
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Expiry</label>
+          <select id="tm_expiry" style="width:100%;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
+            <option value="">— Select —</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:4px;">Notes (optional)</label>
+          <input id="tm_notes" type="text" placeholder="e.g. ATR expanding + bullish engulfing"
+            style="width:100%;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;">
+        </div>
+      </div>
+
+      <!-- Action button -->
+      <button id="tm_confirm_btn" onclick="confirmOptionTrade()"
+        style="width:100%;padding:14px;border-radius:10px;border:none;font-size:16px;font-weight:800;cursor:pointer;background:var(--green);color:#000;transition:opacity 0.15s;">
+        ✅ Confirm Trade
+      </button>
+      <div id="tm_confirm_msg" style="margin-top:10px;font-size:12px;text-align:center;color:var(--green);display:none;"></div>
+    </div>
+
+  </div>
+</div>
+<!-- ══ END TRADE MODAL ══════════════════════════════════════════════════ -->
+
 </body>
 </html>
