@@ -462,10 +462,10 @@ def screener_scan():
     ).fetchall()
     conn.close()
 
-    from collections import defaultdict
-    tally = defaultdict(lambda: {'wins': 0, 'total': 0})
+    tally = {}
     for row in closed:
         key = (row['candle_type'] or '', row['atr_direction'] or '')
+        tally.setdefault(key, {'wins': 0, 'total': 0})
         tally[key]['total'] += 1
         if row['result'] == 'Profit':
             tally[key]['wins'] += 1
